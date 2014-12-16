@@ -1,0 +1,33 @@
+{
+    "name": "ptlis/vcs",
+    "description": "Tools for working with version control systems.",
+    "license": "MIT",
+    "keywords": [ "vsc", "version control", "version" ],
+    "type": "library",
+    "authors": [
+        {
+            "name": "brian ridley",
+            "email":"ptlis@ptlis.net"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "require-dev": {
+        "pdepend/pdepend": "1.1.*",
+        "phploc/phploc": "2.0.*",
+        "phpmd/phpmd": "@dev",
+        "phpunit/phpunit": "3.7.*",
+        "sebastian/phpcpd": "2.0.*",
+        "squizlabs/php_codesniffer": "1.5.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "ptlis\\Vcs\\": "src/",
+            "ptlis\\Vcs\\Test\\": "tests/"
+        }
+    },
+    "config": {
+        "bin-dir": "bin"
+    }
+}
