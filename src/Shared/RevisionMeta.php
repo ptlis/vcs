@@ -10,12 +10,12 @@
 
 namespace ptlis\Vcs\Shared;
 
-use ptlis\Vcs\Interfaces\LogEntryInterface;
+use ptlis\Vcs\Interfaces\RevisionMetaInterface;
 
 /**
- * Shared Log Entry class.
+ * Shared Revision metadata class.
  */
-class LogEntry implements LogEntryInterface
+class RevisionMeta implements RevisionMetaInterface
 {
     /** @var string The unique identifier for the revision. */
     private $identifier;
@@ -51,7 +51,7 @@ class LogEntry implements LogEntryInterface
     }
 
     /**
-     * Get the unique identifier for this commit.
+     * Get the unique identifier for this revision.
      *
      * @return string
      */
@@ -61,7 +61,7 @@ class LogEntry implements LogEntryInterface
     }
 
     /**
-     * Get the name of the person who made this commit.
+     * Get the name of the person who made this revision.
      *
      * @return string
      */
@@ -71,7 +71,7 @@ class LogEntry implements LogEntryInterface
     }
 
     /**
-     * Get the date & time the commit was made.
+     * Get the date & time the revision was created.
      *
      * @return \DateTimeImmutable
      */

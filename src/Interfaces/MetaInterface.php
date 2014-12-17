@@ -48,9 +48,9 @@ interface MetaInterface
     public function branchExists($branchName);
 
     /**
-     * Get an array of log entries.
+     * Get an array of objects containing revision metadata.
      *
-     * @return LogEntryInterface[]
+     * @return RevisionMetaInterface[]
      */
-    public function getLogs();
+    public function getRevisions();
 }

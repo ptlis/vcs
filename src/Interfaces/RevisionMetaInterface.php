@@ -12,9 +12,9 @@
 namespace ptlis\Vcs\Interfaces;
 
 /**
- * Interface class that log entries must implement.
+ * Interface class that revision metadata classes must implement.
  */
-interface LogEntryInterface
+interface RevisionMetaInterface
 {
     /**
      * Get the unique identifier for this commit.
