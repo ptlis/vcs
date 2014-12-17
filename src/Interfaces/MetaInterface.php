@@ -46,4 +46,11 @@ interface MetaInterface
      * @return bool
      */
     public function branchExists($branchName);
+
+    /**
+     * Get an array of log entries.
+     *
+     * @return LogEntryInterface[]
+     */
+    public function getLogs();
 }

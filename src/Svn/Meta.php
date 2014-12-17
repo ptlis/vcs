@@ -12,6 +12,7 @@ namespace ptlis\Vcs\Svn;
 
 use ptlis\Vcs\Interfaces\BranchInterface;
 use ptlis\Vcs\Interfaces\CommandExecutorInterface;
+use ptlis\Vcs\Interfaces\LogEntryInterface;
 use ptlis\Vcs\Shared\Meta as SharedMeta;
 
 /**
@@ -103,5 +104,16 @@ class Meta extends SharedMeta
         }
 
         return $tagList;
+    }
+
+    /**
+     * Get an array of log entries.
+     *
+     * @return LogEntryInterface[]
+     */
+    public function getLogs()
+    {
+        // TODO: Implement getLogs() method.
+        return [];
     }
 }

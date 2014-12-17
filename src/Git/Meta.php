@@ -12,6 +12,7 @@ namespace ptlis\Vcs\Git;
 
 use ptlis\Vcs\Interfaces\BranchInterface;
 use ptlis\Vcs\Interfaces\CommandExecutorInterface;
+use ptlis\Vcs\Interfaces\LogEntryInterface;
 use ptlis\Vcs\Shared\Meta as SharedMeta;
 
 /**
@@ -78,5 +79,22 @@ class Meta extends SharedMeta
         return $this->executor->execute(array(
             'tag'
         ));
+    }
+
+    /**
+     * Get an array of log entries.
+     *
+     * @return LogEntryInterface[]
+     */
+    public function getLogs()
+    {
+        $logLineList = $this->executor->execute(array(
+            'log',
+            '--format=fuller'
+        ));
+
+        $logParser = new LogParser();
+
+        return $logParser->parse($logLineList);
     }
 }
