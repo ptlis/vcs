@@ -15,17 +15,19 @@ namespace ptlis\Vcs\Svn;
  */
 class RepositoryConfig
 {
-    /** @var string */
+    /** @var string The name for 'trunk' - definable for cases where non-default naming is used. */
     private $trunkName;
 
-    /** @var string */
+    /** @var string The root directory containing branches - definable for cases where non-default naming is used. */
     private $branchRootDir;
 
-    /** @var string */
+    /** @var string The root directory containing tags - definable for cases where non-default naming is used. */
     private $tagRootDir;
 
 
     /**
+     * Constructor.
+     *
      * @param string $trunkName
      * @param string $branchRootDir
      * @param string $tagRootDir
@@ -41,6 +43,8 @@ class RepositoryConfig
     }
 
     /**
+     * Get the branch root directory.
+     *
      * @return string
      */
     public function getBranchRootDir()
@@ -49,6 +53,8 @@ class RepositoryConfig
     }
 
     /**
+     * Get the tag root directory.
+     *
      * @return string
      */
     public function getTagRootDir()
@@ -57,6 +63,8 @@ class RepositoryConfig
     }
 
     /**
+     * Get the 'trunk' name.
+     *
      * @return string
      */
     public function getTrunkName()

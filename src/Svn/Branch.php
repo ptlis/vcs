@@ -17,24 +17,23 @@ use ptlis\Vcs\Interfaces\BranchInterface;
  */
 class Branch implements BranchInterface
 {
-    /** @var string */
-    private $branchDir;
-
-    /** @var string */
+    /** @var string The name of the currently selected branch. */
     private $name;
 
 
     /**
-     * @param string $branchDir
+     * Constructor.
+     *
      * @param string $name
      */
-    public function __construct($branchDir, $name)
+    public function __construct($name)
     {
         $this->name = $name;
-        $this->branchDir = $branchDir;
     }
 
     /**
+     * Get the branch name.
+     *
      * @return string
      */
     public function getName()
@@ -43,6 +42,8 @@ class Branch implements BranchInterface
     }
 
     /**
+     * Serialise to branch name.
+     *
      * @return string
      */
     public function __toString()

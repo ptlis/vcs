@@ -17,11 +17,15 @@ namespace ptlis\Vcs\Interfaces;
 interface BranchInterface
 {
     /**
+     * Return the name of the branch.
+     *
      * @return string
      */
     public function getName();
 
     /**
+     * Serialise to branch name.
+     *
      * @return string
      */
     public function __toString();

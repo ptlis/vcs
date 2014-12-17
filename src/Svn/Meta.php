@@ -20,21 +20,25 @@ use ptlis\Vcs\Shared\Meta as SharedMeta;
  */
 class Meta extends SharedMeta
 {
-    /** @var CommandExecutorInterface */
+    /** @var CommandExecutorInterface Object through which vcs commands can be ran. */
     private $executor;
 
-    /** @var RepositoryConfig */
+    /** @var RepositoryConfig Configuration for this repository.  */
     private $repoConfig;
 
-    /** @var string */
+    /** @var string The name of the currently selected branch. */
     private $currentBranchName;
 
 
     /**
+     * Constructor.
+     *
+     * @todo Rework $currentBranchName - just use an object
+     *
      * @param CommandExecutorInterface $executor
      * @param RepositoryConfig $repoConfig
      * @param string $currentBranchName The current branch, passed in by reference so that we don't need to manually
-     *     update it on change.
+     *     update it on change - this is really awful!
      */
     public function __construct(
         CommandExecutorInterface $executor,

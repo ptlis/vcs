@@ -17,14 +17,16 @@ use ptlis\Vcs\Interfaces\CommandExecutorInterface;
  */
 class CommandExecutor implements CommandExecutorInterface
 {
-    /** @var string */
+    /** @var string The path to the svn binary. */
     private $binaryPath;
 
-    /** @var string */
+    /** @var string The path to the svn repository. */
     private $repositoryPath;
 
 
     /**
+     * Constructor.
+     *
      * @param string $binaryPath
      * @param string $repositoryPath
      */

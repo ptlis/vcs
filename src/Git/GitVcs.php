@@ -10,6 +10,7 @@
 
 namespace ptlis\Vcs\Git;
 
+use ptlis\Vcs\Interfaces\CommandExecutorInterface;
 use ptlis\Vcs\Interfaces\VcsInterface;
 
 /**
@@ -17,17 +18,19 @@ use ptlis\Vcs\Interfaces\VcsInterface;
  */
 class GitVcs implements VcsInterface
 {
-    /** @var CommandExecutor */
+    /** @var CommandExecutorInterface Object implementing CommandExecutorInterface for git. */
     private $executor;
 
-    /** @var Meta */
+    /** @var Meta Object that grants access to repository metadata. */
     private $meta;
 
 
     /**
-     * @param CommandExecutor $executor
+     * Constructor
+     *
+     * @param CommandExecutorInterface $executor
      */
-    public function __construct(CommandExecutor $executor)
+    public function __construct(CommandExecutorInterface $executor)
     {
         $this->executor = $executor;
         $this->meta = new Meta($executor);

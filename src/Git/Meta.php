@@ -20,11 +20,13 @@ use ptlis\Vcs\Shared\Meta as SharedMeta;
  */
 class Meta extends SharedMeta
 {
-    /** @var CommandExecutorInterface */
+    /** @var CommandExecutorInterface Object through which vcs commands can be ran. */
     private $executor;
 
 
     /**
+     * Constructor.
+     *
      * @param CommandExecutorInterface $executor
      */
     public function __construct(CommandExecutorInterface $executor)

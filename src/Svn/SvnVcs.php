@@ -11,6 +11,7 @@
 namespace ptlis\Vcs\Svn;
 
 use ptlis\Vcs\Interfaces\BranchInterface;
+use ptlis\Vcs\Interfaces\CommandExecutorInterface;
 use ptlis\Vcs\Interfaces\MetaInterface;
 use ptlis\Vcs\Interfaces\VcsInterface;
 
@@ -19,25 +20,27 @@ use ptlis\Vcs\Interfaces\VcsInterface;
  */
 class SvnVcs implements VcsInterface
 {
-    /** @var CommandExecutor */
+    /** @var CommandExecutorInterface Object implementing CommandExecutorInterface for svn.  */
     private $executor;
 
-    /** @var RepositoryConfig */
+    /** @var RepositoryConfig Configuration for this repository. */
     private $repoConfig;
 
-    /** @var string */
+    /** @var string The currently selected branch - handled internally for compatibility with git. */
     private $currentBranch;
 
-    /** @var Meta */
+    /** @var Meta Object that grants access to repository metadata. */
     private $meta;
 
 
     /**
-     * @param CommandExecutor $executor
+     * Constructor.
+     *
+     * @param CommandExecutorInterface $executor
      * @param RepositoryConfig $repoConfig
      * @param string $currentBranch
      */
-    public function __construct(CommandExecutor $executor, RepositoryConfig $repoConfig, $currentBranch = 'trunk')
+    public function __construct(CommandExecutorInterface $executor, RepositoryConfig $repoConfig, $currentBranch = 'trunk')
     {
         $this->executor = $executor;
         $this->repoConfig = $repoConfig;

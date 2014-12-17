@@ -17,13 +17,13 @@ use ptlis\Vcs\Interfaces\BranchInterface;
  */
 class Branch implements BranchInterface
 {
-    /**
-     * @var string
-     */
+    /** @var string The branch name. */
     private $name;
 
 
     /**
+     * Constructor.
+     *
      * @param string $name
      */
     public function __construct($name)
@@ -32,6 +32,8 @@ class Branch implements BranchInterface
     }
 
     /**
+     * Get name.
+     *
      * @return string
      */
     public function getName()
@@ -40,6 +42,8 @@ class Branch implements BranchInterface
     }
 
     /**
+     * Get string representation of branch.
+     *
      * @return string
      */
     public function __toString()
