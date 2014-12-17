@@ -63,7 +63,7 @@ class Meta extends SharedMeta
             $branchDir = $this->repoConfig->getBranchRootDir();
         }
 
-        return new Branch($branchDir, $this->currentBranchName);
+        return new Branch($this->currentBranchName);
     }
 
     /**
@@ -79,9 +79,9 @@ class Meta extends SharedMeta
         ));
 
         $branchList = array();
-        $branchList[] = new Branch(null, $this->currentBranchName);
+        $branchList[] = new Branch($this->currentBranchName);
         foreach ($branchDirList as $branchDir) {
-            $branchList[] = new Branch($this->repoConfig->getBranchRootDir(), $branchDir);
+            $branchList[] = new Branch($branchDir);
         }
 
         return $branchList;

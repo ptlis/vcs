@@ -26,7 +26,7 @@ class GetCurrentBranch extends \PHPUnit_Framework_TestCase
         $actualBranch = $meta->getCurrentBranch();
 
         $this->assertEquals(
-            new Branch(null, $branch),
+            new Branch($branch),
             $actualBranch
         );
         $this->assertEquals($branch, $actualBranch->getName());
@@ -42,7 +42,7 @@ class GetCurrentBranch extends \PHPUnit_Framework_TestCase
         $actualBranch = $meta->getCurrentBranch();
 
         $this->assertEquals(
-            new Branch('branches', $branch),
+            new Branch($branch),
             $actualBranch
         );
         $this->assertEquals($branch, $actualBranch->getName());

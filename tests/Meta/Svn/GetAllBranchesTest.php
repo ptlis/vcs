@@ -50,9 +50,9 @@ class GetAllBranchesTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             array(
-                new Branch(null, 'trunk'),
-                new Branch('branches', 'dev-awesome-feat'),
-                new Branch('branches', 'dev-awful-feat')
+                new Branch('trunk'),
+                new Branch('dev-awesome-feat'),
+                new Branch('dev-awful-feat')
             ),
             $actualBranchList
         );
