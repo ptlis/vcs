@@ -36,7 +36,7 @@ class GetSingleRevisionTest extends \PHPUnit_Framework_TestCase
 
     public function testCorrectOutput()
     {
-        $output = [
+        $output = array(
             'commit 7603010b472d32c4df233244b3c0c0632c728a1d',
             'Author:     ptlis <ptlis@ptlis.net>',
             'AuthorDate: Sun Nov 30 18:14:24 2014 +0000',
@@ -45,7 +45,7 @@ class GetSingleRevisionTest extends \PHPUnit_Framework_TestCase
             '',
             '    Fix: Docblock type hints.',
             ''
-        ];
+        );
         $mockExecutor = new MockCommandExecutor($output);
 
         $expectedRevision = new RevisionMeta(
@@ -63,11 +63,11 @@ class GetSingleRevisionTest extends \PHPUnit_Framework_TestCase
 
     public function testCorrectOutputNotFound()
     {
-        $output = [
+        $output = array(
             'fatal: ambiguous argument \'wrong identifier\': unknown revision or path not in the working tree.',
             'Use \'--\' to separate paths from revisions, like this:',
             '\'git <command> [<revision>...] -- [<file>...]\'commit 7603010b472d32c4df233244b3c0c0632c728a1d'
-        ];
+        );
         $mockExecutor = new MockCommandExecutor($output);
 
         $expectedRevision = null;

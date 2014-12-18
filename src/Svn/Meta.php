@@ -118,7 +118,7 @@ class Meta extends SharedMeta
     public function getRevisions()
     {
         // TODO: Implement getLogs() method.
-        return [];
+        return array();
     }
 
     /**

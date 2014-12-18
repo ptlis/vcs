@@ -35,7 +35,7 @@ class GetRevisionListTest extends \PHPUnit_Framework_TestCase
 
     public function testCorrectOutput()
     {
-        $input = [
+        $output = array(
             'commit 7603010b472d32c4df233244b3c0c0632c728a1d',
             'Author:     ptlis <ptlis@ptlis.net>',
             'AuthorDate: Sun Nov 30 18:14:24 2014 +0000',
@@ -51,10 +51,10 @@ class GetRevisionListTest extends \PHPUnit_Framework_TestCase
             'CommitDate: Sun Nov 30 18:10:24 2014 +0000',
             '',
             '    Fix: Several code-style & documentation issues.'
-        ];
-        $mockExecutor = new MockCommandExecutor($input);
+        );
+        $mockExecutor = new MockCommandExecutor($output);
 
-        $expectedLogList = [
+        $expectedLogList = array(
             new RevisionMeta(
                 '7603010b472d32c4df233244b3c0c0632c728a1d',
                 'ptlis <ptlis@ptlis.net>',
@@ -67,7 +67,7 @@ class GetRevisionListTest extends \PHPUnit_Framework_TestCase
                 new \DateTimeImmutable('30-11-2014 18:10:24+0000'),
                 'Fix: Several code-style & documentation issues.'
             )
-        ];
+        );
 
         $meta = new Meta($mockExecutor);
         $logList = $meta->getRevisions();

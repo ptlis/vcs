@@ -48,8 +48,8 @@ class LogParser
             throw new VcsErrorException($logLineList[0]);
         }
 
-        $bundle = [];
-        $bundleList = [];
+        $bundle = array();
+        $bundleList = array();
 
         foreach ($logLineList as $line) {
 
@@ -111,7 +111,7 @@ class LogParser
      */
     private function buildLogEntries(array $bundleList)
     {
-        $logList = [];
+        $logList = array();
         foreach ($bundleList as $bundle) {
             $logList[] = new RevisionMeta(
                 $bundle['identifier'],
