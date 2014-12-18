@@ -15,7 +15,7 @@ use ptlis\Vcs\Git\Meta;
 use ptlis\Vcs\Shared\RevisionMeta;
 use ptlis\Vcs\Test\MockCommandExecutor;
 
-class GetLogsTest extends \PHPUnit_Framework_TestCase
+class GetRevisionListTest extends \PHPUnit_Framework_TestCase
 {
     public function testCorrectArguments()
     {
@@ -35,7 +35,7 @@ class GetLogsTest extends \PHPUnit_Framework_TestCase
 
     public function testCorrectOutput()
     {
-        $output = [
+        $input = [
             'commit 7603010b472d32c4df233244b3c0c0632c728a1d',
             'Author:     ptlis <ptlis@ptlis.net>',
             'AuthorDate: Sun Nov 30 18:14:24 2014 +0000',
@@ -52,7 +52,7 @@ class GetLogsTest extends \PHPUnit_Framework_TestCase
             '',
             '    Fix: Several code-style & documentation issues.'
         ];
-        $mockExecutor = new MockCommandExecutor($output);
+        $mockExecutor = new MockCommandExecutor($input);
 
         $expectedLogList = [
             new RevisionMeta(
