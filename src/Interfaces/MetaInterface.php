@@ -53,4 +53,13 @@ interface MetaInterface
      * @return RevisionMetaInterface[]
      */
     public function getRevisions();
+
+    /**
+     * Get a revision metadata object from it's identifier or null if one does not exist.
+     *
+     * @param string $identifier
+     *
+     * @return RevisionMetaInterface|null
+     */
+    public function getRevision($identifier);
 }

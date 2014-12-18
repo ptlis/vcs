@@ -13,6 +13,7 @@ namespace ptlis\Vcs\Git;
 use ptlis\Vcs\Interfaces\BranchInterface;
 use ptlis\Vcs\Interfaces\CommandExecutorInterface;
 use ptlis\Vcs\Interfaces\RevisionMetaInterface;
+use ptlis\Vcs\Shared\Exception\VcsErrorException;
 use ptlis\Vcs\Shared\Meta as SharedMeta;
 
 /**
@@ -98,5 +99,37 @@ class Meta extends SharedMeta
         $logParser = new LogParser();
 
         return $logParser->parse($logLineList);
+    }
+
+    /**
+     * Get a revision metadata object from it's identifier.
+     *
+     * @param string $identifier
+     *
+     * @return RevisionMetaInterface
+     */
+    public function getRevision($identifier)
+    {
+        $logLineList = $this->executor->execute(array(
+            'log',
+            '--format=fuller',
+            '-1',
+            $identifier
+        ));
+
+        $logParser = new LogParser();
+
+        $log = null;
+        try {
+            $logList = $logParser->parse($logLineList);
+
+            if (count($logList)) {
+                $log = $logList[0];
+            }
+        } catch (VcsErrorException $e) {
+            // Do nothing
+        }
+
+        return $log;
     }
 }

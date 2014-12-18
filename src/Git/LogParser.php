@@ -11,6 +11,7 @@
 namespace ptlis\Vcs\Git;
 
 use ptlis\Vcs\Interfaces\RevisionMetaInterface;
+use ptlis\Vcs\Shared\Exception\VcsErrorException;
 use ptlis\Vcs\Shared\RevisionMeta;
 
 /**
@@ -34,12 +35,19 @@ class LogParser
     /**
      * Accepts an array of log lines from `git log --format=fuller` and returns an array of LogEntry objects.
      *
+     * @throws VcsErrorException On VCS error.
+     *
      * @param string[] $logLineList
      *
      * @return RevisionMetaInterface[]
      */
     public function parse(array $logLineList)
     {
+        // Git has emitted a fatal error
+        if (count($logLineList) && 'fatal:' == substr($logLineList[0], 0, 6)) {
+            throw new VcsErrorException($logLineList[0]);
+        }
+
         $bundle = [];
         $bundleList = [];
 
