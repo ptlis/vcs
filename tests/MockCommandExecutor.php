@@ -17,14 +17,21 @@ use ptlis\Vcs\Interfaces\CommandExecutorInterface;
 class MockCommandExecutor implements CommandExecutorInterface
 {
     /**
-     * @var string
+     * Incremented by one on each call to execute - used to track arguments & decide what data to return.
+     *
+     * @var int
      */
-    private $mockOutput;
+    private $position = 0;
 
     /**
      * @var string[]
      */
-    private $arguments;
+    private $mockOutput;
+
+    /**
+     * @var string[][]
+     */
+    private $arguments = array();
 
 
     /**
@@ -44,9 +51,12 @@ class MockCommandExecutor implements CommandExecutorInterface
      */
     public function execute(array $arguments = array())
     {
-        $this->arguments = $arguments;
+        $this->arguments[$this->position] = $arguments;
 
-        return $this->mockOutput;
+        $output = $this->mockOutput[$this->position];
+        $this->position++;
+
+        return $output;
     }
 
     /**

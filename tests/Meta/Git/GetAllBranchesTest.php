@@ -22,16 +22,18 @@ class GetAllBranchesTest extends \PHPUnit_Framework_TestCase
             'master',
             'gh-pages'
         );
-        $mockExecutor = new MockCommandExecutor($output);
+        $mockExecutor = new MockCommandExecutor(array($output));
 
         $meta = new Meta($mockExecutor);
         $meta->getAllBranches();
 
         $this->assertEquals(
             array(
-                'for-each-ref',
-                'refs/heads/',
-                '--format="%(refname:short)"'
+                array(
+                    'for-each-ref',
+                    'refs/heads/',
+                    '--format="%(refname:short)"'
+                )
             ),
             $mockExecutor->getArguments()
         );
@@ -43,7 +45,7 @@ class GetAllBranchesTest extends \PHPUnit_Framework_TestCase
             'master',
             'gh-pages'
         );
-        $mockExecutor = new MockCommandExecutor($output);
+        $mockExecutor = new MockCommandExecutor(array($output));
 
         $meta = new Meta($mockExecutor);
         $actualBranchList = $meta->getAllBranches();

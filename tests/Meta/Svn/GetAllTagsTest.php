@@ -23,15 +23,17 @@ class GetAllTagsTest extends \PHPUnit_Framework_TestCase
             'v0.9.1',
             'v1.0.0'
         );
-        $mockExecutor = new MockCommandExecutor($output);
+        $mockExecutor = new MockCommandExecutor(array($output));
 
         $meta = new Meta($mockExecutor, new RepositoryConfig('trunk', 'branches', 'tags'));
         $meta->getAllTags();
 
         $this->assertEquals(
             array(
-                'ls',
-                'tags'
+                array(
+                    'ls',
+                    'tags'
+                )
             ),
             $mockExecutor->getArguments()
         );
@@ -44,7 +46,7 @@ class GetAllTagsTest extends \PHPUnit_Framework_TestCase
             'v0.9.1',
             'v1.0.0'
         );
-        $mockExecutor = new MockCommandExecutor($output);
+        $mockExecutor = new MockCommandExecutor(array($output));
 
         $meta = new Meta($mockExecutor, new RepositoryConfig('trunk', 'branches', 'tags'));
         $actualTagList = $meta->getAllTags();

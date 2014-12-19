@@ -18,17 +18,19 @@ class GetSingleRevisionTest extends \PHPUnit_Framework_TestCase
 {
     public function testCorrectArguments()
     {
-        $mockExecutor = new MockCommandExecutor([]);
+        $mockExecutor = new MockCommandExecutor(array(array()));
 
         $meta = new Meta($mockExecutor);
         $meta->getRevision('test');
 
         $this->assertEquals(
             array(
-                'log',
-                '--format=fuller',
-                '-1',
-                'test'
+                array(
+                    'log',
+                    '--format=fuller',
+                    '-1',
+                    'test'
+                ),
             ),
             $mockExecutor->getArguments()
         );
@@ -46,7 +48,7 @@ class GetSingleRevisionTest extends \PHPUnit_Framework_TestCase
             '    Fix: Docblock type hints.',
             ''
         );
-        $mockExecutor = new MockCommandExecutor($output);
+        $mockExecutor = new MockCommandExecutor(array($output));
 
         $expectedRevision = new RevisionMeta(
             '7603010b472d32c4df233244b3c0c0632c728a1d',
@@ -68,7 +70,7 @@ class GetSingleRevisionTest extends \PHPUnit_Framework_TestCase
             'Use \'--\' to separate paths from revisions, like this:',
             '\'git <command> [<revision>...] -- [<file>...]\'commit 7603010b472d32c4df233244b3c0c0632c728a1d'
         );
-        $mockExecutor = new MockCommandExecutor($output);
+        $mockExecutor = new MockCommandExecutor(array($output));
 
         $expectedRevision = null;
 

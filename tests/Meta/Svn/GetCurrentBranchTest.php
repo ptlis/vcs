@@ -20,7 +20,7 @@ class GetCurrentBranch extends \PHPUnit_Framework_TestCase
     public function testCorrectOutputTrunk()
     {
         $branch = 'trunk';
-        $mockExecutor = new MockCommandExecutor(array($branch));
+        $mockExecutor = new MockCommandExecutor(array(array($branch)));
 
         $meta = new Meta($mockExecutor, new RepositoryConfig('trunk', 'branches', 'tags'));
         $actualBranch = $meta->getCurrentBranch();
@@ -36,7 +36,7 @@ class GetCurrentBranch extends \PHPUnit_Framework_TestCase
     public function testCorrectOutputBranch()
     {
         $branch = 'foo';
-        $mockExecutor = new MockCommandExecutor(array($branch));
+        $mockExecutor = new MockCommandExecutor(array(array($branch)));
 
         $meta = new Meta($mockExecutor, new RepositoryConfig('trunk', 'branches', 'tags'), $branch);
         $actualBranch = $meta->getCurrentBranch();

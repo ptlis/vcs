@@ -19,16 +19,18 @@ class GetCurrentBranch extends \PHPUnit_Framework_TestCase
     public function testCorrectArguments()
     {
         $branch = 'master';
-        $mockExecutor = new MockCommandExecutor(array($branch));
+        $mockExecutor = new MockCommandExecutor(array(array($branch)));
 
         $meta = new Meta($mockExecutor);
         $meta->getCurrentBranch();
 
         $this->assertEquals(
             array(
-                'rev-parse',
-                '--abbrev-ref',
-                'HEAD',
+                array(
+                    'rev-parse',
+                    '--abbrev-ref',
+                    'HEAD',
+                ),
             ),
             $mockExecutor->getArguments()
         );
@@ -37,7 +39,7 @@ class GetCurrentBranch extends \PHPUnit_Framework_TestCase
     public function testCorrectOutput()
     {
         $branch = 'master';
-        $mockExecutor = new MockCommandExecutor(array($branch));
+        $mockExecutor = new MockCommandExecutor(array(array($branch)));
 
         $meta = new Meta($mockExecutor);
         $actualBranch = $meta->getCurrentBranch();

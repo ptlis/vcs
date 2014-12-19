@@ -19,15 +19,17 @@ class GetRevisionListTest extends \PHPUnit_Framework_TestCase
 {
     public function testCorrectArguments()
     {
-        $mockExecutor = new MockCommandExecutor([]);
+        $mockExecutor = new MockCommandExecutor(array(array()));
 
         $meta = new Meta($mockExecutor);
         $meta->getRevisions();
 
         $this->assertEquals(
             array(
-                'log',
-                '--format=fuller'
+                array(
+                    'log',
+                    '--format=fuller'
+                ),
             ),
             $mockExecutor->getArguments()
         );
@@ -52,7 +54,7 @@ class GetRevisionListTest extends \PHPUnit_Framework_TestCase
             '',
             '    Fix: Several code-style & documentation issues.'
         );
-        $mockExecutor = new MockCommandExecutor($output);
+        $mockExecutor = new MockCommandExecutor(array($output));
 
         $expectedLogList = array(
             new RevisionMeta(

@@ -23,15 +23,17 @@ class GetAllBranchesTest extends \PHPUnit_Framework_TestCase
             'dev-awesome-feat',
             'dev-awful-feat'
         );
-        $mockExecutor = new MockCommandExecutor($output);
+        $mockExecutor = new MockCommandExecutor(array($output));
 
         $meta = new Meta($mockExecutor, new RepositoryConfig('trunk', 'branches', 'tags'));
         $meta->getAllBranches();
 
         $this->assertEquals(
             array(
-                'ls',
-                'branches'
+                array(
+                    'ls',
+                    'branches'
+                ),
             ),
             $mockExecutor->getArguments()
         );
@@ -43,7 +45,7 @@ class GetAllBranchesTest extends \PHPUnit_Framework_TestCase
             'dev-awesome-feat',
             'dev-awful-feat'
         );
-        $mockExecutor = new MockCommandExecutor($output);
+        $mockExecutor = new MockCommandExecutor(array($output));
 
         $meta = new Meta($mockExecutor, new RepositoryConfig('trunk', 'branches', 'tags'));
         $actualBranchList = $meta->getAllBranches();
