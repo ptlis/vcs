@@ -61,6 +61,12 @@ class GetSingleRevisionTest extends \PHPUnit_Framework_TestCase
         $actualRevision = $meta->getRevision('7603010b472d32c4df233244b3c0c0632c728a1d');
 
         $this->assertEquals($expectedRevision, $actualRevision);
+
+        // Check getters
+        $this->assertEquals('7603010b472d32c4df233244b3c0c0632c728a1d', $actualRevision->getIdentifier());
+        $this->assertEquals(new \DateTimeImmutable('30-11-2014 18:14:24+0000'), $actualRevision->getCreated());
+        $this->assertEquals('ptlis <ptlis@ptlis.net>', $actualRevision->getAuthor());
+        $this->assertEquals('Fix: Docblock type hints.', $actualRevision->getMessage());
     }
 
     public function testCorrectOutputNotFound()
