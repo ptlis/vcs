@@ -119,7 +119,7 @@ class Meta extends SharedMeta
     {
         $logParser = new LogParser($this->executor);
 
-        return $logParser->parse();
+        return $logParser->getAll();
     }
 
     /**
@@ -131,6 +131,8 @@ class Meta extends SharedMeta
      */
     public function getRevision($identifier)
     {
-        // TODO: Implement getRevision() method.
+        $logParser = new LogParser($this->executor);
+
+        return $logParser->getSingle($identifier);
     }
 }
