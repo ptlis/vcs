@@ -11,11 +11,12 @@
 namespace ptlis\Vcs\Svn;
 
 use ptlis\Vcs\Interfaces\CommandExecutorInterface;
+use ptlis\Vcs\Shared\CommandExecutor as SharedCommandExecutor;
 
 /**
  * Svn implementation of the command executor interface.
  */
-class CommandExecutor implements CommandExecutorInterface
+class CommandExecutor extends SharedCommandExecutor implements CommandExecutorInterface
 {
     /** @var string The path to the svn binary. */
     private $binaryPath;

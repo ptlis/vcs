@@ -11,11 +11,12 @@
 namespace ptlis\Vcs\Git;
 
 use ptlis\Vcs\Interfaces\CommandExecutorInterface;
+use ptlis\Vcs\Shared\CommandExecutor as SharedCommandExecutor;
 
 /**
  * Git implementation of the command executor interface.
  */
-class CommandExecutor implements CommandExecutorInterface
+class CommandExecutor extends SharedCommandExecutor implements CommandExecutorInterface
 {
     /** @var string The path to the git binary. */
     private $binaryPath;
@@ -45,7 +46,7 @@ class CommandExecutor implements CommandExecutorInterface
      *
      * @return string[]
      */
-    public function execute(array $arguments = [])
+    public function execute(array $arguments = array())
     {
         $argumentString = implode(' ', $arguments);
 

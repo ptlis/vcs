@@ -117,8 +117,9 @@ class Meta extends SharedMeta
      */
     public function getRevisions()
     {
-        // TODO: Implement getLogs() method.
-        return array();
+        $logParser = new LogParser($this->executor);
+
+        return $logParser->parse();
     }
 
     /**

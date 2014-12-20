@@ -33,13 +33,22 @@ class MockCommandExecutor implements CommandExecutorInterface
      */
     private $arguments = array();
 
+    /**
+     * @var string A temporary file path.
+     */
+    private $tmpFile;
+
 
     /**
+     * Constructor.
+     *
      * @param string[] $mockOutput
+     * @param string $tmpFile
      */
-    public function __construct(array $mockOutput = array())
+    public function __construct(array $mockOutput = array(), $tmpFile = '')
     {
         $this->mockOutput = $mockOutput;
+        $this->tmpFile = $tmpFile;
     }
 
     /**
@@ -75,5 +84,15 @@ class MockCommandExecutor implements CommandExecutorInterface
     public function getRepositoryPath()
     {
         return '';
+    }
+
+    /**
+     * Create & return a path to a temp file.
+     *
+     * @return string The file path of the created file.
+     */
+    public function getTmpFile()
+    {
+        return $this->tmpFile;
     }
 }
