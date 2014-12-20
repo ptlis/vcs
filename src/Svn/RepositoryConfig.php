@@ -33,9 +33,9 @@ class RepositoryConfig
      * @param string $tagRootDir
      */
     public function __construct(
-        $trunkName,
-        $branchRootDir,
-        $tagRootDir
+        $trunkName = 'trunk',
+        $branchRootDir = 'branches',
+        $tagRootDir = 'tags'
     ) {
         $this->trunkName = $trunkName;
         $this->branchRootDir = $branchRootDir;
