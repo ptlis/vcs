@@ -61,12 +61,12 @@ class LogParser
                         $bundleList[] = $bundle;
                     }
 
-                    $bundle = [
+                    $bundle = array(
                         'identifier' => $matches['identifier'],
                         'created' => null,
                         'author' => '',
                         'message' => array()
-                    ];
+                    );
                     break;
 
                 case preg_match(self::AUTHOR_REGEX, $line, $matches):
