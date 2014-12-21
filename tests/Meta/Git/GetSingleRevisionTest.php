@@ -53,7 +53,7 @@ class GetSingleRevisionTest extends \PHPUnit_Framework_TestCase
         $expectedRevision = new RevisionMeta(
             '7603010b472d32c4df233244b3c0c0632c728a1d',
             'ptlis <ptlis@ptlis.net>',
-            new \DateTimeImmutable('30-11-2014 18:14:24+0000'),
+            new \DateTime('30-11-2014 18:14:24+0000'),
             'Fix: Docblock type hints.'
         );
 
@@ -64,7 +64,7 @@ class GetSingleRevisionTest extends \PHPUnit_Framework_TestCase
 
         // Check getters
         $this->assertEquals('7603010b472d32c4df233244b3c0c0632c728a1d', $actualRevision->getIdentifier());
-        $this->assertEquals(new \DateTimeImmutable('30-11-2014 18:14:24+0000'), $actualRevision->getCreated());
+        $this->assertEquals(new \DateTime('30-11-2014 18:14:24+0000'), $actualRevision->getCreated());
         $this->assertEquals('ptlis <ptlis@ptlis.net>', $actualRevision->getAuthor());
         $this->assertEquals('Fix: Docblock type hints.', $actualRevision->getMessage());
     }

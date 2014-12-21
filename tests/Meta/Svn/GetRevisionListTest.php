@@ -56,13 +56,13 @@ class GetRevisionListTest extends \PHPUnit_Framework_TestCase
             new RevisionMeta(
                 '1645937',
                 'brian',
-                \DateTimeImmutable::createFromFormat('Y-m-d\TH:i:s.u\Z', '2014-12-16T13:07:03.507023Z'),
+                \DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', '2014-12-16T13:07:03.507023Z'),
                 'Fixed: the problem with the thing.'
             ),
             new RevisionMeta(
                 '1645938',
                 'brian',
-                \DateTimeImmutable::createFromFormat('Y-m-d\TH:i:s.u\Z', '2014-12-16T13:55:25.549151Z'),
+                \DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', '2014-12-16T13:55:25.549151Z'),
                 'Update: move foo out of bar to make way for baz.'
             )
         );

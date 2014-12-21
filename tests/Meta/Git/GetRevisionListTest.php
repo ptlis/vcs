@@ -60,13 +60,13 @@ class GetRevisionListTest extends \PHPUnit_Framework_TestCase
             new RevisionMeta(
                 '7603010b472d32c4df233244b3c0c0632c728a1d',
                 'ptlis <ptlis@ptlis.net>',
-                new \DateTimeImmutable('30-11-2014 18:14:24+0000'),
+                new \DateTime('30-11-2014 18:14:24+0000'),
                 'Fix: Docblock type hints.'
             ),
             new RevisionMeta(
                 '3201fb7119a132cc65b368447310c3a64e0b0916',
                 'ptlis <ptlis@ptlis.net>',
-                new \DateTimeImmutable('30-11-2014 18:10:24+0000'),
+                new \DateTime('30-11-2014 18:10:24+0000'),
                 'Fix: Several code-style & documentation issues.'
             )
         );

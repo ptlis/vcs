@@ -74,7 +74,7 @@ class LogParser
                     break;
 
                 case preg_match(self::CREATED_REGEX, $line, $matches):
-                    $bundle['created'] = \DateTimeImmutable::createFromFormat(
+                    $bundle['created'] = \DateTime::createFromFormat(
                         self::DATE_FORMAT,
                         $matches['created']
                     );

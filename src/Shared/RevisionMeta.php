@@ -35,13 +35,13 @@ class RevisionMeta implements RevisionMetaInterface
      *
      * @param string $identifier
      * @param string $author
-     * @param \DateTimeImmutable $created
+     * @param \DateTime $created
      * @param string $message
      */
     public function __construct(
         $identifier,
         $author,
-        \DateTimeImmutable $created,
+        \DateTime $created,
         $message
     ) {
         $this->identifier = $identifier;

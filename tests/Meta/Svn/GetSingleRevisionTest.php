@@ -54,7 +54,7 @@ class GetSingleRevisionTest extends \PHPUnit_Framework_TestCase
         $expectedRevision = new RevisionMeta(
             '1645937',
             'brian',
-            \DateTimeImmutable::createFromFormat('Y-m-d\TH:i:s.u\Z', '2014-12-16T13:07:03.507023Z'),
+            \DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', '2014-12-16T13:07:03.507023Z'),
             'Fixed: the problem with the thing.'
         );
 
@@ -63,7 +63,7 @@ class GetSingleRevisionTest extends \PHPUnit_Framework_TestCase
         // Check getters
         $this->assertEquals('1645937', $actualRevision->getIdentifier());
         $this->assertEquals(
-            \DateTimeImmutable::createFromFormat('Y-m-d\TH:i:s.u\Z', '2014-12-16T13:07:03.507023Z'),
+            \DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', '2014-12-16T13:07:03.507023Z'),
             $actualRevision->getCreated()
         );
         $this->assertEquals('brian', $actualRevision->getAuthor());

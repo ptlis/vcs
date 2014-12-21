@@ -103,7 +103,7 @@ class LogParser
      */
     private function createRevision(\SimpleXMLElement $logEntry)
     {
-        $created = \DateTimeImmutable::createFromFormat('Y-m-d\TH:i:s.u\Z', (string)$logEntry->date);
+        $created = \DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', (string)$logEntry->date);
         $identifier = (string)$logEntry->attributes()->revision;
         $author = (string)$logEntry->author;
         $message = (string)$logEntry->msg;
