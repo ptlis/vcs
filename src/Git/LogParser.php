@@ -65,7 +65,7 @@ class LogParser
                         'identifier' => $matches['identifier'],
                         'created' => null,
                         'author' => '',
-                        'message' => []
+                        'message' => array()
                     ];
                     break;
 
