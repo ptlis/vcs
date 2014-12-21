@@ -58,7 +58,7 @@ class GitVcs implements VcsInterface
      */
     public function changeBranch($branch)
     {
-        if (!$this->meta->branchExists($branch)) {
+        if (!$this->meta->branchExists((string)$branch)) {
             throw new \RuntimeException('Branch named "' . $branch . '" not found.');
         }
 

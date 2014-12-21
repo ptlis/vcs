@@ -69,7 +69,7 @@ class LogParser
      *
      * @param int $identifier
      *
-     * @return RevisionMetaInterface[]
+     * @return RevisionMetaInterface
      */
     public function getSingle($identifier)
     {

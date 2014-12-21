@@ -57,12 +57,6 @@ class Meta extends SharedMeta
      */
     public function getCurrentBranch()
     {
-        if ($this->currentBranchName == $this->repoConfig->getTrunkName()) {
-            $branchDir = null;
-        } else {
-            $branchDir = $this->repoConfig->getBranchRootDir();
-        }
-
         return new Branch($this->currentBranchName);
     }
 

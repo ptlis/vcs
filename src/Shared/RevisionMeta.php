@@ -23,7 +23,7 @@ class RevisionMeta implements RevisionMetaInterface
     /** @var string The author who committed the revision. */
     private $author;
 
-    /** @var \DateTimeImmutable The time that the revision was committed. */
+    /** @var \DateTime The time that the revision was committed. */
     private $created;
 
     /** @var string The commit message for the revision. */
@@ -73,7 +73,7 @@ class RevisionMeta implements RevisionMetaInterface
     /**
      * Get the date & time the revision was created.
      *
-     * @return \DateTimeImmutable
+     * @return \DateTime
      */
     public function getCreated()
     {

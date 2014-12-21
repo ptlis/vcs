@@ -55,6 +55,10 @@ class CommandExecutor extends SharedCommandExecutor implements CommandExecutorIn
         exec($this->binaryPath . ' ' . $argumentString, $output);
         chdir($cwd);
 
+        if (is_null($output)) {
+            $output = array();
+        }
+
         return $output;
     }
 

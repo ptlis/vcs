@@ -23,5 +23,4 @@ abstract class CommandExecutor implements CommandExecutorInterface
     {
         return tempnam(sys_get_temp_dir(), 'Vcs');
     }
-
 }

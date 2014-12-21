@@ -33,7 +33,7 @@ interface RevisionMetaInterface
     /**
      * Get the date & time the commit was made.
      *
-     * @return \DateTimeImmutable
+     * @return \DateTime
      */
     public function getCreated();
 

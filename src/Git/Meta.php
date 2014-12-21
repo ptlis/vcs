@@ -106,7 +106,7 @@ class Meta extends SharedMeta
      *
      * @param string $identifier
      *
-     * @return RevisionMetaInterface
+     * @return RevisionMetaInterface|null
      */
     public function getRevision($identifier)
     {
