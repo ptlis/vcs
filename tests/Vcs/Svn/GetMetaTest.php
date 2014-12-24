@@ -8,9 +8,10 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
-namespace ptlis\Vcs\Test\Vcs\Git;
+namespace ptlis\Vcs\Test\Vcs\Svn;
 
-use ptlis\Vcs\Git\GitVcs;
+use ptlis\Vcs\Svn\RepositoryConfig;
+use ptlis\Vcs\Svn\SvnVcs;
 use ptlis\Vcs\Test\MockCommandExecutor;
 
 class GetMetaTest extends \PHPUnit_Framework_TestCase
@@ -19,7 +20,7 @@ class GetMetaTest extends \PHPUnit_Framework_TestCase
     {
         $commandExecutor = new MockCommandExecutor(array());
 
-        $vcs = new GitVcs($commandExecutor);
+        $vcs = new SvnVcs($commandExecutor, new RepositoryConfig());
 
         $meta = $vcs->getMeta();
 

@@ -8,42 +8,24 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
-namespace ptlis\Vcs\Test\Vcs\Git;
+namespace ptlis\Vcs\Test\Vcs\Svn;
 
-use ptlis\Vcs\Git\GitVcs;
+use ptlis\Vcs\Svn\RepositoryConfig;
+use ptlis\Vcs\Svn\SvnVcs;
 use ptlis\Vcs\Test\MockCommandExecutor;
 
 class UpdateTest extends \PHPUnit_Framework_TestCase
 {
     public function testBranchExists()
     {
-        $commandExecutor = new MockCommandExecutor(array(
-            array(),
-            array(),
-            array(),
-            array()
-        ));
+        $commandExecutor = new MockCommandExecutor(array());
 
-        $vcs = new GitVcs($commandExecutor);
+        $vcs = new SvnVcs($commandExecutor, new RepositoryConfig());
 
         $vcs->update();
 
         $this->assertEquals(
-            array(
-                array(
-                    'stash'
-                ),
-                array(
-                    'fetch'
-                ),
-                array(
-                    'rebase'
-                ),
-                array(
-                    'stash',
-                    'pop'
-                )
-            ),
+            array(),
             $commandExecutor->getArguments()
         );
     }
