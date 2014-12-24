@@ -10,7 +10,6 @@
 
 namespace ptlis\Vcs\Test;
 
-
 use ptlis\Vcs\Svn\RepositoryConfig;
 
 class RepositoryConfigTest extends \PHPUnit_Framework_TestCase

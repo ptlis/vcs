@@ -48,6 +48,7 @@ class ChangeBranchTest extends \PHPUnit_Framework_TestCase
             $commandExecutor->getArguments()
         );
     }
+
     public function testBranchDoesntExist()
     {
         $this->setExpectedException(
@@ -68,7 +69,5 @@ class ChangeBranchTest extends \PHPUnit_Framework_TestCase
         $vcs = new GitVcs($commandExecutor);
 
         $vcs->changeBranch('feat-new-badness');
-
-
     }
 }

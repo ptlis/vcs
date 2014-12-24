@@ -40,8 +40,11 @@ class SvnVcs implements VcsInterface
      * @param RepositoryConfig $repoConfig
      * @param string $currentBranch
      */
-    public function __construct(CommandExecutorInterface $executor, RepositoryConfig $repoConfig, $currentBranch = 'trunk')
-    {
+    public function __construct(
+        CommandExecutorInterface $executor,
+        RepositoryConfig $repoConfig,
+        $currentBranch = 'trunk'
+    ) {
         $this->executor = $executor;
         $this->repoConfig = $repoConfig;
         $this->currentBranch = $currentBranch;
@@ -65,7 +68,7 @@ class SvnVcs implements VcsInterface
      */
     public function changeBranch($branch)
     {
-        if (!$this->meta->branchExists((string)$branch)) {
+        if (!$this->meta->branchExists((string)$branch) && $this->repoConfig->getTrunkName() !== $branch) {
             throw new \RuntimeException('Branch named "' . $branch . '" not found.');
         }
 
