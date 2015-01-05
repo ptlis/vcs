@@ -22,5 +22,5 @@ interface DiffNormalizerInterface
      *
      * @return string
      */
-    public function getFileName($fileStartLine);
+    public function getFilename($fileStartLine);
 }

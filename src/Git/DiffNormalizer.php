@@ -24,7 +24,7 @@ class DiffNormalizer implements DiffNormalizerInterface
      *
      * @return string
      */
-    public function getFileName($fileStartLine)
+    public function getFilename($fileStartLine)
     {
         return substr($fileStartLine, 6);
     }

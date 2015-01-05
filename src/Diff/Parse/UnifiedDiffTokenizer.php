@@ -68,7 +68,7 @@ class UnifiedDiffTokenizer
                 $hasStarted = true;
                 $tokenList[] = new Token(
                     Token::FILE_START,
-                    $this->diffNormalizer->getFileName($diffLineList[$i])
+                    $this->diffNormalizer->getFilename($diffLineList[$i])
                 );
                 $i++;   // Skip next line - we know this is safe due to check for is file start
 
