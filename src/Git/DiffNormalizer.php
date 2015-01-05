@@ -10,7 +10,7 @@
 
 namespace ptlis\Vcs\Git;
 
-use ptlis\Vcs\Diff\DiffNormalizerInterface;
+use ptlis\Vcs\Diff\Parse\DiffNormalizerInterface;
 
 /**
  * Normalize git-specific behaviours when unified diff is generated.

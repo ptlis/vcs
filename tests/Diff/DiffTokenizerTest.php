@@ -10,8 +10,8 @@
 
 namespace ptlis\Vcs\Test\Diff;
 
-use ptlis\Vcs\Diff\Token;
-use ptlis\Vcs\Diff\UnifiedDiffTokenizer;
+use ptlis\Vcs\Diff\Parse\Token;
+use ptlis\Vcs\Diff\Parse\UnifiedDiffTokenizer;
 use ptlis\Vcs\Git\DiffNormalizer as GitDiffNormalizer;
 
 class DiffTokenizerTest extends \PHPUnit_Framework_TestCase

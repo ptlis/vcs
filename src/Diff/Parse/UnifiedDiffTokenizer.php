@@ -8,7 +8,7 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
-namespace ptlis\Vcs\Diff;
+namespace ptlis\Vcs\Diff\Parse;
 
 /**
  * Tokenizer for working with unified diffs.
