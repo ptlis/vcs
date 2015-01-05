@@ -10,7 +10,6 @@
 
 namespace ptlis\Vcs\Shared;
 
-use ptlis\Vcs\Interfaces\BranchInterface;
 use ptlis\Vcs\Interfaces\MetaInterface;
 
 /**
