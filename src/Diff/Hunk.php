@@ -106,7 +106,6 @@ class Hunk
      */
     public function __toString()
     {
-        // @@ -10,7 +10,6 @@
         $string = implode(
             '',
             array(
