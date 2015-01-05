@@ -8,13 +8,13 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
-namespace ptlis\Vcs\Test\Diff;
+namespace ptlis\Vcs\Test\Diff\Parse;
 
 use ptlis\Vcs\Diff\Parse\Token;
 use ptlis\Vcs\Diff\Parse\UnifiedDiffTokenizer;
 use ptlis\Vcs\Git\DiffNormalizer as GitDiffNormalizer;
 
-class DiffTokenizerTest extends \PHPUnit_Framework_TestCase
+class GitDiffTokenizerTest extends \PHPUnit_Framework_TestCase
 {
     public function testFirstFile()
     {
