@@ -16,3 +16,11 @@ A simple VCS wrapper for PHP attempting to offer a consistent API across VCS too
 * Worry about status codes pervasively
 * Check for presence of git & svn binaries (try to autodetect?)
 * Validate repository paths.
+* Handle file creation & deletion appropriately
+    * Any diff that ends in an empty file is thus a deletion.
+    * Any diff that starts with an empty file is a creation.
+
+
+## Known limitations
+
+* Information about adding or removing an empty file is not handled (Unified Diff doesn't seem have a representation for this, SVN disallows this).
