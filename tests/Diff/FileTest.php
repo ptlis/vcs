@@ -116,6 +116,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($fileString, $this->file->__toString());
         $this->assertEquals('README.md', $this->file->getOriginalFilename());
         $this->assertEquals('README.md', $this->file->getNewFilename());
+        $this->assertEquals(File::CHANGED, $this->file->getOperation());
         $this->assertEquals($this->hunkList, $this->file->getHunks());
     }
 }
