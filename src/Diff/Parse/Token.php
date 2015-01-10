@@ -15,7 +15,11 @@ namespace ptlis\Vcs\Diff\Parse;
  */
 class Token
 {
-    const FILE_START = 'file_start';
+    const ORIGINAL_FILENAME = 'original_filename';
+    const NEW_FILENAME = 'new_filename';
+
+    const FILE_DELETION_LINE_COUNT = 'file_deletion';
+    const FILE_CREATION_LINE_COUNT = 'file_creation';
 
     const HUNK_ORIGINAL_START = 'hunk_original_start';
     const HUNK_ORIGINAL_COUNT = 'hunk_original_count';
