@@ -15,11 +15,18 @@ namespace ptlis\Vcs\Diff;
  */
 class File
 {
+    const CREATED = 'created';
+    const DELETED = 'deleted';
+    const CHANGED = 'changed';
+
     /** @var string The original filename. */
     private $originalFilename;
 
     /** @var string The new filename. */
     private $newFilename;
+
+    /** @var string The file operation, one of class constants. */
+    private $operation;
 
     /** @var Hunk[] Array of hunks. */
     private $hunkList;
@@ -30,12 +37,14 @@ class File
      *
      * @param string $originalFilename
      * @param string $newFilename
+     * @param string $operation One of class constants.
      * @param Hunk[] $hunkList
      */
-    public function __construct($originalFilename, $newFilename, array $hunkList)
+    public function __construct($originalFilename, $newFilename, $operation, array $hunkList)
     {
         $this->originalFilename = $originalFilename;
         $this->newFilename = $newFilename;
+        $this->operation = $operation;
         $this->hunkList = $hunkList;
     }
 
@@ -57,6 +66,16 @@ class File
     public function getNewFilename()
     {
         return $this->newFilename;
+    }
+
+    /**
+     * Get the operation performed on the file (one of class constants).
+     *
+     * @return string
+     */
+    public function getOperation()
+    {
+        return $this->operation;
     }
 
     /**

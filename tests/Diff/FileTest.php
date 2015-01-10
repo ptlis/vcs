@@ -89,6 +89,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $this->file = new File(
             'README.md',
             'README.md',
+            File::CHANGED,
             $this->hunkList
         );
     }
