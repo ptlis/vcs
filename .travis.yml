@@ -8,6 +8,7 @@ php:
   - hhvm
 
 before_script:
+    - git fetch --unshallow     # TODO: Hack as we have tests that depend upon the full history being present
     - composer install --no-dev
 
 script:
