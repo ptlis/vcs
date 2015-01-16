@@ -112,42 +112,26 @@ class DiffParser
     }
 
     /**
+     * Parse out the contents of a hunk.
+     *
      * @param Token[] $hunkTokenList
      *
      * @return Hunk
      */
     private function parseHunk(array $hunkTokenList)
     {
-        switch (true) {
-            case Token::FILE_DELETION_LINE_COUNT === $hunkTokenList[0]->getType():
-                $originalStart = 0;
-                $originalCount = intval($hunkTokenList[0]->getValue());
-                $newStart = intval($hunkTokenList[1]->getValue());
-                $newCount = intval($hunkTokenList[2]->getValue());
-                $skipLines = 3;
-                break;
-
-            case Token::FILE_CREATION_LINE_COUNT === $hunkTokenList[2]->getType():
-                $originalStart = intval($hunkTokenList[0]->getValue());
-                $originalCount = intval($hunkTokenList[1]->getValue());
-                $newStart = 0;
-                $newCount = intval($hunkTokenList[2]->getValue());
-                $skipLines = 3;
-                break;
-
-            default:
-                $originalStart = intval($hunkTokenList[0]->getValue());
-                $originalCount = intval($hunkTokenList[1]->getValue());
-                $newStart = intval($hunkTokenList[2]->getValue());
-                $newCount = intval($hunkTokenList[3]->getValue());
-                $skipLines = 4;
-                break;
-        }
+        list(
+            $originalStart,
+            $originalCount,
+            $newStart,
+            $newCount,
+            $tokensReadCount
+        ) = $this->getHunkMeta($hunkTokenList);
 
         $originalLineNo = $originalStart;
         $newLineNo = $newStart;
         $lineList = array();
-        for ($i = $skipLines; $i < count($hunkTokenList); $i++) {
+        for ($i = $tokensReadCount; $i < count($hunkTokenList); $i++) {
             $operation = $this->mapLineOperation($hunkTokenList[$i]);
 
             $lineList[] = new Line(
@@ -175,6 +159,50 @@ class DiffParser
             $newStart,
             $newCount,
             $lineList
+        );
+    }
+
+    /**
+     * Parse out hunk meta.
+     *
+     * @param Token[] $hunkTokenList
+     *
+     * @return array Containing Original Start, Original Count, New Start, New Count & number of tokens consumed.
+     */
+    private function getHunkMeta(array $hunkTokenList)
+    {
+        switch (true) {
+            case Token::FILE_DELETION_LINE_COUNT === $hunkTokenList[0]->getType():
+                $originalStart = 0;
+                $originalCount = intval($hunkTokenList[0]->getValue());
+                $newStart = intval($hunkTokenList[1]->getValue());
+                $newCount = intval($hunkTokenList[2]->getValue());
+                $tokensReadCount = 3;
+                break;
+
+            case Token::FILE_CREATION_LINE_COUNT === $hunkTokenList[2]->getType():
+                $originalStart = intval($hunkTokenList[0]->getValue());
+                $originalCount = intval($hunkTokenList[1]->getValue());
+                $newStart = 0;
+                $newCount = intval($hunkTokenList[2]->getValue());
+                $tokensReadCount = 3;
+                break;
+
+            default:
+                $originalStart = intval($hunkTokenList[0]->getValue());
+                $originalCount = intval($hunkTokenList[1]->getValue());
+                $newStart = intval($hunkTokenList[2]->getValue());
+                $newCount = intval($hunkTokenList[3]->getValue());
+                $tokensReadCount = 4;
+                break;
+        }
+
+        return array(
+            $originalStart,
+            $originalCount,
+            $newStart,
+            $newCount,
+            $tokensReadCount
         );
     }
 
