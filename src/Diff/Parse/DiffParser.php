@@ -121,25 +121,25 @@ class DiffParser
         switch (true) {
             case Token::FILE_DELETION_LINE_COUNT === $hunkTokenList[0]->getType():
                 $originalStart = 0;
-                $originalCount = $hunkTokenList[0]->getValue();
-                $newStart = $hunkTokenList[1]->getValue();
-                $newCount = $hunkTokenList[2]->getValue();
+                $originalCount = intval($hunkTokenList[0]->getValue());
+                $newStart = intval($hunkTokenList[1]->getValue());
+                $newCount = intval($hunkTokenList[2]->getValue());
                 $skipLines = 3;
                 break;
 
             case Token::FILE_CREATION_LINE_COUNT === $hunkTokenList[2]->getType():
-                $originalStart = $hunkTokenList[0]->getValue();
-                $originalCount = $hunkTokenList[1]->getValue();
+                $originalStart = intval($hunkTokenList[0]->getValue());
+                $originalCount = intval($hunkTokenList[1]->getValue());
                 $newStart = 0;
-                $newCount = $hunkTokenList[2]->getValue();
+                $newCount = intval($hunkTokenList[2]->getValue());
                 $skipLines = 3;
                 break;
 
             default:
-                $originalStart = $hunkTokenList[0]->getValue();
-                $originalCount = $hunkTokenList[1]->getValue();
-                $newStart = $hunkTokenList[2]->getValue();
-                $newCount = $hunkTokenList[3]->getValue();
+                $originalStart = intval($hunkTokenList[0]->getValue());
+                $originalCount = intval($hunkTokenList[1]->getValue());
+                $newStart = intval($hunkTokenList[2]->getValue());
+                $newCount = intval($hunkTokenList[3]->getValue());
                 $skipLines = 4;
                 break;
         }

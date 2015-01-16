@@ -56,10 +56,10 @@ class GitDiffParserTest extends \PHPUnit_Framework_TestCase
             File::CHANGED,
             array(
                 new Hunk(
-                    '3',
-                    '7',
-                    '3',
-                    '7',
+                    3,
+                    7,
+                    3,
+                    7,
                     array(
                         new Line(3, 3, Line::UNCHANGED, 'A simple VCS wrapper for PHP attempting to offer a consistent API across VCS tools.'),
                         new Line(4, 4, Line::UNCHANGED, ''),
@@ -98,10 +98,10 @@ class GitDiffParserTest extends \PHPUnit_Framework_TestCase
             File::CHANGED,
             array(
                 new Hunk(
-                    '1',
-                    '5',
-                    '1',
-                    '5',
+                    1,
+                    5,
+                    1,
+                    5,
                     array(
                         new Line(1, 1, Line::UNCHANGED, '<?xml version="1.0"?>'),
                         new Line(2, -1, Line::REMOVED, '<ruleset name="ConNeg"'),
@@ -138,10 +138,10 @@ class GitDiffParserTest extends \PHPUnit_Framework_TestCase
             File::CHANGED,
             array(
                 new Hunk(
-                    '40',
-                    '8',
-                    '40',
-                    '11',
+                    40,
+                    8,
+                    40,
+                    11,
                     array(
                         new Line(40, 40, Line::UNCHANGED, '     * @param RepositoryConfig $repoConfig'),
                         new Line(41, 41, Line::UNCHANGED, '     * @param string $currentBranch'),
@@ -159,10 +159,10 @@ class GitDiffParserTest extends \PHPUnit_Framework_TestCase
                     )
                 ),
                 new Hunk(
-                    '65',
-                    '7',
-                    '68',
-                    '7',
+                    65,
+                    7,
+                    68,
+                    7,
                     array(
                         new Line(65, 68, Line::UNCHANGED, '     */'),
                         new Line(66, 69, Line::UNCHANGED, '    public function changeBranch($branch)'),
@@ -201,10 +201,10 @@ class GitDiffParserTest extends \PHPUnit_Framework_TestCase
             File::CHANGED,
             array(
                 new Hunk(
-                    '10',
-                    '7',
-                    '10',
-                    '6',
+                    10,
+                    7,
+                    10,
+                    6,
                     array(
                         new Line(10, 10, Line::UNCHANGED, ''),
                         new Line(11, 11, Line::UNCHANGED, 'namespace ptlis\Vcs\Test;'),
@@ -242,10 +242,10 @@ class GitDiffParserTest extends \PHPUnit_Framework_TestCase
             File::CHANGED,
             array(
                 new Hunk(
-                    '48',
-                    '6',
-                    '48',
-                    '7',
+                    48,
+                    6,
+                    48,
+                    7,
                     array(
                         new Line(48, 48, Line::UNCHANGED, '            $commandExecutor->getArguments()'),
                         new Line(49, 49, Line::UNCHANGED, '        );'),
@@ -257,10 +257,10 @@ class GitDiffParserTest extends \PHPUnit_Framework_TestCase
                     )
                 ),
                 new Hunk(
-                    '68',
-                    '7',
-                    '69',
-                    '5',
+                    68,
+                    7,
+                    69,
+                    5,
                     array(
                         new Line(68, 69, Line::UNCHANGED, '        $vcs = new GitVcs($commandExecutor);'),
                         new Line(69, 70, Line::UNCHANGED, ''),
