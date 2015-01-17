@@ -8,7 +8,7 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
-namespace ptlis\Vcs\Test\Diff\Parse;
+namespace ptlis\Vcs\Test\Diff\Parse\Git;
 
 use ptlis\Vcs\Diff\File;
 use ptlis\Vcs\Diff\Hunk;
@@ -17,7 +17,7 @@ use ptlis\Vcs\Diff\Parse\DiffParser;
 use ptlis\Vcs\Diff\Parse\UnifiedDiffTokenizer;
 use ptlis\Vcs\Git\DiffNormalizer as GitDiffNormalizer;
 
-class GitDiffParserRemoveTest extends \PHPUnit_Framework_TestCase
+class DiffParserAddTest extends \PHPUnit_Framework_TestCase
 {
     public function testParseCount()
     {
@@ -27,7 +27,7 @@ class GitDiffParserRemoveTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $data = file(__DIR__ . '/data/git_diff_remove', FILE_IGNORE_NEW_LINES);
+        $data = file(__DIR__ . '/data/diff_add', FILE_IGNORE_NEW_LINES);
 
         $diff = $parser->parse($data);
 
@@ -35,7 +35,7 @@ class GitDiffParserRemoveTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($diff->getChangedFiles()));
     }
 
-    public function testFileRemove()
+    public function testFileAdd()
     {
         $parser = new DiffParser(
             new UnifiedDiffTokenizer(
@@ -43,7 +43,7 @@ class GitDiffParserRemoveTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $data = file(__DIR__ . '/data/git_diff_remove', FILE_IGNORE_NEW_LINES);
+        $data = file(__DIR__ . '/data/diff_add', FILE_IGNORE_NEW_LINES);
 
         $diff = $parser->parse($data);
         $fileList = $diff->getChangedFiles();
@@ -51,17 +51,17 @@ class GitDiffParserRemoveTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($fileList[0]->getHunks()));
 
         $file = new File(
-            'README.md',
             '',
-            File::DELETED,
+            'README.md',
+            File::CREATED,
             array(
                 new Hunk(
                     0,
+                    0,
+                    0,
                     1,
-                    0,
-                    0,
                     array(
-                        new Line(0, -1, Line::REMOVED, '# My project')
+                        new Line(-1, 0, Line::ADDED, '## Test')
                     )
                 )
             )

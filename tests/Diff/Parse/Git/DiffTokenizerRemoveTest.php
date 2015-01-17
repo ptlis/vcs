@@ -8,19 +8,19 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
-namespace ptlis\Vcs\Test\Diff\Parse;
+namespace ptlis\Vcs\Test\Diff\Parse\Git;
 
 use ptlis\Vcs\Diff\Parse\Token;
 use ptlis\Vcs\Diff\Parse\UnifiedDiffTokenizer;
 use ptlis\Vcs\Git\DiffNormalizer as GitDiffNormalizer;
 
-class GitDiffTokenizerRemoveTest extends \PHPUnit_Framework_TestCase
+class DiffTokenizerRemoveTest extends \PHPUnit_Framework_TestCase
 {
     public function testFileRemove()
     {
         $tokenizer = new UnifiedDiffTokenizer(new GitDiffNormalizer());
 
-        $data = file(__DIR__ . '/data/git_diff_remove', FILE_IGNORE_NEW_LINES);
+        $data = file(__DIR__ . '/data/diff_remove', FILE_IGNORE_NEW_LINES);
 
         $tokenList = $tokenizer->tokenize($data);
 

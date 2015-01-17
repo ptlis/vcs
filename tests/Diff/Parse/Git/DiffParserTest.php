@@ -8,7 +8,7 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
-namespace ptlis\Vcs\Test\Diff\Parse;
+namespace ptlis\Vcs\Test\Diff\Parse\Git;
 
 use ptlis\Vcs\Diff\File;
 use ptlis\Vcs\Diff\Hunk;
@@ -17,7 +17,7 @@ use ptlis\Vcs\Diff\Parse\DiffParser;
 use ptlis\Vcs\Diff\Parse\UnifiedDiffTokenizer;
 use ptlis\Vcs\Git\DiffNormalizer as GitDiffNormalizer;
 
-class GitDiffParserTest extends \PHPUnit_Framework_TestCase
+class DiffParserTest extends \PHPUnit_Framework_TestCase
 {
     public function testParseCount()
     {
@@ -27,7 +27,7 @@ class GitDiffParserTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $data = file(__DIR__ . '/data/git_diff', FILE_IGNORE_NEW_LINES);
+        $data = file(__DIR__ . '/data/diff', FILE_IGNORE_NEW_LINES);
 
         $diff = $parser->parse($data);
 
@@ -43,7 +43,7 @@ class GitDiffParserTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $data = file(__DIR__ . '/data/git_diff', FILE_IGNORE_NEW_LINES);
+        $data = file(__DIR__ . '/data/diff', FILE_IGNORE_NEW_LINES);
 
         $diff = $parser->parse($data);
         $fileList = $diff->getChangedFiles();
@@ -85,7 +85,7 @@ class GitDiffParserTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $data = file(__DIR__ . '/data/git_diff', FILE_IGNORE_NEW_LINES);
+        $data = file(__DIR__ . '/data/diff', FILE_IGNORE_NEW_LINES);
 
         $diff = $parser->parse($data);
         $fileList = $diff->getChangedFiles();
@@ -125,7 +125,7 @@ class GitDiffParserTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $data = file(__DIR__ . '/data/git_diff', FILE_IGNORE_NEW_LINES);
+        $data = file(__DIR__ . '/data/diff', FILE_IGNORE_NEW_LINES);
 
         $diff = $parser->parse($data);
         $fileList = $diff->getChangedFiles();
@@ -188,7 +188,7 @@ class GitDiffParserTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $data = file(__DIR__ . '/data/git_diff', FILE_IGNORE_NEW_LINES);
+        $data = file(__DIR__ . '/data/diff', FILE_IGNORE_NEW_LINES);
 
         $diff = $parser->parse($data);
         $fileList = $diff->getChangedFiles();
@@ -229,7 +229,7 @@ class GitDiffParserTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $data = file(__DIR__ . '/data/git_diff', FILE_IGNORE_NEW_LINES);
+        $data = file(__DIR__ . '/data/diff', FILE_IGNORE_NEW_LINES);
 
         $diff = $parser->parse($data);
         $fileList = $diff->getChangedFiles();

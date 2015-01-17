@@ -8,19 +8,19 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
-namespace ptlis\Vcs\Test\Diff\Parse;
+namespace ptlis\Vcs\Test\Diff\Parse\Git;
 
 use ptlis\Vcs\Diff\Parse\Token;
 use ptlis\Vcs\Diff\Parse\UnifiedDiffTokenizer;
 use ptlis\Vcs\Git\DiffNormalizer as GitDiffNormalizer;
 
-class GitDiffTokenizerTest extends \PHPUnit_Framework_TestCase
+class DiffTokenizerTest extends \PHPUnit_Framework_TestCase
 {
     public function testTokenCount()
     {
         $tokenizer = new UnifiedDiffTokenizer(new GitDiffNormalizer());
 
-        $data = file(__DIR__ . '/data/git_diff', FILE_IGNORE_NEW_LINES);
+        $data = file(__DIR__ . '/data/diff', FILE_IGNORE_NEW_LINES);
 
         $tokenList = $tokenizer->tokenize($data);
 
@@ -31,7 +31,7 @@ class GitDiffTokenizerTest extends \PHPUnit_Framework_TestCase
     {
         $tokenizer = new UnifiedDiffTokenizer(new GitDiffNormalizer());
 
-        $data = file(__DIR__ . '/data/git_diff', FILE_IGNORE_NEW_LINES);
+        $data = file(__DIR__ . '/data/diff', FILE_IGNORE_NEW_LINES);
 
         $tokenList = $tokenizer->tokenize($data);
 
@@ -57,7 +57,7 @@ class GitDiffTokenizerTest extends \PHPUnit_Framework_TestCase
     {
         $tokenizer = new UnifiedDiffTokenizer(new GitDiffNormalizer());
 
-        $data = file(__DIR__ . '/data/git_diff', FILE_IGNORE_NEW_LINES);
+        $data = file(__DIR__ . '/data/diff', FILE_IGNORE_NEW_LINES);
 
         $tokenList = $tokenizer->tokenize($data);
 
@@ -81,7 +81,7 @@ class GitDiffTokenizerTest extends \PHPUnit_Framework_TestCase
     {
         $tokenizer = new UnifiedDiffTokenizer(new GitDiffNormalizer());
 
-        $data = file(__DIR__ . '/data/git_diff', FILE_IGNORE_NEW_LINES);
+        $data = file(__DIR__ . '/data/diff', FILE_IGNORE_NEW_LINES);
 
         $tokenList = $tokenizer->tokenize($data);
 
@@ -112,7 +112,7 @@ class GitDiffTokenizerTest extends \PHPUnit_Framework_TestCase
     {
         $tokenizer = new UnifiedDiffTokenizer(new GitDiffNormalizer());
 
-        $data = file(__DIR__ . '/data/git_diff', FILE_IGNORE_NEW_LINES);
+        $data = file(__DIR__ . '/data/diff', FILE_IGNORE_NEW_LINES);
 
         $tokenList = $tokenizer->tokenize($data);
 
@@ -135,7 +135,7 @@ class GitDiffTokenizerTest extends \PHPUnit_Framework_TestCase
     {
         $tokenizer = new UnifiedDiffTokenizer(new GitDiffNormalizer());
 
-        $data = file(__DIR__ . '/data/git_diff', FILE_IGNORE_NEW_LINES);
+        $data = file(__DIR__ . '/data/diff', FILE_IGNORE_NEW_LINES);
 
         $tokenList = $tokenizer->tokenize($data);
 
@@ -160,7 +160,7 @@ class GitDiffTokenizerTest extends \PHPUnit_Framework_TestCase
     {
         $tokenizer = new UnifiedDiffTokenizer(new GitDiffNormalizer());
 
-        $data = file(__DIR__ . '/data/git_diff', FILE_IGNORE_NEW_LINES);
+        $data = file(__DIR__ . '/data/diff', FILE_IGNORE_NEW_LINES);
 
         $tokenList = $tokenizer->tokenize($data);
 
@@ -185,7 +185,7 @@ class GitDiffTokenizerTest extends \PHPUnit_Framework_TestCase
     {
         $tokenizer = new UnifiedDiffTokenizer(new GitDiffNormalizer());
 
-        $data = file(__DIR__ . '/data/git_diff', FILE_IGNORE_NEW_LINES);
+        $data = file(__DIR__ . '/data/diff', FILE_IGNORE_NEW_LINES);
 
         $tokenList = $tokenizer->tokenize($data);
 
