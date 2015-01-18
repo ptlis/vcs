@@ -17,7 +17,7 @@ use ptlis\Vcs\Diff\Parse\DiffParser;
 use ptlis\Vcs\Diff\Parse\UnifiedDiffTokenizer;
 use ptlis\Vcs\Svn\DiffNormalizer as SvnDiffNormalizer;
 
-class DiffParserRemoveTest extends \PHPUnit_Framework_TestCase
+class DiffParserAddTest extends \PHPUnit_Framework_TestCase
 {
     public function testParseCount()
     {
@@ -27,7 +27,7 @@ class DiffParserRemoveTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $data = file(__DIR__ . '/data/diff_remove', FILE_IGNORE_NEW_LINES);
+        $data = file(__DIR__ . '/data/diff_add', FILE_IGNORE_NEW_LINES);
 
         $diff = $parser->parse($data);
 
@@ -43,7 +43,7 @@ class DiffParserRemoveTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $data = file(__DIR__ . '/data/diff_remove', FILE_IGNORE_NEW_LINES);
+        $data = file(__DIR__ . '/data/diff_add', FILE_IGNORE_NEW_LINES);
 
         $diff = $parser->parse($data);
         $fileList = $diff->getChangedFiles();
@@ -51,17 +51,17 @@ class DiffParserRemoveTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($fileList[0]->getHunks()));
 
         $file = new File(
-            'README.md',
             '',
-            File::DELETED,
+            'README.md',
+            File::CREATED,
             array(
                 new Hunk(
                     0,
+                    0,
+                    0,
                     1,
-                    0,
-                    0,
                     array(
-                        new Line(0, -1, Line::REMOVED, '## Test')
+                        new Line(-1, 0, Line::ADDED, '## Test')
                     )
                 )
             )
