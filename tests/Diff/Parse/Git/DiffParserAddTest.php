@@ -13,7 +13,7 @@ namespace ptlis\Vcs\Test\Diff\Parse\Git;
 use ptlis\Vcs\Diff\File;
 use ptlis\Vcs\Diff\Hunk;
 use ptlis\Vcs\Diff\Line;
-use ptlis\Vcs\Diff\Parse\DiffParser;
+use ptlis\Vcs\Diff\Parse\UnifiedDiffParser;
 use ptlis\Vcs\Diff\Parse\UnifiedDiffTokenizer;
 use ptlis\Vcs\Git\DiffNormalizer as GitDiffNormalizer;
 
@@ -21,7 +21,7 @@ class DiffParserAddTest extends \PHPUnit_Framework_TestCase
 {
     public function testParseCount()
     {
-        $parser = new DiffParser(
+        $parser = new UnifiedDiffParser(
             new UnifiedDiffTokenizer(
                 new GitDiffNormalizer()
             )
@@ -37,7 +37,7 @@ class DiffParserAddTest extends \PHPUnit_Framework_TestCase
 
     public function testFileAdd()
     {
-        $parser = new DiffParser(
+        $parser = new UnifiedDiffParser(
             new UnifiedDiffTokenizer(
                 new GitDiffNormalizer()
             )

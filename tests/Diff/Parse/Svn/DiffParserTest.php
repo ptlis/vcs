@@ -13,7 +13,7 @@ namespace ptlis\Vcs\Test\Diff\Parse\Svn;
 use ptlis\Vcs\Diff\File;
 use ptlis\Vcs\Diff\Hunk;
 use ptlis\Vcs\Diff\Line;
-use ptlis\Vcs\Diff\Parse\DiffParser;
+use ptlis\Vcs\Diff\Parse\UnifiedDiffParser;
 use ptlis\Vcs\Diff\Parse\UnifiedDiffTokenizer;
 use ptlis\Vcs\Svn\DiffNormalizer as SvnDiffNormalizer;
 
@@ -21,7 +21,7 @@ class DiffParserTest extends \PHPUnit_Framework_TestCase
 {
     public function testParseCount()
     {
-        $parser = new DiffParser(
+        $parser = new UnifiedDiffParser(
             new UnifiedDiffTokenizer(
                 new SvnDiffNormalizer()
             )
@@ -37,7 +37,7 @@ class DiffParserTest extends \PHPUnit_Framework_TestCase
 
     public function testFirstFile()
     {
-        $parser = new DiffParser(
+        $parser = new UnifiedDiffParser(
             new UnifiedDiffTokenizer(
                 new SvnDiffNormalizer()
             )
@@ -79,7 +79,7 @@ class DiffParserTest extends \PHPUnit_Framework_TestCase
 
     public function testSecondFile()
     {
-        $parser = new DiffParser(
+        $parser = new UnifiedDiffParser(
             new UnifiedDiffTokenizer(
                 new SvnDiffNormalizer()
             )
@@ -119,7 +119,7 @@ class DiffParserTest extends \PHPUnit_Framework_TestCase
 
     public function testThirdFile()
     {
-        $parser = new DiffParser(
+        $parser = new UnifiedDiffParser(
             new UnifiedDiffTokenizer(
                 new SvnDiffNormalizer()
             )
@@ -182,7 +182,7 @@ class DiffParserTest extends \PHPUnit_Framework_TestCase
 
     public function testFourthFile()
     {
-        $parser = new DiffParser(
+        $parser = new UnifiedDiffParser(
             new UnifiedDiffTokenizer(
                 new SvnDiffNormalizer()
             )
@@ -223,7 +223,7 @@ class DiffParserTest extends \PHPUnit_Framework_TestCase
 
     public function testFifthFile()
     {
-        $parser = new DiffParser(
+        $parser = new UnifiedDiffParser(
             new UnifiedDiffTokenizer(
                 new SvnDiffNormalizer()
             )

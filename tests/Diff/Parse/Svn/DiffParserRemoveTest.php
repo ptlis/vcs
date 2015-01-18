@@ -13,7 +13,7 @@ namespace ptlis\Vcs\Test\Diff\Parse\Svn;
 use ptlis\Vcs\Diff\File;
 use ptlis\Vcs\Diff\Hunk;
 use ptlis\Vcs\Diff\Line;
-use ptlis\Vcs\Diff\Parse\DiffParser;
+use ptlis\Vcs\Diff\Parse\UnifiedDiffParser;
 use ptlis\Vcs\Diff\Parse\UnifiedDiffTokenizer;
 use ptlis\Vcs\Svn\DiffNormalizer as SvnDiffNormalizer;
 
@@ -21,7 +21,7 @@ class DiffParserRemoveTest extends \PHPUnit_Framework_TestCase
 {
     public function testParseCount()
     {
-        $parser = new DiffParser(
+        $parser = new UnifiedDiffParser(
             new UnifiedDiffTokenizer(
                 new SvnDiffNormalizer()
             )
@@ -37,7 +37,7 @@ class DiffParserRemoveTest extends \PHPUnit_Framework_TestCase
 
     public function testFileRemove()
     {
-        $parser = new DiffParser(
+        $parser = new UnifiedDiffParser(
             new UnifiedDiffTokenizer(
                 new SvnDiffNormalizer()
             )

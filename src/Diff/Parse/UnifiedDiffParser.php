@@ -18,7 +18,7 @@ use ptlis\Vcs\Diff\Line;
 /**
  * Class that parses a unified diff into a data-structure for convenient manipulation.
  */
-class DiffParser
+class UnifiedDiffParser
 {
     /**
      * @var UnifiedDiffTokenizer
