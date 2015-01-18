@@ -10,7 +10,7 @@
 
 namespace ptlis\Vcs\Diff\Parse;
 
-use ptlis\Vcs\Diff\Diff;
+use ptlis\Vcs\Diff\Changeset;
 use ptlis\Vcs\Diff\File;
 use ptlis\Vcs\Diff\Hunk;
 use ptlis\Vcs\Diff\Line;
@@ -41,7 +41,7 @@ class UnifiedDiffParser
      *
      * @param array $diffLineList
      *
-     * @return Diff
+     * @return Changeset
      */
     public function parse(array $diffLineList)
     {
@@ -64,7 +64,7 @@ class UnifiedDiffParser
             }
         }
 
-        return new Diff($fileList);
+        return new Changeset($fileList);
     }
 
     /**

@@ -31,7 +31,7 @@ class DiffParserTest extends \PHPUnit_Framework_TestCase
 
         $diff = $parser->parse($data);
 
-        $this->assertInstanceOf('ptlis\Vcs\Diff\Diff', $diff);
+        $this->assertInstanceOf('ptlis\Vcs\Diff\Changeset', $diff);
         $this->assertEquals(5, count($diff->getChangedFiles()));
     }
 

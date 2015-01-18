@@ -10,14 +10,14 @@
 
 namespace ptlis\Vcs\Test\Diff;
 
-use ptlis\Vcs\Diff\Diff;
+use ptlis\Vcs\Diff\Changeset;
 use ptlis\Vcs\Diff\File;
 use ptlis\Vcs\Diff\Hunk;
 use ptlis\Vcs\Diff\Line;
 
 class DiffTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var Diff */
+    /** @var Changeset */
     private $diff;
 
 
@@ -91,7 +91,7 @@ class DiffTest extends \PHPUnit_Framework_TestCase
             $hunkList
         );
 
-        $this->diff = new Diff(array($file));
+        $this->diff = new Changeset(array($file));
     }
 
     public function testHunk()
