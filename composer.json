@@ -2,7 +2,7 @@
     "name": "ptlis/vcs",
     "description": "Tools for working with version control systems.",
     "license": "MIT",
-    "keywords": [ "vsc", "version control", "version" ],
+    "keywords": [ "vcs", "version control", "version" ],
     "type": "library",
     "authors": [
         {
