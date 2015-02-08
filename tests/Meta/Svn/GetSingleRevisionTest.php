@@ -21,7 +21,9 @@ class GetSingleRevisionTest extends \PHPUnit_Framework_TestCase
     {
         $mockExecutor = new MockCommandExecutor(
             array(array()),
-            realpath(__DIR__ . '/data/svn_log.xml')
+            array(
+                realpath(__DIR__ . '/data/svn_log.xml')
+            )
         );
 
         $meta = new Meta($mockExecutor, new RepositoryConfig());
@@ -45,7 +47,9 @@ class GetSingleRevisionTest extends \PHPUnit_Framework_TestCase
     {
         $mockExecutor = new MockCommandExecutor(
             array(array()),
-            realpath(__DIR__ . '/data/svn_log.xml')
+            array(
+                realpath(__DIR__ . '/data/svn_log.xml')
+            )
         );
 
         $meta = new Meta($mockExecutor, new RepositoryConfig());

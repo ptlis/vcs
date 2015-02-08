@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<info>
+    <entry
+            path="1.0"
+            revision="1645938"
+            kind="dir">
+        <url>http://svn.example.com/myproject/branches/1.0</url>
+        <relative-url>^/myproject/branches/1.0</relative-url>
+        <repository>
+            <root>http://svn.example.com/</root>
+            <uuid>027f5d88-afd0-11e4-ab7d-12e3f512a338</uuid>
+        </repository>
+        <commit
+                revision="1645938">
+            <author>ptlis</author>
+            <date>2014-04-06T13:19:23.501523Z</date>
+        </commit>
+        <lock>
+            <created>1970-01-01T00:00:00.000000Z</created>
+        </lock>
+    </entry>
+</info>

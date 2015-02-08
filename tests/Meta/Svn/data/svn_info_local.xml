@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<info>
+    <entry
+            kind="dir"
+            path="."
+            revision="1645937">
+        <url>http://svn.example.com/myproject/branches/1.0</url>
+        <relative-url>^/myproject/branches/1.0</relative-url>
+        <repository>
+            <root>http://svn.example.com/</root>
+            <uuid>027f5d88-afd0-11e4-ab7d-12e3f512a338</uuid>
+        </repository>
+        <wc-info>
+            <wcroot-abspath>/home/brian/myproject</wcroot-abspath>
+            <schedule>normal</schedule>
+            <depth>infinity</depth>
+        </wc-info>
+        <commit
+                revision="1645937">
+            <author>ptlis</author>
+            <date>2014-02-07T16:51:43.501523Z</date>
+        </commit>
+    </entry>
+</info>

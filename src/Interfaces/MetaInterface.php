@@ -62,4 +62,11 @@ interface MetaInterface
      * @return RevisionMetaInterface|null
      */
     public function getRevision($identifier);
+
+    /**
+     * Get the metadata for the latest revision.
+     *
+     * @return RevisionMetaInterface|null
+     */
+    public function getLatestRevision();
 }

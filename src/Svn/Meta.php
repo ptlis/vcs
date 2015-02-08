@@ -129,4 +129,37 @@ class Meta extends SharedMeta
 
         return $logParser->getSingle($identifier);
     }
+
+    /**
+     * Get the metadata for the latest revision.
+     *
+     * @return RevisionMetaInterface|null
+     */
+    public function getLatestRevision()
+    {
+        $logParser = new LogParser($this->executor);
+
+        $initialOutput = $this->executor->execute(array(
+            'info',
+            '--xml'
+        ));
+
+        // TODO: Reading as string would remove need to implode here
+        $initialInfo = simplexml_load_string(implode('', $initialOutput));
+
+        // TODO: Abstract - move this operation into meta? Remember to worry about difference between git remotes?
+        $repositoryUrl = (string)$initialInfo->entry->url;
+
+        $serverOutput = $this->executor->execute(array(
+            'info',
+            $repositoryUrl,
+            '--xml'
+        ));
+
+        // TODO: Reading as string would remove need to implode here
+        $serverInfo = simplexml_load_string(implode('', $serverOutput));
+        $identifier = (string)$serverInfo->entry->commit->attributes()->revision;
+
+        return $logParser->getSingle($identifier);
+    }
 }

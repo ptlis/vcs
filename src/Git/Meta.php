@@ -117,6 +117,34 @@ class Meta extends SharedMeta
             $identifier
         ));
 
+        return $this->parseSingle($logLineList);
+    }
+
+    /**
+     * Get the metadata for the latest revision.
+     *
+     * @return RevisionMetaInterface|null
+     */
+    public function getLatestRevision()
+    {
+        $logLineList = $this->executor->execute(array(
+            'log',
+            '-n',
+            '1'
+        ));
+
+        return $this->parseSingle($logLineList);
+    }
+
+    /**
+     * Parse a single log entry and return a RevisionMeta instance.
+     *
+     * @param string[] $logLineList
+     *
+     * @return RevisionMetaInterface|null
+     */
+    private function parseSingle($logLineList)
+    {
         $logParser = new LogParser();
 
         $log = null;

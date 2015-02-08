@@ -34,21 +34,23 @@ class MockCommandExecutor implements CommandExecutorInterface
     private $arguments = array();
 
     /**
-     * @var string A temporary file path.
+     * @var string[] A temporary file path.
+     *
+     * @todo This is very wrong-headed - eliminate this!
      */
-    private $tmpFile;
+    private $tmpFileList;
 
 
     /**
      * Constructor.
      *
      * @param string[] $mockOutput
-     * @param string $tmpFile
+     * @param string[] $tmpFileList
      */
-    public function __construct(array $mockOutput = array(), $tmpFile = '')
+    public function __construct(array $mockOutput = array(), $tmpFileList = array())
     {
         $this->mockOutput = $mockOutput;
-        $this->tmpFile = $tmpFile;
+        $this->tmpFileList = $tmpFileList;
     }
 
     /**
@@ -93,6 +95,11 @@ class MockCommandExecutor implements CommandExecutorInterface
      */
     public function getTmpFile()
     {
-        return $this->tmpFile;
+        $tmpFile = '';
+        if (count($this->tmpFileList)) {
+            $tmpFile = array_shift($this->tmpFileList);
+        }
+
+        return $tmpFile;
     }
 }

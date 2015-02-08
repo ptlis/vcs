@@ -21,7 +21,9 @@ class GetRevisionListTest extends \PHPUnit_Framework_TestCase
     {
         $mockExecutor = new MockCommandExecutor(
             array(array()),
-            realpath(__DIR__ . '/data/svn_log.xml')
+            array(
+                realpath(__DIR__ . '/data/svn_log.xml')
+            )
         );
 
         $meta = new Meta($mockExecutor, new RepositoryConfig('trunk', 'branches', 'tags'));
@@ -49,7 +51,9 @@ class GetRevisionListTest extends \PHPUnit_Framework_TestCase
     {
         $mockExecutor = new MockCommandExecutor(
             array(array()),
-            realpath(__DIR__ . '/data/svn_log.xml')
+            array(
+                realpath(__DIR__ . '/data/svn_log.xml')
+            )
         );
 
         $expectedLogList = array(
