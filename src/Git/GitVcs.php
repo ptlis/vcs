@@ -69,6 +69,28 @@ class GitVcs implements VcsInterface
     }
 
     /**
+     * Checkout the specified revision.
+     *
+     * @throws \RuntimeException Thrown when the requested revision cannot be found.
+     *
+     * @param string $identifier
+     */
+    public function checkoutRevision($identifier)
+    {
+        $revision = $this->meta->getRevision($identifier);
+        if (is_null($revision)) {
+            throw new \RuntimeException('Revision "' . $identifier . '" not found.');
+        }
+
+        $this->executor->execute(array(
+            'checkout',
+            '-b',
+            'ptlis-vcs-temp',
+            $identifier
+        ));
+    }
+
+    /**
      * Get normalised repository metadata.
      *
      * @return Meta

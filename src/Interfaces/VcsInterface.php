@@ -30,6 +30,15 @@ interface VcsInterface
     public function changeBranch($branch);
 
     /**
+     * Checkout the specified revision.
+     *
+     * @throws \RuntimeException Thrown when the requested revision cannot be found.
+     *
+     * @param string $identifier
+     */
+    public function checkoutRevision($identifier);
+
+    /**
      * Get normalised repository metadata.
      *
      * @return MetaInterface
