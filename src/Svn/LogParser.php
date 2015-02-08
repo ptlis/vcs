@@ -87,12 +87,16 @@ class LogParser
 
         $logData = simplexml_load_file($tmpFile);
 
-        $revisionList = array();
+        $revision = null;
         foreach ($logData->logentry as $logEntry) {
-            $revisionList[] = $this->createRevision($logEntry);
+            $tmpRevision = $this->createRevision($logEntry);
+
+            if ($identifier === $tmpRevision->getIdentifier()) {
+                $revision = $tmpRevision;
+            }
         }
 
-        return $revisionList[0];
+        return $revision;
     }
 
     /**

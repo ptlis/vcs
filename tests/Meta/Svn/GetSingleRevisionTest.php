@@ -53,25 +53,34 @@ class GetSingleRevisionTest extends \PHPUnit_Framework_TestCase
         );
 
         $meta = new Meta($mockExecutor, new RepositoryConfig());
-        $actualRevision = $meta->getRevision('1645937');
+        $actualRevision = $meta->getRevision('1645938');
 
         $expectedRevision = new RevisionMeta(
-            '1645937',
+            '1645938',
             'brian',
-            \DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', '2014-12-16T13:07:03.507023Z'),
-            'Fixed: the problem with the thing.'
+            \DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', '2014-12-16T13:55:25.549151Z'),
+            'Update: move foo out of bar to make way for baz.'
         );
 
         $this->assertEquals($expectedRevision, $actualRevision);
 
         // Check getters
-        $this->assertEquals('1645937', $actualRevision->getIdentifier());
         $this->assertEquals(
-            \DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', '2014-12-16T13:07:03.507023Z'),
+            $expectedRevision->getIdentifier(),
+            $actualRevision->getIdentifier()
+        );
+        $this->assertEquals(
+            $expectedRevision->getCreated(),
             $actualRevision->getCreated()
         );
-        $this->assertEquals('brian', $actualRevision->getAuthor());
-        $this->assertEquals('Fixed: the problem with the thing.', $actualRevision->getMessage());
+        $this->assertEquals(
+            $expectedRevision->getAuthor(),
+            $actualRevision->getAuthor()
+        );
+        $this->assertEquals(
+            $expectedRevision->getMessage(),
+            $actualRevision->getMessage()
+        );
     }
 
 
