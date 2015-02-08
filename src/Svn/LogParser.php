@@ -45,6 +45,7 @@ class LogParser
     {
         $tmpFile = $this->executor->getTmpFile();
 
+        // TODO: Reading as string would fix the need to use a file
         $this->executor->execute(array(
             'log',
             '--xml',
