@@ -91,6 +91,17 @@ class GitVcs implements VcsInterface
     }
 
     /**
+     * Reset the currently checked-out revision to the latest known.
+     */
+    public function resetRevision()
+    {
+        $this->executor->execute(array(
+            'checkout',
+            $this->meta->getCurrentBranch()
+        ));
+    }
+
+    /**
      * Get normalised repository metadata.
      *
      * @return Meta

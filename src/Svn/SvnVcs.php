@@ -97,6 +97,18 @@ class SvnVcs implements VcsInterface
     }
 
     /**
+     * Reset the currently checked-out revision to the latest known.
+     *
+     * @todo This is not strictly correct - what we really want is for the repository to go back to its previous state.
+     */
+    public function resetRevision()
+    {
+        $this->executor->execute(array(
+            'update'
+        ));
+    }
+
+    /**
      * Get normalised repository metadata.
      *
      * @return MetaInterface

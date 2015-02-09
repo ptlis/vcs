@@ -39,6 +39,11 @@ interface VcsInterface
     public function checkoutRevision($identifier);
 
     /**
+     * Reset the currently checked-out revision to the latest known.
+     */
+    public function resetRevision();
+
+    /**
      * Get normalised repository metadata.
      *
      * @return MetaInterface
