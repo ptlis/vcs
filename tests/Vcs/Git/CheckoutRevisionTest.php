@@ -37,6 +37,7 @@ class CheckoutRevisionTest extends \PHPUnit_Framework_TestCase
         $commandExecutor = new MockCommandExecutor(
             array(
                 $output,
+                array('master'),
                 array()
             )
         );
@@ -52,6 +53,11 @@ class CheckoutRevisionTest extends \PHPUnit_Framework_TestCase
                     '--format=fuller',
                     '-1',
                     '3201fb7119a132cc65b368447310c3a64e0b0916'
+                ),
+                array(
+                    'rev-parse',
+                    '--abbrev-ref',
+                    'HEAD'
                 ),
                 array(
                     'checkout',

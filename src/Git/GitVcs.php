@@ -11,6 +11,7 @@
 namespace ptlis\Vcs\Git;
 
 use ptlis\Vcs\Interfaces\CommandExecutorInterface;
+use ptlis\Vcs\Interfaces\RevisionMetaInterface;
 use ptlis\Vcs\Interfaces\VcsInterface;
 
 /**
@@ -23,6 +24,11 @@ class GitVcs implements VcsInterface
 
     /** @var Meta Object that grants access to repository metadata. */
     private $meta;
+
+    /**
+     * @var RevisionMetaInterface Used when checking out a single revision, stores the previously used branch.
+     */
+    private $previousBranch;
 
 
     /**
@@ -82,10 +88,12 @@ class GitVcs implements VcsInterface
             throw new \RuntimeException('Revision "' . $identifier . '" not found.');
         }
 
+        $this->previousBranch = $this->meta->getCurrentBranch();
+
         $this->executor->execute(array(
             'checkout',
             '-b',
-            'ptlis-vcs-temp',
+            'ptlis-vcs-temp',   // TODO: Configurable
             $identifier
         ));
     }
@@ -95,10 +103,18 @@ class GitVcs implements VcsInterface
      */
     public function resetRevision()
     {
-        $this->executor->execute(array(
-            'checkout',
-            $this->meta->getCurrentBranch()
-        ));
+        if (!is_null($this->previousBranch)) {
+            $this->executor->execute(array(
+                'checkout',
+                (string)$this->previousBranch
+            ));
+
+            $this->executor->execute(array(
+                'branch',
+                '-d',
+                'ptlis-vcs-temp'   // TODO: Configurable
+            ));
+        }
     }
 
     /**
