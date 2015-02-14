@@ -20,7 +20,9 @@ use ptlis\Vcs\Shared\RevisionMeta;
  */
 class LogParser
 {
-    /** @var CommandExecutorInterface */
+    /**
+     * @var CommandExecutorInterface Object through which command can be executed
+     */
     private $executor;
 
 

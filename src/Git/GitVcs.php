@@ -19,10 +19,14 @@ use ptlis\Vcs\Interfaces\VcsInterface;
  */
 class GitVcs implements VcsInterface
 {
-    /** @var CommandExecutorInterface Object implementing CommandExecutorInterface for git. */
+    /**
+     * @var CommandExecutorInterface Object implementing CommandExecutorInterface for git.
+     */
     private $executor;
 
-    /** @var Meta Object that grants access to repository metadata. */
+    /**
+     * @var Meta Object that grants access to repository metadata.
+     */
     private $meta;
 
     /**

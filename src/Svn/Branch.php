@@ -17,7 +17,9 @@ use ptlis\Vcs\Interfaces\BranchInterface;
  */
 class Branch implements BranchInterface
 {
-    /** @var string The name of the currently selected branch. */
+    /**
+     * @var string The name of the currently selected branch.
+     */
     private $name;
 
 

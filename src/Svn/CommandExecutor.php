@@ -18,10 +18,14 @@ use ptlis\Vcs\Shared\CommandExecutor as SharedCommandExecutor;
  */
 class CommandExecutor extends SharedCommandExecutor implements CommandExecutorInterface
 {
-    /** @var string The path to the svn binary. */
+    /**
+     * @var string The path to the svn binary.
+     */
     private $binaryPath;
 
-    /** @var string The path to the svn repository. */
+    /**
+     * @var string The path to the svn repository.
+     */
     private $repositoryPath;
 
 

@@ -20,16 +20,24 @@ use ptlis\Vcs\Interfaces\VcsInterface;
  */
 class SvnVcs implements VcsInterface
 {
-    /** @var CommandExecutorInterface Object implementing CommandExecutorInterface for svn.  */
+    /**
+     * @var CommandExecutorInterface Object implementing CommandExecutorInterface for svn.
+     */
     private $executor;
 
-    /** @var RepositoryConfig Configuration for this repository. */
+    /**
+     * @var RepositoryConfig Configuration for this repository.
+     */
     private $repoConfig;
 
-    /** @var string The currently selected branch - handled internally for compatibility with git. */
+    /**
+     * @var string The currently selected branch - handled internally for compatibility with git.
+     */
     private $currentBranch;
 
-    /** @var Meta Object that grants access to repository metadata. */
+    /**
+     * @var Meta Object that grants access to repository metadata.
+     */
     private $meta;
 
 

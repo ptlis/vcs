@@ -18,10 +18,14 @@ use ptlis\Vcs\Shared\CommandExecutor as SharedCommandExecutor;
  */
 class CommandExecutor extends SharedCommandExecutor implements CommandExecutorInterface
 {
-    /** @var string The path to the git binary. */
+    /**
+     * @var string The path to the git binary.
+     */
     private $binaryPath;
 
-    /** @var string The path to the git repository. */
+    /**
+     * @var string The path to the git repository.
+     */
     private $repositoryPath;
 
 

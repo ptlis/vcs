@@ -17,16 +17,24 @@ use ptlis\Vcs\Interfaces\RevisionMetaInterface;
  */
 class RevisionMeta implements RevisionMetaInterface
 {
-    /** @var string The unique identifier for the revision. */
+    /**
+     * @var string The unique identifier for the revision.
+     */
     private $identifier;
 
-    /** @var string The author who committed the revision. */
+    /**
+     * @var string The author who committed the revision.
+     */
     private $author;
 
-    /** @var \DateTime The time that the revision was committed. */
+    /**
+     * @var \DateTime The time that the revision was committed.
+     */
     private $created;
 
-    /** @var string The commit message for the revision. */
+    /**
+     * @var string The commit message for the revision.
+     */
     private $message;
 
 

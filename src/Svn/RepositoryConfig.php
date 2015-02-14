@@ -15,13 +15,19 @@ namespace ptlis\Vcs\Svn;
  */
 class RepositoryConfig
 {
-    /** @var string The name for 'trunk' - definable for cases where non-default naming is used. */
+    /**
+     * @var string The name for 'trunk' - definable for cases where non-default naming is used.
+     */
     private $trunkName;
 
-    /** @var string The root directory containing branches - definable for cases where non-default naming is used. */
+    /**
+     * @var string The root directory containing branches - definable for cases where non-default naming is used.
+     */
     private $branchRootDir;
 
-    /** @var string The root directory containing tags - definable for cases where non-default naming is used. */
+    /**
+     * @var string The root directory containing tags - definable for cases where non-default naming is used.
+     */
     private $tagRootDir;
 
 

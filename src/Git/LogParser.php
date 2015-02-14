@@ -19,16 +19,24 @@ use ptlis\Vcs\Shared\RevisionMeta;
  */
 class LogParser
 {
-    /** Regex used to grab the commit identifier. */
+    /**
+     * Regex used to grab the commit identifier.
+     */
     const IDENTIFIER_REGEX = '/commit (?<identifier>[0-9a-f]{40})/i';
 
-    /** Regex for grabbing the author. */
+    /**
+     * Regex for grabbing the author.
+     */
     const AUTHOR_REGEX = '/Author: (?<author>.*)/i';
 
-    /** Regex for grabbing the creation date. */
+    /**
+     * Regex for grabbing the creation date.
+     */
     const CREATED_REGEX = '/AuthorDate: (?<created>.*)/';
 
-    /** Format of dates emitted by `git log --format=fuller` */
+    /**
+     * Format of dates emitted by `git log --format=fuller`
+     */
     const DATE_FORMAT = 'D M j H:i:s Y O';
 
 
