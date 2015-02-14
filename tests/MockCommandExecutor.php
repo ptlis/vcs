@@ -81,14 +81,6 @@ class MockCommandExecutor implements CommandExecutorInterface
     }
 
     /**
-     * Returns the path to the repository.
-     */
-    public function getRepositoryPath()
-    {
-        return '';
-    }
-
-    /**
      * Create & return a path to a temp file.
      *
      * @return string The file path of the created file.

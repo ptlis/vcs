@@ -8,7 +8,7 @@
  * @license http://opensource.org/licenses/MIT MIT
  */
 
-namespace ptlis\Vcs\Test\CommandExecutor\Git;
+namespace ptlis\Vcs\Test\CommandExecutor;
 
 use ptlis\Vcs\Shared\CommandExecutor;
 

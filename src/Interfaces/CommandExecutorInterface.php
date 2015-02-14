@@ -25,11 +25,6 @@ interface CommandExecutorInterface
     public function execute(array $arguments = array());
 
     /**
-     * Returns the path to the repository.
-     */
-    public function getRepositoryPath();
-
-    /**
      * Create & return a path to a temp file.
      *
      * @return string The file path of the created file.
