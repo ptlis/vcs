@@ -10,7 +10,7 @@
 
 namespace ptlis\Vcs\Test\CommandExecutor\Svn;
 
-use ptlis\Vcs\Svn\CommandExecutor;
+use ptlis\Vcs\Shared\CommandExecutor;
 
 class ExecuteTest extends \PHPUnit_Framework_TestCase
 {

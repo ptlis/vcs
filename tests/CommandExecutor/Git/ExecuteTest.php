@@ -10,7 +10,7 @@
 
 namespace ptlis\Vcs\Test\CommandExecutor\Git;
 
-use ptlis\Vcs\Git\CommandExecutor;
+use ptlis\Vcs\Shared\CommandExecutor;
 
 class ExecuteTest extends \PHPUnit_Framework_TestCase
 {
