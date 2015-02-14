@@ -10,6 +10,8 @@
 
 namespace ptlis\Vcs\Test\CommandExecutor;
 
+use ptlis\ShellCommand\ShellCommandBuilder;
+use ptlis\ShellCommand\UnixEnvironment;
 use ptlis\Vcs\Shared\CommandExecutor;
 
 class ExecuteTest extends \PHPUnit_Framework_TestCase
@@ -17,7 +19,11 @@ class ExecuteTest extends \PHPUnit_Framework_TestCase
     public function testExecute()
     {
         // For this test we just use the first commit of this project
-        $executor = new CommandExecutor('/usr/bin/git', '.');
+        $executor = new CommandExecutor(
+            new ShellCommandBuilder(new UnixEnvironment()),
+            '/usr/bin/git',
+            '.'
+        );
 
         $output = $executor->execute(array(
             'log',

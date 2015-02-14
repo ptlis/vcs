@@ -10,6 +10,7 @@
 
 namespace ptlis\Vcs\Shared;
 
+use ptlis\ShellCommand\Interfaces\CommandBuilderInterface;
 use ptlis\Vcs\Interfaces\CommandExecutorInterface;
 
 /**
@@ -18,9 +19,14 @@ use ptlis\Vcs\Interfaces\CommandExecutorInterface;
 class CommandExecutor implements CommandExecutorInterface
 {
     /**
-     * @var string The path to the vcs binary.
+     * @var CommandBuilderInterface Object that can build commands.
      */
-    private $binaryPath;
+    private $commandBuilder;
+
+    /**
+     * @var string The vcs command to execute.
+     */
+    private $command;
 
     /**
      * @var string The path to the local repository.
@@ -31,12 +37,14 @@ class CommandExecutor implements CommandExecutorInterface
     /**
      * Constructor.
      *
-     * @param string $binaryPath
+     * @param CommandBuilderInterface $commandBuilder
+     * @param string $command
      * @param string $repositoryPath
      */
-    public function __construct($binaryPath, $repositoryPath)
+    public function __construct(CommandBuilderInterface $commandBuilder, $command, $repositoryPath)
     {
-        $this->binaryPath = $binaryPath;
+        $this->commandBuilder = $commandBuilder;
+        $this->command = $command;
         $this->repositoryPath = $repositoryPath;
     }
 
@@ -49,14 +57,15 @@ class CommandExecutor implements CommandExecutorInterface
      */
     public function execute(array $arguments = array())
     {
-        $argumentString = implode(' ', $arguments);
+        $command = $this->commandBuilder
+            ->setCommand($this->command)
+            ->setCwd($this->repositoryPath)
+            ->addArguments($arguments)
+            ->buildCommand();
 
-        $cwd = getcwd();
-        chdir($this->repositoryPath);
-        exec($this->binaryPath . ' ' . $argumentString, $output);
-        chdir($cwd);
+        $result = $command->runSynchronous();
 
-        return (array)$output;  // Only alternative is null and it's nicer to always return an array
+        return $result->getStdOutLines();
     }
 
     /**
