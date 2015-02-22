@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<log>
+    <logentry revision="1645937">
+        <author>brian</author>
+        <date>2014-12-16T13:07:03.507023Z</date>
+        <msg>Fixed: the problem with the thing.</msg>
+    </logentry>
+</log>

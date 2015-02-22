@@ -10,6 +10,8 @@
 
 namespace ptlis\Vcs\Test\Vcs\Git;
 
+use ptlis\ShellCommand\Mock\MockCommandBuilder;
+use ptlis\ShellCommand\ShellResult;
 use ptlis\Vcs\Git\GitVcs;
 use ptlis\Vcs\Test\MockCommandExecutor;
 
@@ -17,14 +19,33 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
 {
     public function testBranchExists()
     {
-        $commandExecutor = new MockCommandExecutor(array(
-            array(),
-            array(),
-            array(),
-            array()
-        ));
+        $result = array(
+            new ShellResult(
+                0,
+                '',
+                ''
+            ),
+            new ShellResult(
+                0,
+                '',
+                ''
+            ),
+            new ShellResult(
+                0,
+                '',
+                ''
+            ),
+            new ShellResult(
+                0,
+                '',
+                ''
+            ),
+        );
+        $mockExecutor = new MockCommandExecutor(
+            new MockCommandBuilder($result, '/usr/bin/git')
+        );
 
-        $vcs = new GitVcs($commandExecutor);
+        $vcs = new GitVcs($mockExecutor);
 
         $vcs->update();
 
@@ -44,7 +65,7 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
                     'pop'
                 )
             ),
-            $commandExecutor->getArguments()
+            $mockExecutor->getArguments()
         );
     }
 }

@@ -10,6 +10,7 @@
 
 namespace ptlis\Vcs\Test\Vcs\Git;
 
+use ptlis\ShellCommand\Mock\MockCommandBuilder;
 use ptlis\Vcs\Git\GitVcs;
 use ptlis\Vcs\Test\MockCommandExecutor;
 
@@ -17,7 +18,9 @@ class GetMetaTest extends \PHPUnit_Framework_TestCase
 {
     public function testBranchExists()
     {
-        $commandExecutor = new MockCommandExecutor(array());
+        $commandExecutor = new MockCommandExecutor(
+            new MockCommandBuilder()
+        );
 
         $vcs = new GitVcs($commandExecutor);
 

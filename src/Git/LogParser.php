@@ -52,6 +52,7 @@ class LogParser
     public function parse(array $logLineList)
     {
         // Git has emitted a fatal error
+        // TODO: Exit codes!
         if (count($logLineList) && 'fatal:' == substr($logLineList[0], 0, 6)) {
             throw new VcsErrorException($logLineList[0]);
         }

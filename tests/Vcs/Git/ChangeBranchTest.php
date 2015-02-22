@@ -10,6 +10,8 @@
 
 namespace ptlis\Vcs\Test\Vcs\Git;
 
+use ptlis\ShellCommand\Mock\MockCommandBuilder;
+use ptlis\ShellCommand\ShellResult;
 use ptlis\Vcs\Git\GitVcs;
 use ptlis\Vcs\Test\MockCommandExecutor;
 
@@ -17,17 +19,21 @@ class ChangeBranchTest extends \PHPUnit_Framework_TestCase
 {
     public function testBranchExists()
     {
-        $commandExecutor = new MockCommandExecutor(array(
-            array(
-                '* master',
-                '  feat-new-awesome'
+        $results = array(
+            new ShellResult(
+                0,
+                file_get_contents(realpath(__DIR__ . '/data/git_branch')),
+                ''
             ),
-            array(
-                'Switched to branch \'feat-new-awesome\'',
-                'Your branch is behind \'origin/feat-new-awesome\' by 51 commits, and can be fast-forwarded.',
-                '(use "git pull" to update your local branch)'
+            new ShellResult(
+                0,
+                file_get_contents(realpath(__DIR__ . '/data/git_branch_switched')),
+                ''
             )
-        ));
+        );
+        $commandExecutor = new MockCommandExecutor(
+            new MockCommandBuilder($results, '/usr/bin/git')
+        );
 
         $vcs = new GitVcs($commandExecutor);
 
@@ -56,15 +62,21 @@ class ChangeBranchTest extends \PHPUnit_Framework_TestCase
             'Branch named "feat-new-badness" not found.'
         );
 
-        $commandExecutor = new MockCommandExecutor(array(
-            array(
-                '* master',
-                '  feat-new-awesome'
+        $results = array(
+            new ShellResult(
+                0,
+                file_get_contents(realpath(__DIR__ . '/data/git_branch')),
+                ''
             ),
-            array(
-
+            new ShellResult(
+                0,
+                file_get_contents(realpath(__DIR__ . '/data/git_branch_switched')),
+                ''
             )
-        ));
+        );
+        $commandExecutor = new MockCommandExecutor(
+            new MockCommandBuilder($results, '/usr/bin/git')
+        );
 
         $vcs = new GitVcs($commandExecutor);
 

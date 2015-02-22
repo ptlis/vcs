@@ -10,34 +10,53 @@
 
 namespace ptlis\Vcs\Test\Meta\Svn;
 
+use ptlis\ShellCommand\Mock\MockCommandBuilder;
+use ptlis\ShellCommand\ShellResult;
 use ptlis\Vcs\Svn\Branch;
 use ptlis\Vcs\Svn\Meta;
 use ptlis\Vcs\Svn\RepositoryConfig;
 use ptlis\Vcs\Test\MockCommandExecutor;
 
-class GetCurrentBranch extends \PHPUnit_Framework_TestCase
+class GetCurrentBranchTest extends \PHPUnit_Framework_TestCase
 {
     public function testCorrectOutputTrunk()
     {
-        $branch = 'trunk';
-        $mockExecutor = new MockCommandExecutor(array(array($branch)));
+        $result = array(
+            new ShellResult(
+                0,
+                'trunk' . PHP_EOL,
+                ''
+            )
+        );
+        $mockExecutor = new MockCommandExecutor(
+            new MockCommandBuilder($result, '/usr/bin/svn')
+        );
 
         $meta = new Meta($mockExecutor, new RepositoryConfig('trunk', 'branches', 'tags'));
         $actualBranch = $meta->getCurrentBranch();
 
         $this->assertEquals(
-            new Branch($branch),
+            new Branch('trunk'),
             $actualBranch
         );
-        $this->assertEquals($branch, $actualBranch->getName());
-        $this->assertEquals($branch, $actualBranch);
+        $this->assertEquals('trunk', $actualBranch->getName());
+        $this->assertEquals('trunk', $actualBranch);
     }
 
     public function testCorrectOutputBranch()
     {
-        $branch = 'foo';
-        $mockExecutor = new MockCommandExecutor(array(array($branch)));
+        $result = array(
+            new ShellResult(
+                0,
+                'trunk' . PHP_EOL,
+                ''
+            )
+        );
+        $mockExecutor = new MockCommandExecutor(
+            new MockCommandBuilder($result, '/usr/bin/svn')
+        );
 
+        $branch = 'trunk';
         $meta = new Meta($mockExecutor, new RepositoryConfig('trunk', 'branches', 'tags'), $branch);
         $actualBranch = $meta->getCurrentBranch();
 

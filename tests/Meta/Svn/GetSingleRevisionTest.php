@@ -10,6 +10,8 @@
 
 namespace ptlis\Vcs\Test\Meta\Svn;
 
+use ptlis\ShellCommand\Mock\MockCommandBuilder;
+use ptlis\ShellCommand\ShellResult;
 use ptlis\Vcs\Svn\Meta;
 use ptlis\Vcs\Shared\RevisionMeta;
 use ptlis\Vcs\Svn\RepositoryConfig;
@@ -17,43 +19,32 @@ use ptlis\Vcs\Test\MockCommandExecutor;
 
 class GetSingleRevisionTest extends \PHPUnit_Framework_TestCase
 {
-    public function testCorrectArguments()
+    public function testCorrectArgumentsAndOutput()
     {
-        $mockExecutor = new MockCommandExecutor(
-            array(array()),
-            array(
-                realpath(__DIR__ . '/data/svn_log.xml')
+        $results = array(
+            new ShellResult(
+                0,
+                file_get_contents(realpath(__DIR__ . '/data/svn_log_single.xml')),
+                ''
             )
+        );
+        $mockExecutor = new MockCommandExecutor(
+            new MockCommandBuilder($results, '/usr/bin/svn')
         );
 
         $meta = new Meta($mockExecutor, new RepositoryConfig());
-        $meta->getRevision('test');
+        $actualRevision = $meta->getRevision('1645938');
 
         $this->assertEquals(
             array(
                 array('log',
                     '-r',
-                    'test',
-                    '--xml',
-                    '>',
-                    realpath(__DIR__ . '/data/svn_log.xml')
+                    '1645938',
+                    '--xml'
                 ),
             ),
             $mockExecutor->getArguments()
         );
-    }
-
-    public function testCorrectOutput()
-    {
-        $mockExecutor = new MockCommandExecutor(
-            array(array()),
-            array(
-                realpath(__DIR__ . '/data/svn_log.xml')
-            )
-        );
-
-        $meta = new Meta($mockExecutor, new RepositoryConfig());
-        $actualRevision = $meta->getRevision('1645938');
 
         $expectedRevision = new RevisionMeta(
             '1645938',
@@ -82,23 +73,4 @@ class GetSingleRevisionTest extends \PHPUnit_Framework_TestCase
             $actualRevision->getMessage()
         );
     }
-
-
-//    TODO: Implement for SVN
-//    public function testCorrectOutputNotFound()
-//    {
-//        $output = array(
-//            'fatal: ambiguous argument \'wrong identifier\': unknown revision or path not in the working tree.',
-//            'Use \'--\' to separate paths from revisions, like this:',
-//            '\'git <command> [<revision>...] -- [<file>...]\'commit 7603010b472d32c4df233244b3c0c0632c728a1d'
-//        );
-//        $mockExecutor = new MockCommandExecutor(array($output));
-//
-//        $expectedRevision = null;
-//
-//        $meta = new Meta($mockExecutor);
-//        $actualRevision = $meta->getRevision('wrong identifier');
-//
-//        $this->assertEquals($expectedRevision, $actualRevision);
-//    }
 }

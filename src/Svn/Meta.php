@@ -80,8 +80,8 @@ class Meta extends SharedMeta
 
         $branchList = array();
         $branchList[] = new Branch($this->currentBranchName);
-        foreach ($branchDirList as $branchDir) {
-            $branchList[] = new Branch($branchDir);
+        foreach (array_filter($branchDirList->getStdOutLines(), 'strlen') as $branchDir) {
+            $branchList[] = new Branch(trim($branchDir));
         }
 
         return $branchList;
@@ -103,7 +103,7 @@ class Meta extends SharedMeta
 
         /** @var \SplFileInfo $tagDir */
         $tagList = array();
-        foreach ($output as $tagDir) {
+        foreach (array_filter($output->getStdOutLines(), 'strlen') as $tagDir) {
             $tagList[] = $tagDir;
         }
 
@@ -150,8 +150,8 @@ class Meta extends SharedMeta
             '--xml'
         ));
 
-        // TODO: Reading as string would remove need to implode here
-        $initialInfo = simplexml_load_string(implode('', $initialOutput));
+        libxml_use_internal_errors(true);
+        $initialInfo = simplexml_load_string($initialOutput->getStdOut(), null, LIBXML_NOERROR);
 
         // TODO: Abstract - move this operation into meta? Remember to worry about difference between git remotes?
         $repositoryUrl = (string)$initialInfo->entry->url;
@@ -162,10 +162,17 @@ class Meta extends SharedMeta
             '--xml'
         ));
 
-        // TODO: Reading as string would remove need to implode here
-        $serverInfo = simplexml_load_string(implode('', $serverOutput));
+        libxml_use_internal_errors(true);   // TODO: Use pervasively - perhaps set in constructors?
+        $serverInfo = simplexml_load_string($serverOutput->getStdOut());
         $identifier = (string)$serverInfo->entry->commit->attributes()->revision;
 
-        return $logParser->getSingle($identifier);
+        $revision = $logParser->getSingle($identifier);
+
+        // Revision was not found locally - try remote
+        if (is_null($revision)) {
+            $revision = $logParser->getSingle($identifier, (string)$serverInfo->entry->url);
+        }
+
+        return $revision;
     }
 }

@@ -10,6 +10,8 @@
 
 namespace ptlis\Vcs\Test\Vcs\Svn;
 
+use ptlis\ShellCommand\Mock\MockCommandBuilder;
+use ptlis\ShellCommand\ShellResult;
 use ptlis\Vcs\Svn\RepositoryConfig;
 use ptlis\Vcs\Svn\SvnVcs;
 use ptlis\Vcs\Test\MockCommandExecutor;
@@ -18,11 +20,16 @@ class ChangeBranchTest extends \PHPUnit_Framework_TestCase
 {
     public function testBranchExists()
     {
-        $commandExecutor = new MockCommandExecutor(array(
-            array(
-                'feat-new-awesome'
+        $results = array(
+            new ShellResult(
+                0,
+                'feat-new-awesome' . PHP_EOL,
+                ''
             )
-        ));
+        );
+        $commandExecutor = new MockCommandExecutor(
+            new MockCommandBuilder($results, '/usr/bin/svn')
+        );
 
         $vcs = new SvnVcs($commandExecutor, new RepositoryConfig());
 
@@ -41,11 +48,16 @@ class ChangeBranchTest extends \PHPUnit_Framework_TestCase
 
     public function testTrunk()
     {
-        $commandExecutor = new MockCommandExecutor(array(
-            array(
-                'feat-new-awesome'
+        $results = array(
+            new ShellResult(
+                0,
+                'feat-new-awesome' . PHP_EOL,
+                ''
             )
-        ));
+        );
+        $commandExecutor = new MockCommandExecutor(
+            new MockCommandBuilder($results, '/usr/bin/svn')
+        );
 
         $vcs = new SvnVcs($commandExecutor, new RepositoryConfig());
 
@@ -69,11 +81,16 @@ class ChangeBranchTest extends \PHPUnit_Framework_TestCase
             'Branch named "feat-new-badness" not found.'
         );
 
-        $commandExecutor = new MockCommandExecutor(array(
-            array(
-                'feat-new-awesome'
+        $results = array(
+            new ShellResult(
+                0,
+                'feat-new-awesome' . PHP_EOL,
+                ''
             )
-        ));
+        );
+        $commandExecutor = new MockCommandExecutor(
+            new MockCommandBuilder($results, '/usr/bin/svn')
+        );
 
         $vcs = new SvnVcs($commandExecutor, new RepositoryConfig());
 

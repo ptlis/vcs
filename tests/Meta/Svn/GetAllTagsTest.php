@@ -10,6 +10,8 @@
 
 namespace ptlis\Vcs\Test\Meta\Svn;
 
+use ptlis\ShellCommand\Mock\MockCommandBuilder;
+use ptlis\ShellCommand\ShellResult;
 use ptlis\Vcs\Svn\Meta;
 use ptlis\Vcs\Svn\RepositoryConfig;
 use ptlis\Vcs\Test\MockCommandExecutor;
@@ -18,12 +20,16 @@ class GetAllTagsTest extends \PHPUnit_Framework_TestCase
 {
     public function testCorrectArguments()
     {
-        $output = array(
-            'v0.9.0',
-            'v0.9.1',
-            'v1.0.0'
+        $result = array(
+            new ShellResult(
+                0,
+                'v0.9.0' . PHP_EOL . 'v0.9.1' . PHP_EOL . 'v1.0.0' . PHP_EOL,
+                ''
+            )
         );
-        $mockExecutor = new MockCommandExecutor(array($output));
+        $mockExecutor = new MockCommandExecutor(
+            new MockCommandBuilder($result, '/usr/bin/svn')
+        );
 
         $meta = new Meta($mockExecutor, new RepositoryConfig('trunk', 'branches', 'tags'));
         $meta->getAllTags();
@@ -41,12 +47,16 @@ class GetAllTagsTest extends \PHPUnit_Framework_TestCase
 
     public function testCorrectOutput()
     {
-        $output = array(
-            'v0.9.0',
-            'v0.9.1',
-            'v1.0.0'
+        $result = array(
+            new ShellResult(
+                0,
+                'v0.9.0' . PHP_EOL . 'v0.9.1' . PHP_EOL . 'v1.0.0' . PHP_EOL,
+                ''
+            )
         );
-        $mockExecutor = new MockCommandExecutor(array($output));
+        $mockExecutor = new MockCommandExecutor(
+            new MockCommandBuilder($result, '/usr/bin/svn')
+        );
 
         $meta = new Meta($mockExecutor, new RepositoryConfig('trunk', 'branches', 'tags'));
         $actualTagList = $meta->getAllTags();

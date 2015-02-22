@@ -10,6 +10,8 @@
 
 namespace ptlis\Vcs\Test\Meta\Git;
 
+use ptlis\ShellCommand\Mock\MockCommandBuilder;
+use ptlis\ShellCommand\ShellResult;
 use ptlis\Vcs\Git\Branch;
 use ptlis\Vcs\Git\Meta;
 use ptlis\Vcs\Test\MockCommandExecutor;
@@ -18,11 +20,16 @@ class GetAllBranchesTest extends \PHPUnit_Framework_TestCase
 {
     public function testCorrectArguments()
     {
-        $output = array(
-            'master',
-            'gh-pages'
+        $result = array(
+            new ShellResult(
+                0,
+                'master' . PHP_EOL . 'gh-pages' . PHP_EOL,
+                ''
+            )
         );
-        $mockExecutor = new MockCommandExecutor(array($output));
+        $mockExecutor = new MockCommandExecutor(
+            new MockCommandBuilder($result, '/usr/bin/git')
+        );
 
         $meta = new Meta($mockExecutor);
         $meta->getAllBranches();
@@ -41,11 +48,16 @@ class GetAllBranchesTest extends \PHPUnit_Framework_TestCase
 
     public function testCorrectOutput()
     {
-        $output = array(
-            'master',
-            'gh-pages'
+        $result = array(
+            new ShellResult(
+                0,
+                'master' . PHP_EOL . 'gh-pages' . PHP_EOL,
+                ''
+            )
         );
-        $mockExecutor = new MockCommandExecutor(array($output));
+        $mockExecutor = new MockCommandExecutor(
+            new MockCommandBuilder($result, '/usr/bin/git')
+        );
 
         $meta = new Meta($mockExecutor);
         $actualBranchList = $meta->getAllBranches();

@@ -32,9 +32,10 @@ class ExecuteTest extends \PHPUnit_Framework_TestCase
         ));
 
 
+        $logLines = $output->getStdOutLines();
         $this->assertEquals(
             'commit 6f1ed5364b1369b618270b2774f6ec86f77fa213',
-            $output[0]
+            $logLines[0]
         );
     }
 }

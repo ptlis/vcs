@@ -10,6 +10,8 @@
 
 namespace ptlis\Vcs\Test\Meta\Svn;
 
+use ptlis\ShellCommand\Mock\MockCommandBuilder;
+use ptlis\ShellCommand\ShellResult;
 use ptlis\Vcs\Svn\Branch;
 use ptlis\Vcs\Svn\Meta;
 use ptlis\Vcs\Svn\RepositoryConfig;
@@ -19,11 +21,16 @@ class GetAllBranchesTest extends \PHPUnit_Framework_TestCase
 {
     public function testCorrectArguments()
     {
-        $output = array(
-            'dev-awesome-feat',
-            'dev-awful-feat'
+        $result = array(
+            new ShellResult(
+                0,
+                'dev-awesome-feat' . PHP_EOL . 'dev-awful-feat' . PHP_EOL,
+                ''
+            )
         );
-        $mockExecutor = new MockCommandExecutor(array($output));
+        $mockExecutor = new MockCommandExecutor(
+            new MockCommandBuilder($result, '/usr/bin/svn')
+        );
 
         $meta = new Meta($mockExecutor, new RepositoryConfig('trunk', 'branches', 'tags'));
         $meta->getAllBranches();
@@ -41,11 +48,16 @@ class GetAllBranchesTest extends \PHPUnit_Framework_TestCase
 
     public function testCorrectOutput()
     {
-        $output = array(
-            'dev-awesome-feat',
-            'dev-awful-feat'
+        $result = array(
+            new ShellResult(
+                0,
+                'dev-awesome-feat' . PHP_EOL . 'dev-awful-feat' . PHP_EOL,
+                ''
+            )
         );
-        $mockExecutor = new MockCommandExecutor(array($output));
+        $mockExecutor = new MockCommandExecutor(
+            new MockCommandBuilder($result, '/usr/bin/svn')
+        );
 
         $meta = new Meta($mockExecutor, new RepositoryConfig('trunk', 'branches', 'tags'));
         $actualBranchList = $meta->getAllBranches();

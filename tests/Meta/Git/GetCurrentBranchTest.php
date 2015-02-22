@@ -10,16 +10,26 @@
 
 namespace ptlis\Vcs\Test\Meta\Git;
 
+use ptlis\ShellCommand\Mock\MockCommandBuilder;
+use ptlis\ShellCommand\ShellResult;
 use ptlis\Vcs\Git\Branch;
 use ptlis\Vcs\Git\Meta;
 use ptlis\Vcs\Test\MockCommandExecutor;
 
-class GetCurrentBranch extends \PHPUnit_Framework_TestCase
+class GetCurrentBranchTest extends \PHPUnit_Framework_TestCase
 {
     public function testCorrectArguments()
     {
-        $branch = 'master';
-        $mockExecutor = new MockCommandExecutor(array(array($branch)));
+        $result = array(
+            new ShellResult(
+                0,
+                'master' . PHP_EOL,
+                ''
+            )
+        );
+        $mockExecutor = new MockCommandExecutor(
+            new MockCommandBuilder($result, '/usr/bin/git')
+        );
 
         $meta = new Meta($mockExecutor);
         $meta->getCurrentBranch();
@@ -38,17 +48,25 @@ class GetCurrentBranch extends \PHPUnit_Framework_TestCase
 
     public function testCorrectOutput()
     {
-        $branch = 'master';
-        $mockExecutor = new MockCommandExecutor(array(array($branch)));
+        $result = array(
+            new ShellResult(
+                0,
+                'master' . PHP_EOL,
+                ''
+            )
+        );
+        $mockExecutor = new MockCommandExecutor(
+            new MockCommandBuilder($result, '/usr/bin/git')
+        );
 
         $meta = new Meta($mockExecutor);
         $actualBranch = $meta->getCurrentBranch();
 
         $this->assertEquals(
-            new Branch($branch),
+            new Branch('master'),
             $actualBranch
         );
-        $this->assertEquals($branch, $actualBranch->getName());
-        $this->assertEquals($branch, $actualBranch);
+        $this->assertEquals('master', $actualBranch->getName());
+        $this->assertEquals('master', $actualBranch);
     }
 }

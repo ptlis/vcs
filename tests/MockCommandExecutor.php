@@ -9,6 +9,8 @@
  */
 namespace ptlis\Vcs\Test;
 
+use ptlis\ShellCommand\Interfaces\CommandResultInterface;
+use ptlis\ShellCommand\Mock\MockCommandBuilder;
 use ptlis\Vcs\Interfaces\CommandExecutorInterface;
 
 /**
@@ -17,40 +19,24 @@ use ptlis\Vcs\Interfaces\CommandExecutorInterface;
 class MockCommandExecutor implements CommandExecutorInterface
 {
     /**
-     * Incremented by one on each call to execute - used to track arguments & decide what data to return.
-     *
-     * @var int
+     * @var MockCommandBuilder
      */
-    private $position = 0;
-
-    /**
-     * @var string[]
-     */
-    private $mockOutput;
+    private $builder;
 
     /**
      * @var string[][]
      */
     private $arguments = array();
 
-    /**
-     * @var string[] A temporary file path.
-     *
-     * @todo This is very wrong-headed - eliminate this!
-     */
-    private $tmpFileList;
-
 
     /**
      * Constructor.
      *
-     * @param string[] $mockOutput
-     * @param string[] $tmpFileList
+     * @param MockCommandBuilder $builder
      */
-    public function __construct(array $mockOutput = array(), $tmpFileList = array())
+    public function __construct(MockCommandBuilder $builder)
     {
-        $this->mockOutput = $mockOutput;
-        $this->tmpFileList = $tmpFileList;
+        $this->builder = $builder;
     }
 
     /**
@@ -58,16 +44,17 @@ class MockCommandExecutor implements CommandExecutorInterface
      *
      * @param string[] $arguments
      *
-     * @return string
+     * @return CommandResultInterface
      */
     public function execute(array $arguments = array())
     {
-        $this->arguments[$this->position] = $arguments;
+        $this->arguments[] = $arguments;
 
-        $output = $this->mockOutput[$this->position];
-        $this->position++;
+        $command = $this->builder
+            ->addArguments($arguments)
+            ->buildCommand();
 
-        return $output;
+        return $command->runSynchronous();
     }
 
     /**
@@ -83,15 +70,12 @@ class MockCommandExecutor implements CommandExecutorInterface
     /**
      * Create & return a path to a temp file.
      *
+     * @todo No longer required - remove!
+     *
      * @return string The file path of the created file.
      */
     public function getTmpFile()
     {
-        $tmpFile = '';
-        if (count($this->tmpFileList)) {
-            $tmpFile = array_shift($this->tmpFileList);
-        }
-
-        return $tmpFile;
+        return '';
     }
 }

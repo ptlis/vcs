@@ -49,8 +49,9 @@ class Meta extends SharedMeta
             '--abbrev-ref',
             'HEAD'
         ));
+        $outputLines = $output->getStdOutLines();
 
-        return new Branch($output[0]);
+        return new Branch($outputLines[0]);
     }
 
     /**
@@ -67,7 +68,7 @@ class Meta extends SharedMeta
         ));
 
         $branchList = array();
-        foreach ($output as $branchName) {
+        foreach (array_filter($output->getStdOutLines(), 'strlen') as $branchName) {
             $branchList[] = new Branch(trim($branchName));
         }
 
@@ -81,9 +82,11 @@ class Meta extends SharedMeta
      */
     public function getAllTags()
     {
-        return $this->executor->execute(array(
+        $result = $this->executor->execute(array(
             'tag'
         ));
+
+        return array_filter($result->getStdOutLines(), 'strlen');
     }
 
     /**
@@ -93,14 +96,14 @@ class Meta extends SharedMeta
      */
     public function getRevisions()
     {
-        $logLineList = $this->executor->execute(array(
+        $result = $this->executor->execute(array(
             'log',
             '--format=fuller'
         ));
 
         $logParser = new LogParser();
 
-        return $logParser->parse($logLineList);
+        return $logParser->parse($result->getStdOutLines());
     }
 
     /**
@@ -112,14 +115,14 @@ class Meta extends SharedMeta
      */
     public function getRevision($identifier)
     {
-        $logLineList = $this->executor->execute(array(
+        $result = $this->executor->execute(array(
             'log',
             '--format=fuller',
             '-1',
             $identifier
         ));
 
-        return $this->parseSingle($logLineList);
+        return $this->parseSingle($result->getStdOutLines());
     }
 
     /**
@@ -129,13 +132,13 @@ class Meta extends SharedMeta
      */
     public function getLatestRevision()
     {
-        $logLineList = $this->executor->execute(array(
+        $result = $this->executor->execute(array(
             'log',
             '-n',
             '1'
         ));
 
-        return $this->parseSingle($logLineList);
+        return $this->parseSingle($result->getStdOutLines());
     }
 
     /**

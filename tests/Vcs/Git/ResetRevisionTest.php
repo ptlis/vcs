@@ -10,6 +10,8 @@
 
 namespace ptlis\Vcs\Test\Vcs\Git;
 
+use ptlis\ShellCommand\Mock\MockCommandBuilder;
+use ptlis\ShellCommand\ShellResult;
 use ptlis\Vcs\Git\GitVcs;
 use ptlis\Vcs\Test\MockCommandExecutor;
 
@@ -17,34 +19,40 @@ class ResetRevisionTest extends \PHPUnit_Framework_TestCase
 {
     public function testSuccess()
     {
-        $output = array(
-            'commit 7603010b472d32c4df233244b3c0c0632c728a1d',
-            'Author:     ptlis <ptlis@ptlis.net>',
-            'AuthorDate: Sun Nov 30 18:14:24 2014 +0000',
-            'Commit:     ptlis <ptlis@ptlis.net>',
-            'CommitDate: Sun Nov 30 18:14:24 2014 +0000',
-            '',
-            '    Fix: Docblock type hints.',
-            '',
-            'commit 3201fb7119a132cc65b368447310c3a64e0b0916',
-            'Author:     ptlis <ptlis@ptlis.net>',
-            'AuthorDate: Sun Nov 30 18:10:24 2014 +0000',
-            'Commit:     ptlis <ptlis@ptlis.net>',
-            'CommitDate: Sun Nov 30 18:10:24 2014 +0000',
-            '',
-            '    Fix: Several code-style & documentation issues.'
-        );
-        $commandExecutor = new MockCommandExecutor(
-            array(
-                $output,
-                array('master'),
-                array(),
-                array(),
-                array()
+        $result = array(
+            new ShellResult(
+                0,
+                file_get_contents(realpath(__DIR__ . '/data/git_log')),
+                ''
+            ),
+            new ShellResult(
+                0,
+                'master' . PHP_EOL,
+                ''
+            ),
+            new ShellResult(
+                0,
+                'Switched to a new branch \'ptlis-vcs-temp\'' . PHP_EOL,
+                ''
+            ),
+            new ShellResult(
+                0,
+                'On branch master' . PHP_EOL
+                . 'Your branch is ahead of \'origin/master\' by 5 commits.' . PHP_EOL
+                . '  (use "git push" to publish your local commits)' . PHP_EOL,
+                ''
+            ),
+            new ShellResult(
+                0,
+                'Deleted branch ptlis-vcs-temp (was 3201fb7)' . PHP_EOL,
+                ''
             )
         );
+        $mockExecutor = new MockCommandExecutor(
+            new MockCommandBuilder($result, '/usr/bin/git')
+        );
 
-        $vcs = new GitVcs($commandExecutor);
+        $vcs = new GitVcs($mockExecutor);
 
         $vcs->checkoutRevision('3201fb7119a132cc65b368447310c3a64e0b0916');
         $vcs->resetRevision();
@@ -78,29 +86,30 @@ class ResetRevisionTest extends \PHPUnit_Framework_TestCase
                     'ptlis-vcs-temp'
                 )
             ),
-            $commandExecutor->getArguments()
+            $mockExecutor->getArguments()
         );
     }
 
     public function testNotRequired()
     {
-        $commandExecutor = new MockCommandExecutor(
-            array(
-                array(
-                    'master'
-                ),
-                array()
-            ),
-            array()
+        $result = array(
+            new ShellResult(
+                0,
+                'master' . PHP_EOL,
+                ''
+            )
+        );
+        $mockExecutor = new MockCommandExecutor(
+            new MockCommandBuilder($result, '/usr/bin/git')
         );
 
-        $vcs = new GitVcs($commandExecutor);
+        $vcs = new GitVcs($mockExecutor);
 
         $vcs->resetRevision();
 
         $this->assertEquals(
             array(),
-            $commandExecutor->getArguments()
+            $mockExecutor->getArguments()
         );
     }
 }

@@ -1,0 +1,7 @@
+commit 7603010b472d32c4df233244b3c0c0632c728a1d
+Author:     ptlis <ptlis@ptlis.net>
+AuthorDate: Sun Nov 30 18:14:24 2014 +0000
+Commit:     ptlis <ptlis@ptlis.net>
+CommitDate: Sun Nov 30 18:14:24 2014 +0000
+
+    Fix: Docblock type hints.

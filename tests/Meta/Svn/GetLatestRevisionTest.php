@@ -10,6 +10,9 @@
 
 namespace ptlis\Vcs\Test\Meta\Svn;
 
+use ptlis\ShellCommand\Mock\MockCommandBuilder;
+use ptlis\ShellCommand\ShellResult;
+use ptlis\Vcs\Shared\RevisionMeta;
 use ptlis\Vcs\Svn\Meta;
 use ptlis\Vcs\Svn\RepositoryConfig;
 use ptlis\Vcs\Test\MockCommandExecutor;
@@ -18,22 +21,37 @@ class GetLatestRevisionTest extends \PHPUnit_Framework_TestCase
 {
     public function testCorrectArguments()
     {
-        $mockExecutor = new MockCommandExecutor(
-            array(
-                file(realpath(__DIR__ . '/data/svn_info_local.xml'), FILE_IGNORE_NEW_LINES),
-                file(realpath(__DIR__ . '/data/svn_info_remote.xml'), FILE_IGNORE_NEW_LINES),
-                array()
+        $results = array(
+            new ShellResult(
+                0,
+                file_get_contents(realpath(__DIR__ . '/data/svn_info_local.xml')),
+                ''
             ),
-            array(
-                realpath(__DIR__ . '/data/svn_log.xml')
+            new ShellResult(
+                0,
+                file_get_contents(realpath(__DIR__ . '/data/svn_info_remote.xml')),
+                ''
+            ),
+            new ShellResult(
+                0,
+                file_get_contents(realpath(__DIR__ . '/data/svn_log_local.xml')),
+                ''
+            ),
+            new ShellResult(
+                0,
+                file_get_contents(realpath(__DIR__ . '/data/svn_log_remote.xml')),
+                ''
             )
+        );
+        $mockExecutor = new MockCommandExecutor(
+            new MockCommandBuilder($results, '/usr/bin/svn')
         );
 
         $meta = new Meta(
             $mockExecutor,
             new RepositoryConfig()
         );
-        $meta->getLatestRevision();
+        $revision = $meta->getLatestRevision();
 
         $this->assertEquals(
             array(
@@ -50,12 +68,27 @@ class GetLatestRevisionTest extends \PHPUnit_Framework_TestCase
                     'log',
                     '-r',
                     '1645938',
+                    '--xml'
+                ),
+                array(
+                    'log',
+                    '-r',
+                    '1645938',
                     '--xml',
-                    '>',
-                    realpath(__DIR__ . '/data/svn_log.xml')
+                    'http://svn.example.com/myproject/branches/1.0'
                 )
             ),
             $mockExecutor->getArguments()
+        );
+
+        $this->assertEquals(
+            new RevisionMeta(
+                '1645938',
+                'brian',
+                \DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', '2014-12-16T13:55:25.549151Z'),
+                'Update: move foo out of bar to make way for baz.'
+            ),
+            $revision
         );
     }
 }

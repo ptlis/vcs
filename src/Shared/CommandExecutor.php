@@ -11,6 +11,7 @@
 namespace ptlis\Vcs\Shared;
 
 use ptlis\ShellCommand\Interfaces\CommandBuilderInterface;
+use ptlis\ShellCommand\Interfaces\CommandResultInterface;
 use ptlis\Vcs\Interfaces\CommandExecutorInterface;
 
 /**
@@ -53,7 +54,7 @@ class CommandExecutor implements CommandExecutorInterface
      *
      * @param string[] $arguments
      *
-     * @return string[]
+     * @return CommandResultInterface
      */
     public function execute(array $arguments = array())
     {
@@ -63,9 +64,7 @@ class CommandExecutor implements CommandExecutorInterface
             ->addArguments($arguments)
             ->buildCommand();
 
-        $result = $command->runSynchronous();
-
-        return $result->getStdOutLines();
+        return $command->runSynchronous();
     }
 
     /**

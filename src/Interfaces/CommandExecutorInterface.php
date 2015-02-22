@@ -10,6 +10,8 @@
 
 namespace ptlis\Vcs\Interfaces;
 
+use ptlis\ShellCommand\Interfaces\CommandResultInterface;
+
 /**
  * Shared interface through which VCS commands are executed.
  */
@@ -20,7 +22,7 @@ interface CommandExecutorInterface
      *
      * @param string[] $arguments
      *
-     * @return string[]
+     * @return CommandResultInterface
      */
     public function execute(array $arguments = array());
 

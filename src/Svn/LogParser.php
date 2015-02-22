@@ -45,17 +45,13 @@ class LogParser
      */
     public function getAll()
     {
-        $tmpFile = $this->executor->getTmpFile();
-
-        // TODO: Reading as string would fix the need to use a file
-        $this->executor->execute(array(
+        $result = $this->executor->execute(array(
             'log',
-            '--xml',
-            '>',
-            $tmpFile
+            '--xml'
         ));
 
-        $logData = simplexml_load_file($tmpFile);
+        libxml_use_internal_errors(true);
+        $logData = simplexml_load_string($result->getStdOut());
 
         $revisionList = array();
         foreach ($logData->logentry as $logEntry) {
@@ -71,30 +67,36 @@ class LogParser
      * @throws VcsErrorException On VCS error.
      *
      * @param int $identifier
+     * @param string $remoteUrl
      *
      * @return RevisionMetaInterface
      */
-    public function getSingle($identifier)
+    public function getSingle($identifier, $remoteUrl = '')
     {
-        $tmpFile = $this->executor->getTmpFile();
-
-        $this->executor->execute(array(
+        $arguments = array(
             'log',
             '-r',
             $identifier,
-            '--xml',
-            '>',
-            $tmpFile
-        ));
+            '--xml'
+        );
 
-        $logData = simplexml_load_file($tmpFile);
+        if (strlen($remoteUrl)) {
+            $arguments[] = $remoteUrl;
+        }
+
+        $result = $this->executor->execute($arguments);
+
+        libxml_use_internal_errors(true);
+        $logData = simplexml_load_string($result->getStdOut());
 
         $revision = null;
-        foreach ($logData->logentry as $logEntry) {
-            $tmpRevision = $this->createRevision($logEntry);
+        if (false !== $logData) {
+            foreach ($logData->logentry as $logEntry) {
+                $tmpRevision = $this->createRevision($logEntry);
 
-            if ($identifier === $tmpRevision->getIdentifier()) {
-                $revision = $tmpRevision;
+                if ($identifier === $tmpRevision->getIdentifier()) {
+                    $revision = $tmpRevision;
+                }
             }
         }
 

@@ -88,6 +88,7 @@ class GitVcs implements VcsInterface
     public function checkoutRevision($identifier)
     {
         $revision = $this->meta->getRevision($identifier);
+
         if (is_null($revision)) {
             throw new \RuntimeException('Revision "' . $identifier . '" not found.');
         }

@@ -10,6 +10,8 @@
 
 namespace ptlis\Vcs\Test\Vcs\Git;
 
+use ptlis\ShellCommand\Mock\MockCommandBuilder;
+use ptlis\ShellCommand\ShellResult;
 use ptlis\Vcs\Git\GitVcs;
 use ptlis\Vcs\Test\MockCommandExecutor;
 
@@ -17,32 +19,28 @@ class CheckoutRevisionTest extends \PHPUnit_Framework_TestCase
 {
     public function testSuccess()
     {
-        $output = array(
-            'commit 7603010b472d32c4df233244b3c0c0632c728a1d',
-            'Author:     ptlis <ptlis@ptlis.net>',
-            'AuthorDate: Sun Nov 30 18:14:24 2014 +0000',
-            'Commit:     ptlis <ptlis@ptlis.net>',
-            'CommitDate: Sun Nov 30 18:14:24 2014 +0000',
-            '',
-            '    Fix: Docblock type hints.',
-            '',
-            'commit 3201fb7119a132cc65b368447310c3a64e0b0916',
-            'Author:     ptlis <ptlis@ptlis.net>',
-            'AuthorDate: Sun Nov 30 18:10:24 2014 +0000',
-            'Commit:     ptlis <ptlis@ptlis.net>',
-            'CommitDate: Sun Nov 30 18:10:24 2014 +0000',
-            '',
-            '    Fix: Several code-style & documentation issues.'
-        );
-        $commandExecutor = new MockCommandExecutor(
-            array(
-                $output,
-                array('master'),
-                array()
+        $results = array(
+            new ShellResult(
+                0,
+                file_get_contents(realpath(__DIR__ . '/data/git_log')),
+                ''
+            ),
+            new ShellResult(
+                0,
+                'master' . PHP_EOL,
+                ''
+            ),
+            new ShellResult(
+                0,
+                '',
+                ''
             )
         );
+        $mockExecutor = new MockCommandExecutor(
+            new MockCommandBuilder($results, '/usr/bin/git')
+        );
 
-        $vcs = new GitVcs($commandExecutor);
+        $vcs = new GitVcs($mockExecutor);
 
         $vcs->checkoutRevision('3201fb7119a132cc65b368447310c3a64e0b0916');
 
@@ -66,9 +64,10 @@ class CheckoutRevisionTest extends \PHPUnit_Framework_TestCase
                     '3201fb7119a132cc65b368447310c3a64e0b0916'
                 )
             ),
-            $commandExecutor->getArguments()
+            $mockExecutor->getArguments()
         );
     }
+
     public function testNotFound()
     {
         $this->setExpectedException(
@@ -76,14 +75,20 @@ class CheckoutRevisionTest extends \PHPUnit_Framework_TestCase
             'Revision "bob" not found.'
         );
 
-        $commandExecutor = new MockCommandExecutor(
-            array(
-                array(),
-                array()
+        $results = array(
+            new ShellResult(
+                0,
+                'fatal: ambiguous argument \'bob\': unknown revision or path not in the working tree.' . PHP_EOL
+                . 'Use \'--\' to separate paths from revisions, like this:' . PHP_EOL
+                . '\'git <command> [<revision>...] -- [<file>...]\'' . PHP_EOL,
+                ''
             )
         );
+        $mockExecutor = new MockCommandExecutor(
+            new MockCommandBuilder($results, '/usr/bin/git')
+        );
 
-        $vcs = new GitVcs($commandExecutor);
+        $vcs = new GitVcs($mockExecutor);
 
         $vcs->checkoutRevision('bob');
     }
