@@ -10,6 +10,8 @@
 
 namespace ptlis\Vcs\Interfaces;
 
+use ptlis\DiffParser\Changeset;
+
 /**
  * Used to retrieve metadata about the current state of the local copy.
  */
@@ -69,4 +71,14 @@ interface MetaInterface
      * @return RevisionMetaInterface|null
      */
     public function getLatestRevision();
+
+    /**
+     * Get a changeset between the specified revisions.
+     *
+     * @param RevisionMetaInterface $startRevision
+     * @param RevisionMetaInterface $endRevision
+     *
+     * @return Changeset
+     */
+    public function getChangeset(RevisionMetaInterface $startRevision, RevisionMetaInterface $endRevision);
 }

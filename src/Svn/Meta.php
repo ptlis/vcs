@@ -10,6 +10,8 @@
 
 namespace ptlis\Vcs\Svn;
 
+use ptlis\DiffParser\Changeset;
+use ptlis\DiffParser\Parser;
 use ptlis\Vcs\Interfaces\BranchInterface;
 use ptlis\Vcs\Interfaces\CommandExecutorInterface;
 use ptlis\Vcs\Interfaces\RevisionMetaInterface;
@@ -174,5 +176,26 @@ class Meta extends SharedMeta
         }
 
         return $revision;
+    }
+
+    /**
+     * Get a changeset between the specified revisions.
+     *
+     * @param RevisionMetaInterface $startRevision
+     * @param RevisionMetaInterface $endRevision
+     *
+     * @return Changeset
+     */
+    public function getChangeset(RevisionMetaInterface $startRevision, RevisionMetaInterface $endRevision)
+    {
+        $result = $this->executor->execute(array(
+            'diff',
+            '-r',
+            $startRevision->getIdentifier() . ':' . $endRevision->getIdentifier()
+        ));
+
+        $parser = new Parser();
+
+        return $parser->parseLines($result->getStdOutLines(), Parser::VCS_SVN);
     }
 }
