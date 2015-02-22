@@ -52,6 +52,8 @@ class CommandExecutor implements CommandExecutorInterface
     /**
      * Execute the command.
      *
+     * @throws \RuntimeException on command error.
+     *
      * @param string[] $arguments
      *
      * @return CommandResultInterface
@@ -64,6 +66,12 @@ class CommandExecutor implements CommandExecutorInterface
             ->addArguments($arguments)
             ->buildCommand();
 
-        return $command->runSynchronous();
+        $result = $command->runSynchronous();
+
+        if (0 !== $result->getExitCode()) {
+            throw new \RuntimeException($result->getStdErr(), $result->getExitCode());
+        }
+
+        return $result;
     }
 }

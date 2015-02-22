@@ -20,6 +20,8 @@ interface CommandExecutorInterface
     /**
      * Execute the command.
      *
+     * @throws \RuntimeException on command error.
+     *
      * @param string[] $arguments
      *
      * @return CommandResultInterface
