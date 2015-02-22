@@ -66,16 +66,4 @@ class CommandExecutor implements CommandExecutorInterface
 
         return $command->runSynchronous();
     }
-
-    /**
-     * Create & return a path to a temp file.
-     *
-     * @todo Remove this - only used in one place & that's a hack!
-     *
-     * @return string The file path of the created file.
-     */
-    public function getTmpFile()
-    {
-        return tempnam(sys_get_temp_dir(), 'Vcs');
-    }
 }

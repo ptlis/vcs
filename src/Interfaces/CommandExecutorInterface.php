@@ -25,11 +25,4 @@ interface CommandExecutorInterface
      * @return CommandResultInterface
      */
     public function execute(array $arguments = array());
-
-    /**
-     * Create & return a path to a temp file.
-     *
-     * @return string The file path of the created file.
-     */
-    public function getTmpFile();
 }

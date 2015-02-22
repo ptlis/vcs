@@ -66,16 +66,4 @@ class MockCommandExecutor implements CommandExecutorInterface
     {
         return $this->arguments;
     }
-
-    /**
-     * Create & return a path to a temp file.
-     *
-     * @todo No longer required - remove!
-     *
-     * @return string The file path of the created file.
-     */
-    public function getTmpFile()
-    {
-        return '';
-    }
 }
