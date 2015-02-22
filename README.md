@@ -13,12 +13,12 @@ A simple VCS wrapper for PHP attempting to offer a consistent API across VCS too
 
 ## TODO
 
-* Worry about status codes pervasively
+* XML all the (svn) things!
+    * Add wrapper to safely parse - see http://stackoverflow.com/a/4583190 for example
+* Split tests - integration & unit tests
+    * Integration svn tests require access to svnserve & co.
 * Check for presence of git & svn binaries (try to autodetect?)
 * Validate repository paths.
-* Handle file creation & deletion appropriately
-    * Any diff that ends in an empty file is thus a deletion.
-    * Any diff that starts with an empty file is a creation.
 
 
 ## Known limitations
