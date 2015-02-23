@@ -73,12 +73,11 @@ interface MetaInterface
     public function getLatestRevision();
 
     /**
-     * Get a changeset between the specified revisions.
+     * Get a changeset for the specified revision
      *
-     * @param RevisionMetaInterface $startRevision
-     * @param RevisionMetaInterface $endRevision
+     * @param RevisionMetaInterface $revision
      *
      * @return Changeset
      */
-    public function getChangeset(RevisionMetaInterface $startRevision, RevisionMetaInterface $endRevision);
+    public function getChangeset(RevisionMetaInterface $revision);
 }
