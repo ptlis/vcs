@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lists>
+   <list path="tags">
+      <entry kind="dir">
+         <name>v0.9.0</name>
+         <commit revision="547">
+            <author>colm</author>
+            <date>2014-01-08T11:45:43.126845Z</date>
+         </commit>
+      </entry>
+      <entry kind="dir">
+         <name>v0.9.1</name>
+         <commit revision="612">
+            <author>wrowe</author>
+            <date>2014-05-15T07:36:29.748798Z</date>
+         </commit>
+      </entry>
+      <entry kind="dir">
+         <name>v1.0.0</name>
+         <commit revision="834">
+            <date>2014-10-09T05:58:19.000000Z</date>
+         </commit>
+      </entry>
+   </list>
+</lists>
+

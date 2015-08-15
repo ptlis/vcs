@@ -12,6 +12,7 @@ namespace ptlis\Vcs\Test\Meta\Svn;
 
 use ptlis\ShellCommand\Mock\MockCommandBuilder;
 use ptlis\ShellCommand\ShellResult;
+use ptlis\Vcs\Shared\Tag;
 use ptlis\Vcs\Svn\Meta;
 use ptlis\Vcs\Svn\RepositoryConfig;
 use ptlis\Vcs\Test\MockCommandExecutor;
@@ -23,7 +24,7 @@ class GetAllTagsTest extends \PHPUnit_Framework_TestCase
         $result = array(
             new ShellResult(
                 0,
-                'v0.9.0' . PHP_EOL . 'v0.9.1' . PHP_EOL . 'v1.0.0' . PHP_EOL,
+                file_get_contents(realpath(__DIR__ . '/data/svn_list_tags.xml')),
                 ''
             )
         );
@@ -38,7 +39,8 @@ class GetAllTagsTest extends \PHPUnit_Framework_TestCase
             array(
                 array(
                     'ls',
-                    'tags'
+                    'tags',
+                    '--xml'
                 )
             ),
             $mockExecutor->getArguments()
@@ -50,7 +52,7 @@ class GetAllTagsTest extends \PHPUnit_Framework_TestCase
         $result = array(
             new ShellResult(
                 0,
-                'v0.9.0' . PHP_EOL . 'v0.9.1' . PHP_EOL . 'v1.0.0' . PHP_EOL,
+                file_get_contents(realpath(__DIR__ . '/data/svn_list_tags.xml')),
                 ''
             )
         );
@@ -63,9 +65,9 @@ class GetAllTagsTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             array(
-                'v0.9.0',
-                'v0.9.1',
-                'v1.0.0'
+                new Tag('v0.9.0', '547'),
+                new Tag('v0.9.1', '612'),
+                new Tag('v1.0.0', '834')
             ),
             $actualTagList
         );

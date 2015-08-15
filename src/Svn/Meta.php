@@ -15,7 +15,9 @@ use ptlis\DiffParser\Parser;
 use ptlis\Vcs\Interfaces\BranchInterface;
 use ptlis\Vcs\Interfaces\CommandExecutorInterface;
 use ptlis\Vcs\Interfaces\RevisionMetaInterface;
+use ptlis\Vcs\Interfaces\TagInterface;
 use ptlis\Vcs\Shared\Meta as SharedMeta;
+use ptlis\Vcs\Shared\Tag;
 
 /**
  * SVN implementation of shared Meta interface.
@@ -92,21 +94,27 @@ class Meta extends SharedMeta
     /**
      * Get a list of all tags.
      *
-     * @todo TagInterface ?
-     *
-     * @return string[]
+     * @return TagInterface[]
      */
     public function getAllTags()
     {
         $output = $this->executor->execute(array(
             'ls',
-            $this->repoConfig->getTagRootDir()
+            $this->repoConfig->getTagRootDir(),
+            '--xml'
         ));
 
-        /** @var \SplFileInfo $tagDir */
+        libxml_use_internal_errors(true);
+        $tagData = simplexml_load_string($output->getStdOut());
+
         $tagList = array();
-        foreach (array_filter($output->getStdOutLines(), 'strlen') as $tagDir) {
-            $tagList[] = $tagDir;
+        foreach ($tagData->list->entry as $entry) {
+            $commitAttrList = $entry->commit->attributes();
+
+            $tagList[] = new Tag(
+                (string)$entry->name,
+                (string)$commitAttrList['revision']
+            );
         }
 
         return $tagList;

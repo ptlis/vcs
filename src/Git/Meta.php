@@ -15,8 +15,10 @@ use ptlis\DiffParser\Parser;
 use ptlis\Vcs\Interfaces\BranchInterface;
 use ptlis\Vcs\Interfaces\CommandExecutorInterface;
 use ptlis\Vcs\Interfaces\RevisionMetaInterface;
+use ptlis\Vcs\Interfaces\TagInterface;
 use ptlis\Vcs\Shared\Exception\VcsErrorException;
 use ptlis\Vcs\Shared\Meta as SharedMeta;
+use ptlis\Vcs\Shared\Tag;
 
 /**
  * Git implementation of shared Meta interface.
@@ -80,7 +82,7 @@ class Meta extends SharedMeta
     /**
      * Get a list of all tags.
      *
-     * @return string[]
+     * @return TagInterface[]
      */
     public function getAllTags()
     {
@@ -88,7 +90,23 @@ class Meta extends SharedMeta
             'tag'
         ));
 
-        return array_filter($result->getStdOutLines(), 'strlen');
+        $tagList = array();
+        foreach (array_filter($result->getStdOutLines(), 'strlen') as $tagString) {
+            $tagResult = $this->executor->execute(array(
+                'rev-list',
+                '-1',
+                $tagString
+            ));
+
+            $revisionList = array_filter($tagResult->getStdOutLines(), 'strlen');
+
+            $tagList[] = new Tag(
+                $tagString,
+                $revisionList[0]
+            );
+        }
+
+        return $tagList;
     }
 
     /**

@@ -13,21 +13,28 @@ namespace ptlis\Vcs\Test\Meta\Git;
 use ptlis\ShellCommand\Mock\MockCommandBuilder;
 use ptlis\ShellCommand\ShellResult;
 use ptlis\Vcs\Git\Meta;
+use ptlis\Vcs\Shared\Tag;
 use ptlis\Vcs\Test\MockCommandExecutor;
 
 class GetAllTagsTest extends \PHPUnit_Framework_TestCase
 {
     public function testCorrectArguments()
     {
-        $result = array(
-            new ShellResult(
+        $builder = new MockCommandBuilder();
+        $builder = $builder
+            ->setCommand('/usr/bin/git')
+            ->addMockResult(
                 0,
                 'v0.9.0' . PHP_EOL . 'v0.9.1' . PHP_EOL . 'v1.0.0' . PHP_EOL,
                 ''
             )
-        );
+            ->addMockResult(0, '1838fa95822c8008be03dbd8c4e2c14370018cf1' . PHP_EOL, '')
+            ->addMockResult(0, '7f202db7c7f1302d8ced7fa6fb5307320e016a3f' . PHP_EOL, '')
+            ->addMockResult(0, '15b593a8e23513b8464275679b4b59b59e926007' . PHP_EOL, '');
+
+
         $mockExecutor = new MockCommandExecutor(
-            new MockCommandBuilder($result, '/usr/bin/git')
+            $builder
         );
 
         $meta = new Meta($mockExecutor);
@@ -37,6 +44,21 @@ class GetAllTagsTest extends \PHPUnit_Framework_TestCase
             array(
                 array(
                     'tag'
+                ),
+                array(
+                    'rev-list',
+                    '-1',
+                    'v0.9.0'
+                ),
+                array(
+                    'rev-list',
+                    '-1',
+                    'v0.9.1'
+                ),
+                array(
+                    'rev-list',
+                    '-1',
+                    'v1.0.0'
                 )
             ),
             $mockExecutor->getArguments()
@@ -45,23 +67,31 @@ class GetAllTagsTest extends \PHPUnit_Framework_TestCase
 
     public function testCorrectOutput()
     {
-        $result = array(
-            new ShellResult(
+        $builder = new MockCommandBuilder();
+        $builder = $builder
+            ->setCommand('/usr/bin/git')
+            ->addMockResult(
                 0,
                 'v0.9.0' . PHP_EOL . 'v0.9.1' . PHP_EOL . 'v1.0.0' . PHP_EOL,
                 ''
             )
+            ->addMockResult(0, '1838fa95822c8008be03dbd8c4e2c14370018cf1' . PHP_EOL, '')
+            ->addMockResult(0, '7f202db7c7f1302d8ced7fa6fb5307320e016a3f' . PHP_EOL, '')
+            ->addMockResult(0, '15b593a8e23513b8464275679b4b59b59e926007' . PHP_EOL, '');
+
+
+        $mockExecutor = new MockCommandExecutor(
+            $builder
         );
-        $mockExecutor = new MockCommandExecutor(new MockCommandBuilder($result, '/usr/bin/git'));
 
         $meta = new Meta($mockExecutor);
         $actualTagList = $meta->getAllTags();
 
         $this->assertEquals(
             array(
-                'v0.9.0',
-                'v0.9.1',
-                'v1.0.0'
+                new Tag('v0.9.0', '1838fa95822c8008be03dbd8c4e2c14370018cf1'),
+                new Tag('v0.9.1', '7f202db7c7f1302d8ced7fa6fb5307320e016a3f'),
+                new Tag('v1.0.0', '15b593a8e23513b8464275679b4b59b59e926007')
             ),
             $actualTagList
         );
