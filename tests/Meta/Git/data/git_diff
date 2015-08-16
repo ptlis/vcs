@@ -1,0 +1,123 @@
+From c6dae50913150a272bfe241bb7fb47935eba4bee Mon Sep 17 00:00:00 2001
+From: ptlis <ptlis@ptlis.net>
+Date: Sat, 14 Feb 2015 18:43:51 +0000
+Subject: [PATCH] Fix: Use stand-alone command package for executing shell
+ commands.
+
+---
+ composer.json                         |  2 +-
+ src/Shared/CommandExecutor.php        | 31 ++++++++++++++++++++-----------
+ tests/CommandExecutor/ExecuteTest.php |  8 +++++++-
+ 3 files changed, 28 insertions(+), 13 deletions(-)
+
+diff --git a/composer.json b/composer.json
+index 0fa2f59..7f5b985 100644
+--- a/composer.json
++++ b/composer.json
+@@ -13,7 +13,7 @@
+     "require": {
+         "php": ">=5.3.0",
+         "ptlis/diff-parser": "~0.2",
+-        "ptlis/shell-command": "~0.2"
++        "ptlis/shell-command": "~0.4"
+     },
+     "require-dev": {
+         "pdepend/pdepend": "~1.1",
+diff --git a/src/Shared/CommandExecutor.php b/src/Shared/CommandExecutor.php
+index d19dacb..c63a44c 100644
+--- a/src/Shared/CommandExecutor.php
++++ b/src/Shared/CommandExecutor.php
+@@ -10,6 +10,7 @@
+ 
+ namespace ptlis\Vcs\Shared;
+ 
++use ptlis\ShellCommand\Interfaces\CommandBuilderInterface;
+ use ptlis\Vcs\Interfaces\CommandExecutorInterface;
+ 
+ /**
+@@ -18,9 +19,14 @@ use ptlis\Vcs\Interfaces\CommandExecutorInterface;
+ class CommandExecutor implements CommandExecutorInterface
+ {
+     /**
+-     * @var string The path to the vcs binary.
++     * @var CommandBuilderInterface Object that can build commands.
+      */
+-    private $binaryPath;
++    private $commandBuilder;
++
++    /**
++     * @var string The vcs command to execute.
++     */
++    private $command;
+ 
+     /**
+      * @var string The path to the local repository.
+@@ -31,12 +37,14 @@ class CommandExecutor implements CommandExecutorInterface
+     /**
+      * Constructor.
+      *
+-     * @param string $binaryPath
++     * @param CommandBuilderInterface $commandBuilder
++     * @param string $command
+      * @param string $repositoryPath
+      */
+-    public function __construct($binaryPath, $repositoryPath)
++    public function __construct(CommandBuilderInterface $commandBuilder, $command, $repositoryPath)
+     {
+-        $this->binaryPath = $binaryPath;
++        $this->commandBuilder = $commandBuilder;
++        $this->command = $command;
+         $this->repositoryPath = $repositoryPath;
+     }
+ 
+@@ -49,14 +57,15 @@ class CommandExecutor implements CommandExecutorInterface
+      */
+     public function execute(array $arguments = array())
+     {
+-        $argumentString = implode(' ', $arguments);
++        $command = $this->commandBuilder
++            ->setCommand($this->command)
++            ->setCwd($this->repositoryPath)
++            ->addArguments($arguments)
++            ->buildCommand();
+ 
+-        $cwd = getcwd();
+-        chdir($this->repositoryPath);
+-        exec($this->binaryPath . ' ' . $argumentString, $output);
+-        chdir($cwd);
++        $result = $command->runSynchronous();
+ 
+-        return (array)$output;  // Only alternative is null and it's nicer to always return an array
++        return $result->getStdOutLines();
+     }
+ 
+     /**
+diff --git a/tests/CommandExecutor/ExecuteTest.php b/tests/CommandExecutor/ExecuteTest.php
+index 04d6959..898d8a2 100644
+--- a/tests/CommandExecutor/ExecuteTest.php
++++ b/tests/CommandExecutor/ExecuteTest.php
+@@ -10,6 +10,8 @@
+ 
+ namespace ptlis\Vcs\Test\CommandExecutor;
+ 
++use ptlis\ShellCommand\ShellCommandBuilder;
++use ptlis\ShellCommand\UnixEnvironment;
+ use ptlis\Vcs\Shared\CommandExecutor;
+ 
+ class ExecuteTest extends \PHPUnit_Framework_TestCase
+@@ -17,7 +19,11 @@ class ExecuteTest extends \PHPUnit_Framework_TestCase
+     public function testExecute()
+     {
+         // For this test we just use the first commit of this project
+-        $executor = new CommandExecutor('/usr/bin/git', '.');
++        $executor = new CommandExecutor(
++            new ShellCommandBuilder(new UnixEnvironment()),
++            '/usr/bin/git',
++            '.'
++        );
+ 
+         $output = $executor->execute(array(
+             'log',
+-- 
+1.9.1
+

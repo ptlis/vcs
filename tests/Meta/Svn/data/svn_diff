@@ -1,0 +1,22 @@
+Index: trunk/docs/manual/mod/mod_proxy.xml
+===================================================================
+--- trunk/docs/manual/mod/mod_proxy.xml	(revision 1695912)
++++ trunk/docs/manual/mod/mod_proxy.xml	(revision 1695913)
+@@ -907,7 +907,7 @@
+ 
+     <note type="warning">
+     <p>If the first argument ends with a trailing <strong>/</strong>, the second
+-       argument should also end with a trailing <strong>/</strong> and vice
++       argument should also end with a trailing <strong>/</strong>, and vice
+        versa. Otherwise, the resulting requests to the backend may miss some
+        needed slashes and do not deliver the expected results.
+     </p>
+@@ -1471,7 +1471,7 @@
+     module="core">UseCanonicalName</directive> directive.</p>
+ 
+     <p>Note that this <directive>ProxyPassReverse</directive> directive can
+-    also be used in conjunction with the proxy pass-through feature
++    also be used in conjunction with the proxy feature
+     (<code>RewriteRule ...  [P]</code>) from <module>mod_rewrite</module>
+     because it doesn't depend on a corresponding <directive module="mod_proxy"
+     >ProxyPass</directive> directive.</p>
