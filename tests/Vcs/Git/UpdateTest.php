@@ -34,12 +34,7 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
                 0,
                 '',
                 ''
-            ),
-            new ShellResult(
-                0,
-                '',
-                ''
-            ),
+            )
         );
         $mockExecutor = new MockCommandExecutor(
             new MockCommandBuilder($result, '/usr/bin/git')
@@ -52,17 +47,14 @@ class UpdateTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             array(
                 array(
-                    'stash'
+                    'reset',
+                    '--hard'
                 ),
                 array(
                     'fetch'
                 ),
                 array(
                     'rebase'
-                ),
-                array(
-                    'stash',
-                    'pop'
                 )
             ),
             $mockExecutor->getArguments()

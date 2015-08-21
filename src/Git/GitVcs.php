@@ -50,14 +50,13 @@ class GitVcs implements VcsInterface
     /**
      * Pull down remote changes & apply to local copy.
      *
-     * @todo This will only work for read-only access! I suspect it may also fail on non-trivial configurations.
+     * @todo This will only work for read-only access!
      */
     public function update()
     {
-        $this->executor->execute(array('stash'));
+        $this->executor->execute(array('reset', '--hard'));
         $this->executor->execute(array('fetch'));
         $this->executor->execute(array('rebase'));
-        $this->executor->execute(array('stash', 'pop'));
     }
 
     /**
