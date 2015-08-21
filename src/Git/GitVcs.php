@@ -99,7 +99,7 @@ class GitVcs implements VcsInterface
         $this->executor->execute(array(
             'checkout',
             '-b',
-            'ptlis-vcs-temp',   // TODO: Configurable
+            'ptlis-vcs-temp',
             $identifier
         ));
     }
@@ -118,7 +118,7 @@ class GitVcs implements VcsInterface
             $this->executor->execute(array(
                 'branch',
                 '-d',
-                'ptlis-vcs-temp'   // TODO: Configurable
+                'ptlis-vcs-temp',
             ));
         }
     }
