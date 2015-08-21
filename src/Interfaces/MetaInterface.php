@@ -32,8 +32,6 @@ interface MetaInterface
     /**
      * Get a list of all tags.
      *
-     * @todo TagInterface ?
-     *
      * @return TagInterface[]
      */
     public function getAllTags();
