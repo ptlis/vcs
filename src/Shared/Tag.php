@@ -13,7 +13,7 @@
 
 namespace ptlis\Vcs\Shared;
 
-use ptlis\Vcs\Interfaces\RevisionMetaInterface;
+use ptlis\Vcs\Interfaces\RevisionLogInterface;
 use ptlis\Vcs\Interfaces\TagInterface;
 
 /**
@@ -27,7 +27,7 @@ class Tag implements TagInterface
     private $name;
 
     /**
-     * @var RevisionMetaInterface
+     * @var RevisionLogInterface
      */
     private $revision;
 
@@ -36,9 +36,9 @@ class Tag implements TagInterface
      * Constructor.
      *
      * @param string $name
-     * @param RevisionMetaInterface $revision
+     * @param RevisionLogInterface $revision
      */
-    public function __construct($name, RevisionMetaInterface $revision)
+    public function __construct($name, RevisionLogInterface $revision)
     {
         $this->name = $name;
         $this->revision = $revision;
@@ -57,7 +57,7 @@ class Tag implements TagInterface
     /**
      * Get the tagged revision.
      *
-     * @return RevisionMetaInterface
+     * @return RevisionLogInterface
      */
     public function getRevision()
     {

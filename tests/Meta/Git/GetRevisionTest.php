@@ -11,24 +11,23 @@
  * file that was distributed with this source code.
  */
 
-namespace ptlis\Vcs\Test\Meta\Svn;
+namespace ptlis\Vcs\Test\Meta\Git;
 
 use ptlis\ShellCommand\Mock\MockCommandBuilder;
-use ptlis\Vcs\Svn\Meta;
-use ptlis\Vcs\Shared\RevisionMeta;
-use ptlis\Vcs\Svn\RepositoryConfig;
+use ptlis\Vcs\Git\Meta;
+use ptlis\Vcs\Shared\RevisionLog;
 use ptlis\Vcs\Test\MockCommandExecutor;
 
-class GetChangesetTest extends \PHPUnit_Framework_TestCase
+class GetRevisionTest extends \PHPUnit_Framework_TestCase
 {
     public function testCorrectArguments()
     {
         $builder = new MockCommandBuilder();
         $builder = $builder
-            ->setCommand('/usr/bin/svn')
+            ->setCommand('/usr/bin/git')
             ->addMockResult(
                 0,
-                file_get_contents(__DIR__ . '/data/svn_diff'),
+                file_get_contents(__DIR__ . '/data/git_diff'),
                 ''
             );
 
@@ -36,30 +35,31 @@ class GetChangesetTest extends \PHPUnit_Framework_TestCase
             $builder
         );
 
-        $meta = new Meta($mockExecutor, new RepositoryConfig());
-        $changeset = $meta->getChangeset(
-            new RevisionMeta(
-                '1695913',
-                'mrumph',
-                new \DateTime('2015-08-14 14:51:38 +0100'),
-                'Clarify RewriteRule example in mod_proxy doc'
+        $meta = new Meta($mockExecutor);
+        $revision = $meta->getRevision(
+            new RevisionLog(
+                'c6dae50913150a272bfe241bb7fb47935eba4bee',
+                'ptlis',
+                new \DateTime('Sat, 14 Feb 2015 18:43:51 +0000'),
+                'Fix: Use stand-alone command package for executing shell commands.'
             )
         );
 
         $this->assertEquals(
             array(
                 array(
-                    'diff',
-                    '-c',
-                    '1695913'
+                    'format-patch',
+                    '-1',
+                    '--stdout',
+                    'c6dae50913150a272bfe241bb7fb47935eba4bee'
                 )
             ),
             $mockExecutor->getArguments()
         );
 
         $this->assertInstanceOf(
-            '\ptlis\DiffParser\Changeset',
-            $changeset
+            '\ptlis\Vcs\Shared\Revision',
+            $revision
         );
     }
 }

@@ -13,7 +13,7 @@ namespace ptlis\Vcs\Test\Meta\Git;
 use ptlis\ShellCommand\Mock\MockCommandBuilder;
 use ptlis\ShellCommand\ShellResult;
 use ptlis\Vcs\Git\Meta;
-use ptlis\Vcs\Shared\RevisionMeta;
+use ptlis\Vcs\Shared\RevisionLog;
 use ptlis\Vcs\Shared\Tag;
 use ptlis\Vcs\Test\MockCommandExecutor;
 
@@ -143,7 +143,7 @@ class GetAllTagsTest extends \PHPUnit_Framework_TestCase
             array(
                 new Tag(
                     'v0.9.0',
-                    new RevisionMeta(
+                    new RevisionLog(
                         '1838fa95822c8008be03dbd8c4e2c14370018cf1',
                         'ptlis <ptlis@ptlis.net>',
                         new \DateTime('Fri Jul 25 18:55:15 2015 +0100'),
@@ -152,7 +152,7 @@ class GetAllTagsTest extends \PHPUnit_Framework_TestCase
                 ),
                 new Tag(
                     'v0.9.1',
-                    new RevisionMeta(
+                    new RevisionLog(
                         '7f202db7c7f1302d8ced7fa6fb5307320e016a3f',
                         'ptlis <ptlis@ptlis.net>',
                         new \DateTime('Fri Jul 31 12:28:03 2015 +0100'),

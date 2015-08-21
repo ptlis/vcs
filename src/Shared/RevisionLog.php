@@ -10,12 +10,12 @@
 
 namespace ptlis\Vcs\Shared;
 
-use ptlis\Vcs\Interfaces\RevisionMetaInterface;
+use ptlis\Vcs\Interfaces\RevisionLogInterface;
 
 /**
  * Shared Revision metadata class.
  */
-class RevisionMeta implements RevisionMetaInterface
+class RevisionLog implements RevisionLogInterface
 {
     /**
      * @var string The unique identifier for the revision.

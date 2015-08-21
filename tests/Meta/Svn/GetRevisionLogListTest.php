@@ -13,11 +13,11 @@ namespace ptlis\Vcs\Test\Meta\Svn;
 use ptlis\ShellCommand\Mock\MockCommandBuilder;
 use ptlis\ShellCommand\ShellResult;
 use ptlis\Vcs\Svn\Meta;
-use ptlis\Vcs\Shared\RevisionMeta;
+use ptlis\Vcs\Shared\RevisionLog;
 use ptlis\Vcs\Svn\RepositoryConfig;
 use ptlis\Vcs\Test\MockCommandExecutor;
 
-class GetRevisionListTest extends \PHPUnit_Framework_TestCase
+class GetRevisionLogListTest extends \PHPUnit_Framework_TestCase
 {
     public function testCorrectArgumentsAndOutput()
     {
@@ -33,7 +33,7 @@ class GetRevisionListTest extends \PHPUnit_Framework_TestCase
         );
 
         $meta = new Meta($mockExecutor, new RepositoryConfig('trunk', 'branches', 'tags'));
-        $revisions = $meta->getRevisions();
+        $revisions = $meta->getAllRevisionLogs();
 
         $this->assertEquals(
             array(
@@ -47,13 +47,13 @@ class GetRevisionListTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             array(
-                new RevisionMeta(
+                new RevisionLog(
                     '1645937',
                     'brian',
                     \DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', '2014-12-16T13:07:03.507023Z'),
                     'Fixed: the problem with the thing.'
                 ),
-                new RevisionMeta(
+                new RevisionLog(
                     '1645938',
                     'brian',
                     \DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', '2014-12-16T13:55:25.549151Z'),

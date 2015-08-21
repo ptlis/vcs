@@ -14,7 +14,7 @@ namespace ptlis\Vcs\Test\Meta\Git;
 use ptlis\ShellCommand\Mock\MockCommandBuilder;
 use ptlis\ShellCommand\ShellResult;
 use ptlis\Vcs\Git\Meta;
-use ptlis\Vcs\Shared\RevisionMeta;
+use ptlis\Vcs\Shared\RevisionLog;
 use ptlis\Vcs\Test\MockCommandExecutor;
 
 class GetRevisionListTest extends \PHPUnit_Framework_TestCase
@@ -33,7 +33,7 @@ class GetRevisionListTest extends \PHPUnit_Framework_TestCase
         );
 
         $meta = new Meta($mockExecutor);
-        $revisionList = $meta->getRevisions();
+        $revisionList = $meta->getAllRevisionLogs();
 
         $this->assertEquals(
             array(
@@ -47,13 +47,13 @@ class GetRevisionListTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             array(
-                new RevisionMeta(
+                new RevisionLog(
                     '7603010b472d32c4df233244b3c0c0632c728a1d',
                     'ptlis <ptlis@ptlis.net>',
                     new \DateTime('30-11-2014 18:14:24+0000'),
                     'Fix: Docblock type hints.'
                 ),
-                new RevisionMeta(
+                new RevisionLog(
                     '3201fb7119a132cc65b368447310c3a64e0b0916',
                     'ptlis <ptlis@ptlis.net>',
                     new \DateTime('30-11-2014 18:10:24+0000'),

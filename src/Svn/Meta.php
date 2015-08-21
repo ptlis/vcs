@@ -14,9 +14,11 @@ use ptlis\DiffParser\Changeset;
 use ptlis\DiffParser\Parser;
 use ptlis\Vcs\Interfaces\BranchInterface;
 use ptlis\Vcs\Interfaces\CommandExecutorInterface;
-use ptlis\Vcs\Interfaces\RevisionMetaInterface;
+use ptlis\Vcs\Interfaces\RevisionInterface;
+use ptlis\Vcs\Interfaces\RevisionLogInterface;
 use ptlis\Vcs\Interfaces\TagInterface;
 use ptlis\Vcs\Shared\Meta as SharedMeta;
+use ptlis\Vcs\Shared\Revision;
 use ptlis\Vcs\Shared\Tag;
 
 /**
@@ -113,7 +115,7 @@ class Meta extends SharedMeta
 
             $tagList[] = new Tag(
                 (string)$entry->name,
-                $this->getRevision((string)$commitAttrList['revision'])
+                $this->getRevisionLog((string)$commitAttrList['revision'])
             );
         }
 
@@ -123,9 +125,9 @@ class Meta extends SharedMeta
     /**
      * Get an array of log entries.
      *
-     * @return RevisionMetaInterface[]
+     * @return RevisionLogInterface[]
      */
-    public function getRevisions()
+    public function getAllRevisionLogs()
     {
         $logParser = new LogParser($this->executor);
 
@@ -137,9 +139,9 @@ class Meta extends SharedMeta
      *
      * @param string $identifier
      *
-     * @return RevisionMetaInterface|null
+     * @return RevisionLogInterface|null
      */
-    public function getRevision($identifier)
+    public function getRevisionLog($identifier)
     {
         $logParser = new LogParser($this->executor);
 
@@ -149,7 +151,7 @@ class Meta extends SharedMeta
     /**
      * Get the metadata for the latest revision.
      *
-     * @return RevisionMetaInterface|null
+     * @return RevisionLogInterface|null
      */
     public function getLatestRevision()
     {
@@ -189,20 +191,21 @@ class Meta extends SharedMeta
     /**
      * Get a changeset for the specified revision
      *
-     * @param RevisionMetaInterface $revision
+     * @param RevisionLogInterface $revisionLog
      *
-     * @return Changeset
+     * @return RevisionInterface
      */
-    public function getChangeset(RevisionMetaInterface $revision)
+    public function getRevision(RevisionLogInterface $revisionLog)
     {
         $result = $this->executor->execute(array(
             'diff',
             '-c',
-            $revision->getIdentifier()
+            $revisionLog->getIdentifier()
         ));
 
         $parser = new Parser();
+        $changeset = $parser->parseLines($result->getStdOutLines(), Parser::VCS_SVN);
 
-        return $parser->parseLines($result->getStdOutLines(), Parser::VCS_SVN);
+        return new Revision($revisionLog, $changeset);
     }
 }

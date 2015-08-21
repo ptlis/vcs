@@ -11,7 +11,7 @@
 namespace ptlis\Vcs\Git;
 
 use ptlis\Vcs\Interfaces\CommandExecutorInterface;
-use ptlis\Vcs\Interfaces\RevisionMetaInterface;
+use ptlis\Vcs\Interfaces\RevisionLogInterface;
 use ptlis\Vcs\Interfaces\VcsInterface;
 
 /**
@@ -30,7 +30,7 @@ class GitVcs implements VcsInterface
     private $meta;
 
     /**
-     * @var RevisionMetaInterface Used when checking out a single revision, stores the previously used branch.
+     * @var RevisionLogInterface Used when checking out a single revision, stores the previously used branch.
      */
     private $previousBranch;
 
@@ -87,7 +87,7 @@ class GitVcs implements VcsInterface
      */
     public function checkoutRevision($identifier)
     {
-        $revision = $this->meta->getRevision($identifier);
+        $revision = $this->meta->getRevisionLog($identifier);
 
         if (is_null($revision)) {
             throw new \RuntimeException('Revision "' . $identifier . '" not found.');

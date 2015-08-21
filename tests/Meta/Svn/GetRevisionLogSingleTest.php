@@ -13,11 +13,11 @@ namespace ptlis\Vcs\Test\Meta\Svn;
 use ptlis\ShellCommand\Mock\MockCommandBuilder;
 use ptlis\ShellCommand\ShellResult;
 use ptlis\Vcs\Svn\Meta;
-use ptlis\Vcs\Shared\RevisionMeta;
+use ptlis\Vcs\Shared\RevisionLog;
 use ptlis\Vcs\Svn\RepositoryConfig;
 use ptlis\Vcs\Test\MockCommandExecutor;
 
-class GetSingleRevisionTest extends \PHPUnit_Framework_TestCase
+class GetRevisionLogSingle extends \PHPUnit_Framework_TestCase
 {
     public function testCorrectArgumentsAndOutput()
     {
@@ -33,7 +33,7 @@ class GetSingleRevisionTest extends \PHPUnit_Framework_TestCase
         );
 
         $meta = new Meta($mockExecutor, new RepositoryConfig());
-        $actualRevision = $meta->getRevision('1645938');
+        $actualRevision = $meta->getRevisionLog('1645938');
 
         $this->assertEquals(
             array(
@@ -46,7 +46,7 @@ class GetSingleRevisionTest extends \PHPUnit_Framework_TestCase
             $mockExecutor->getArguments()
         );
 
-        $expectedRevision = new RevisionMeta(
+        $expectedRevision = new RevisionLog(
             '1645938',
             'brian',
             \DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', '2014-12-16T13:55:25.549151Z'),

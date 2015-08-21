@@ -10,9 +10,9 @@
 
 namespace ptlis\Vcs\Git;
 
-use ptlis\Vcs\Interfaces\RevisionMetaInterface;
+use ptlis\Vcs\Interfaces\RevisionLogInterface;
 use ptlis\Vcs\Shared\Exception\VcsErrorException;
-use ptlis\Vcs\Shared\RevisionMeta;
+use ptlis\Vcs\Shared\RevisionLog;
 
 /**
  * Simple parser for git log with the 'fuller' format.
@@ -47,7 +47,7 @@ class LogParser
      *
      * @param string[] $logLineList
      *
-     * @return RevisionMetaInterface[]
+     * @return RevisionLogInterface[]
      */
     public function parse(array $logLineList)
     {
@@ -116,13 +116,13 @@ class LogParser
      *
      * @param array $bundleList
      *
-     * @return RevisionMetaInterface[]
+     * @return RevisionLogInterface[]
      */
     private function buildLogEntries(array $bundleList)
     {
         $logList = array();
         foreach ($bundleList as $bundle) {
-            $logList[] = new RevisionMeta(
+            $logList[] = new RevisionLog(
                 $bundle['identifier'],
                 $bundle['author'],
                 $bundle['created'],

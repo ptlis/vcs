@@ -14,7 +14,7 @@ namespace ptlis\Vcs\Interfaces;
 /**
  * Interface class that revision metadata classes must implement.
  */
-interface RevisionMetaInterface
+interface RevisionLogInterface
 {
     /**
      * Get the unique identifier for this commit.

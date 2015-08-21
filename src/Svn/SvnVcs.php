@@ -92,7 +92,7 @@ class SvnVcs implements VcsInterface
      */
     public function checkoutRevision($identifier)
     {
-        $revision = $this->meta->getRevision($identifier);
+        $revision = $this->meta->getRevisionLog($identifier);
         if (is_null($revision)) {
             throw new \RuntimeException('Revision "' . $identifier . '" not found.');
         }

@@ -12,7 +12,7 @@ namespace ptlis\Vcs\Test\Meta\Svn;
 
 use ptlis\ShellCommand\Mock\MockCommandBuilder;
 use ptlis\ShellCommand\ShellResult;
-use ptlis\Vcs\Shared\RevisionMeta;
+use ptlis\Vcs\Shared\RevisionLog;
 use ptlis\Vcs\Shared\Tag;
 use ptlis\Vcs\Svn\Meta;
 use ptlis\Vcs\Svn\RepositoryConfig;
@@ -72,7 +72,7 @@ class GetAllTagsTest extends \PHPUnit_Framework_TestCase
             array(
                 new Tag(
                     'v0.9.0',
-                    new RevisionMeta(
+                    new RevisionLog(
                         '547',
                         'colm',
                         new \DateTime('2014-01-08T11:45:43.126845Z'),
@@ -81,7 +81,7 @@ class GetAllTagsTest extends \PHPUnit_Framework_TestCase
                 ),
                 new Tag(
                     'v0.9.1',
-                    new RevisionMeta(
+                    new RevisionLog(
                         '612',
                         'wrowe',
                         new \DateTime('2014-05-15T07:36:29.748798Z'),
@@ -90,7 +90,7 @@ class GetAllTagsTest extends \PHPUnit_Framework_TestCase
                 ),
                 new Tag(
                     'v1.0.0',
-                    new RevisionMeta(
+                    new RevisionLog(
                         '834',
                         'bob',
                         new \DateTime('2014-10-09T05:58:19.000000Z'),

@@ -12,12 +12,12 @@ namespace ptlis\Vcs\Test\Meta\Svn;
 
 use ptlis\ShellCommand\Mock\MockCommandBuilder;
 use ptlis\ShellCommand\ShellResult;
-use ptlis\Vcs\Shared\RevisionMeta;
+use ptlis\Vcs\Shared\RevisionLog;
 use ptlis\Vcs\Svn\Meta;
 use ptlis\Vcs\Svn\RepositoryConfig;
 use ptlis\Vcs\Test\MockCommandExecutor;
 
-class GetLatestRevisionTest extends \PHPUnit_Framework_TestCase
+class GetLatestRevisionLogTest extends \PHPUnit_Framework_TestCase
 {
     public function testCorrectArguments()
     {
@@ -82,7 +82,7 @@ class GetLatestRevisionTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals(
-            new RevisionMeta(
+            new RevisionLog(
                 '1645938',
                 'brian',
                 \DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', '2014-12-16T13:55:25.549151Z'),

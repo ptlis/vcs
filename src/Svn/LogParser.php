@@ -11,9 +11,9 @@
 namespace ptlis\Vcs\Svn;
 
 use ptlis\Vcs\Interfaces\CommandExecutorInterface;
-use ptlis\Vcs\Interfaces\RevisionMetaInterface;
+use ptlis\Vcs\Interfaces\RevisionLogInterface;
 use ptlis\Vcs\Shared\Exception\VcsErrorException;
-use ptlis\Vcs\Shared\RevisionMeta;
+use ptlis\Vcs\Shared\RevisionLog;
 
 /**
  * Simple parser for svn log.
@@ -41,7 +41,7 @@ class LogParser
      *
      * @throws VcsErrorException On VCS error.
      *
-     * @return RevisionMetaInterface[]
+     * @return RevisionLogInterface[]
      */
     public function getAll()
     {
@@ -69,7 +69,7 @@ class LogParser
      * @param int $identifier
      * @param string $remoteUrl
      *
-     * @return RevisionMetaInterface
+     * @return RevisionLogInterface
      */
     public function getSingle($identifier, $remoteUrl = '')
     {
@@ -108,7 +108,7 @@ class LogParser
      *
      * @param \SimpleXMLElement $logEntry
      *
-     * @return RevisionMetaInterface
+     * @return RevisionLogInterface
      */
     private function createRevision(\SimpleXMLElement $logEntry)
     {
@@ -123,7 +123,7 @@ class LogParser
         $author = (string)$logEntry->author;
         $message = (string)$logEntry->msg;
 
-        return new RevisionMeta(
+        return new RevisionLog(
             $identifier,
             $author,
             $created,
