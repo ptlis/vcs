@@ -162,5 +162,15 @@ class GetAllTagsTest extends \PHPUnit_Framework_TestCase
             ),
             $actualTagList
         );
+
+        $this->assertInstanceOf(
+            '\ptlis\Vcs\Shared\RevisionLog',
+            $actualTagList[0]->getRevision()
+        );
+
+        $this->assertEquals(
+            'v0.9.0',
+            $actualTagList[0]->getName()
+        );
     }
 }

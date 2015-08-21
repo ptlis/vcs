@@ -61,5 +61,15 @@ class GetRevisionTest extends \PHPUnit_Framework_TestCase
             '\ptlis\Vcs\Shared\Revision',
             $revision
         );
+
+        $this->assertInstanceOf(
+            '\ptlis\Vcs\Shared\RevisionLog',
+            $revision->getLog()
+        );
+
+        $this->assertInstanceOf(
+            '\ptlis\DiffParser\Changeset',
+            $revision->getChangeset()
+        );
     }
 }
