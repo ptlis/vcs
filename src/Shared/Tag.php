@@ -59,7 +59,7 @@ class Tag implements TagInterface
      *
      * @return RevisionLogInterface
      */
-    public function getRevision()
+    public function getRevisionLog()
     {
         return $this->revision;
     }

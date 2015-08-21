@@ -27,5 +27,5 @@ interface TagInterface
      *
      * @return RevisionLogInterface
      */
-    public function getRevision();
+    public function getRevisionLog();
 }

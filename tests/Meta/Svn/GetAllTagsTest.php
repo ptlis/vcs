@@ -103,7 +103,7 @@ class GetAllTagsTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(
             '\ptlis\Vcs\Shared\RevisionLog',
-            $actualTagList[0]->getRevision()
+            $actualTagList[0]->getRevisionLog()
         );
 
         $this->assertEquals(
