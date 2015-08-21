@@ -25,7 +25,7 @@ interface TagInterface
     /**
      * Get the tagged revision.
      *
-     * @return string
+     * @return RevisionMetaInterface
      */
     public function getRevision();
 }

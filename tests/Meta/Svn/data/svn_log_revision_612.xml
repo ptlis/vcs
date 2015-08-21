@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<log>
+    <logentry revision="612">
+        <author>wrowe</author>
+        <date>2014-05-15T07:36:29.748798Z</date>
+        <msg>Fix the FooWidget</msg>
+    </logentry>
+</log>

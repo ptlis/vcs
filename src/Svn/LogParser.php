@@ -112,7 +112,13 @@ class LogParser
      */
     private function createRevision(\SimpleXMLElement $logEntry)
     {
-        $created = \DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', (string)$logEntry->date);
+        // Note that the commit date/time is set serverside and is always UTC
+        // See http://svn.haxx.se/users/archive-2003-09/0322.shtml
+        $created = \DateTime::createFromFormat(
+            'Y-m-d\TH:i:s.u\Z',
+            (string)$logEntry->date,
+            new \DateTimeZone('UTC')
+        );
         $identifier = (string)$logEntry->attributes()->revision;
         $author = (string)$logEntry->author;
         $message = (string)$logEntry->msg;

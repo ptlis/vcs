@@ -12,6 +12,7 @@ namespace ptlis\Vcs\Test\Meta\Svn;
 
 use ptlis\ShellCommand\Mock\MockCommandBuilder;
 use ptlis\ShellCommand\ShellResult;
+use ptlis\Vcs\Shared\RevisionMeta;
 use ptlis\Vcs\Shared\Tag;
 use ptlis\Vcs\Svn\Meta;
 use ptlis\Vcs\Svn\RepositoryConfig;
@@ -21,15 +22,8 @@ class GetAllTagsTest extends \PHPUnit_Framework_TestCase
 {
     public function testCorrectArguments()
     {
-        $result = array(
-            new ShellResult(
-                0,
-                file_get_contents(realpath(__DIR__ . '/data/svn_list_tags.xml')),
-                ''
-            )
-        );
         $mockExecutor = new MockCommandExecutor(
-            new MockCommandBuilder($result, '/usr/bin/svn')
+            new MockCommandBuilder($this->getMockResultList(), '/usr/bin/svn')
         );
 
         $meta = new Meta($mockExecutor, new RepositoryConfig('trunk', 'branches', 'tags'));
@@ -41,6 +35,24 @@ class GetAllTagsTest extends \PHPUnit_Framework_TestCase
                     'ls',
                     'tags',
                     '--xml'
+                ),
+                array(
+                    'log',
+                    '-r',
+                    '547',
+                    '--xml'
+                ),
+                array(
+                    'log',
+                    '-r',
+                    '612',
+                    '--xml'
+                ),
+                array(
+                    'log',
+                    '-r',
+                    '834',
+                    '--xml'
                 )
             ),
             $mockExecutor->getArguments()
@@ -49,15 +61,8 @@ class GetAllTagsTest extends \PHPUnit_Framework_TestCase
 
     public function testCorrectOutput()
     {
-        $result = array(
-            new ShellResult(
-                0,
-                file_get_contents(realpath(__DIR__ . '/data/svn_list_tags.xml')),
-                ''
-            )
-        );
         $mockExecutor = new MockCommandExecutor(
-            new MockCommandBuilder($result, '/usr/bin/svn')
+            new MockCommandBuilder($this->getMockResultList(), '/usr/bin/svn')
         );
 
         $meta = new Meta($mockExecutor, new RepositoryConfig('trunk', 'branches', 'tags'));
@@ -65,11 +70,61 @@ class GetAllTagsTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             array(
-                new Tag('v0.9.0', '547'),
-                new Tag('v0.9.1', '612'),
-                new Tag('v1.0.0', '834')
+                new Tag(
+                    'v0.9.0',
+                    new RevisionMeta(
+                        '547',
+                        'colm',
+                        new \DateTime('2014-01-08T11:45:43.126845Z'),
+                        'Generated doc changes'
+                    )
+                ),
+                new Tag(
+                    'v0.9.1',
+                    new RevisionMeta(
+                        '612',
+                        'wrowe',
+                        new \DateTime('2014-05-15T07:36:29.748798Z'),
+                        'Fix the FooWidget'
+                    )
+                ),
+                new Tag(
+                    'v1.0.0',
+                    new RevisionMeta(
+                        '834',
+                        'bob',
+                        new \DateTime('2014-10-09T05:58:19.000000Z'),
+                        'Rework the BarWidget to be Baz-compliant'
+                    )
+                )
             ),
             $actualTagList
+        );
+    }
+
+    private function getMockResultList()
+    {
+        return array(
+            new ShellResult(
+                0,
+                file_get_contents(realpath(__DIR__ . '/data/svn_list_tags.xml')),
+                ''
+            ),
+            new ShellResult(
+                0,
+                file_get_contents(realpath(__DIR__ . '/data/svn_log_revision_547.xml')),
+                ''
+            ),
+            new ShellResult(
+                0,
+                file_get_contents(realpath(__DIR__ . '/data/svn_log_revision_612.xml')),
+                ''
+            ),
+            new ShellResult(
+                0,
+                file_get_contents(realpath(__DIR__ . '/data/svn_log_revision_834.xml')),
+                ''
+            ),
         );
     }
 }

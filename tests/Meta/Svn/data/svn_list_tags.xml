@@ -18,6 +18,7 @@
       <entry kind="dir">
          <name>v1.0.0</name>
          <commit revision="834">
+            <author>bob</author>
             <date>2014-10-09T05:58:19.000000Z</date>
          </commit>
       </entry>

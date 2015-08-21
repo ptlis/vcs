@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<log>
+    <logentry revision="834">
+        <author>bob</author>
+        <date>2014-10-09T05:58:19.000000Z</date>
+        <msg>Rework the BarWidget to be Baz-compliant</msg>
+    </logentry>
+</log>

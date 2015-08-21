@@ -102,7 +102,7 @@ class Meta extends SharedMeta
 
             $tagList[] = new Tag(
                 $tagString,
-                $revisionList[0]
+                $this->getRevision($revisionList[0])
             );
         }
 

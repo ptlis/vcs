@@ -113,7 +113,7 @@ class Meta extends SharedMeta
 
             $tagList[] = new Tag(
                 (string)$entry->name,
-                (string)$commitAttrList['revision']
+                $this->getRevision((string)$commitAttrList['revision'])
             );
         }
 
