@@ -13,6 +13,7 @@ namespace ptlis\Vcs\Git;
 use ptlis\Vcs\Interfaces\CommandExecutorInterface;
 use ptlis\Vcs\Interfaces\RevisionLogInterface;
 use ptlis\Vcs\Interfaces\VcsInterface;
+use ptlis\Vcs\Shared\Branch;
 
 /**
  * Git implementation of shared VCS interface.

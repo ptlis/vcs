@@ -3,22 +3,23 @@
 /**
  * PHP Version 5.3
  *
- * @copyright (c) 2014-2015 brian ridley
- * @author brian ridley <ptlis@ptlis.net>
- * @license http://opensource.org/licenses/MIT MIT
+ * @copyright   (c) 2015 brian ridley
+ * @author      brian ridley <ptlis@ptlis.net>
+ * @license     http://opensource.org/licenses/MIT MIT
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
-namespace ptlis\Vcs\Svn;
-
-use ptlis\Vcs\Interfaces\BranchInterface;
+namespace ptlis\Vcs\Shared;
 
 /**
- * Git implementation of shared branch interface.
+ * Value object representing a branch.
  */
-class Branch implements BranchInterface
+class Branch
 {
     /**
-     * @var string The name of the currently selected branch.
+     * @var string The branch name.
      */
     private $name;
 
@@ -34,7 +35,7 @@ class Branch implements BranchInterface
     }
 
     /**
-     * Get the branch name.
+     * Get name.
      *
      * @return string
      */
@@ -44,7 +45,7 @@ class Branch implements BranchInterface
     }
 
     /**
-     * Serialise to branch name.
+     * Get string representation of branch.
      *
      * @return string
      */

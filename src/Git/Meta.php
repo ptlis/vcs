@@ -17,6 +17,7 @@ use ptlis\Vcs\Interfaces\MetaInterface;
 use ptlis\Vcs\Interfaces\RevisionInterface;
 use ptlis\Vcs\Interfaces\RevisionLogInterface;
 use ptlis\Vcs\Interfaces\TagInterface;
+use ptlis\Vcs\Shared\Branch;
 use ptlis\Vcs\Shared\Exception\VcsErrorException;
 use ptlis\Vcs\Shared\Revision;
 use ptlis\Vcs\Shared\Tag;

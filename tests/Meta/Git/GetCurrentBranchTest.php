@@ -12,7 +12,7 @@ namespace ptlis\Vcs\Test\Meta\Git;
 
 use ptlis\ShellCommand\Mock\MockCommandBuilder;
 use ptlis\ShellCommand\ShellResult;
-use ptlis\Vcs\Git\Branch;
+use ptlis\Vcs\Shared\Branch;
 use ptlis\Vcs\Git\Meta;
 use ptlis\Vcs\Test\MockCommandExecutor;
 

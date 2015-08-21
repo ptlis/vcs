@@ -12,7 +12,7 @@ namespace ptlis\Vcs\Test\Meta\Svn;
 
 use ptlis\ShellCommand\Mock\MockCommandBuilder;
 use ptlis\ShellCommand\ShellResult;
-use ptlis\Vcs\Svn\Branch;
+use ptlis\Vcs\Shared\Branch;
 use ptlis\Vcs\Svn\Meta;
 use ptlis\Vcs\Svn\RepositoryConfig;
 use ptlis\Vcs\Test\MockCommandExecutor;
