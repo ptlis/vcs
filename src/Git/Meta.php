@@ -10,22 +10,21 @@
 
 namespace ptlis\Vcs\Git;
 
-use ptlis\DiffParser\Changeset;
 use ptlis\DiffParser\Parser;
 use ptlis\Vcs\Interfaces\BranchInterface;
 use ptlis\Vcs\Interfaces\CommandExecutorInterface;
+use ptlis\Vcs\Interfaces\MetaInterface;
 use ptlis\Vcs\Interfaces\RevisionInterface;
 use ptlis\Vcs\Interfaces\RevisionLogInterface;
 use ptlis\Vcs\Interfaces\TagInterface;
 use ptlis\Vcs\Shared\Exception\VcsErrorException;
-use ptlis\Vcs\Shared\Meta as SharedMeta;
 use ptlis\Vcs\Shared\Revision;
 use ptlis\Vcs\Shared\Tag;
 
 /**
  * Git implementation of shared Meta interface.
  */
-class Meta extends SharedMeta
+class Meta implements MetaInterface
 {
     /**
      * @var CommandExecutorInterface Object through which vcs commands can be ran.
@@ -109,6 +108,24 @@ class Meta extends SharedMeta
         }
 
         return $tagList;
+    }
+
+    /**
+     * Check to see if the given branch name exists in the repository.
+     *
+     * @param string $branchName
+     *
+     * @return bool
+     */
+    public function branchExists($branchName)
+    {
+        $output = $this->executor->execute(array(
+            'branch',
+            '--list',
+            $branchName
+        ));
+
+        return count(array_filter($output->getStdOutLines(), 'strlen')) > 0;
     }
 
     /**

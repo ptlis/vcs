@@ -10,21 +10,20 @@
 
 namespace ptlis\Vcs\Svn;
 
-use ptlis\DiffParser\Changeset;
 use ptlis\DiffParser\Parser;
 use ptlis\Vcs\Interfaces\BranchInterface;
 use ptlis\Vcs\Interfaces\CommandExecutorInterface;
+use ptlis\Vcs\Interfaces\MetaInterface;
 use ptlis\Vcs\Interfaces\RevisionInterface;
 use ptlis\Vcs\Interfaces\RevisionLogInterface;
 use ptlis\Vcs\Interfaces\TagInterface;
-use ptlis\Vcs\Shared\Meta as SharedMeta;
 use ptlis\Vcs\Shared\Revision;
 use ptlis\Vcs\Shared\Tag;
 
 /**
  * SVN implementation of shared Meta interface.
  */
-class Meta extends SharedMeta
+class Meta implements MetaInterface
 {
     /**
      * @var CommandExecutorInterface Object through which vcs commands can be ran.
@@ -75,6 +74,8 @@ class Meta extends SharedMeta
     /**
      * Get a list of all known branches.
      *
+     * @todo This should include trunk?
+     *
      * @return BranchInterface[]
      */
     public function getAllBranches()
@@ -85,7 +86,7 @@ class Meta extends SharedMeta
         ));
 
         $branchList = array();
-        $branchList[] = new Branch($this->currentBranchName);
+        $branchList[] = new Branch($this->currentBranchName);   // TODO: This probably isn't what we want
         foreach (array_filter($branchDirList->getStdOutLines(), 'strlen') as $branchDir) {
             $branchList[] = new Branch(trim($branchDir));
         }
@@ -120,6 +121,35 @@ class Meta extends SharedMeta
         }
 
         return $tagList;
+    }
+
+    /**
+     * Check to see if the given branch name exists in the repository.
+     *
+     * @param string $branchName
+     *
+     * @return bool
+     */
+    public function branchExists($branchName)
+    {
+        $branchExists = false;
+
+        // Try to list the contents of the branch, if this errors then the branch doesn't exist
+        try {
+            // If the branch isn't trunk then try to list it
+            if ($branchName !== $this->repoConfig->getTrunkName()) {
+                $this->executor->execute(array(
+                    'ls',
+                    $this->repoConfig->getBranchRootDir() . DIRECTORY_SEPARATOR . $branchName
+                ));
+            }
+
+            $branchExists = true;
+        } catch (\RuntimeException $e) {
+            // Do nothing
+        }
+
+        return $branchExists;
     }
 
     /**

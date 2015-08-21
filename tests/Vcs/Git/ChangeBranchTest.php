@@ -22,7 +22,7 @@ class ChangeBranchTest extends \PHPUnit_Framework_TestCase
         $results = array(
             new ShellResult(
                 0,
-                file_get_contents(realpath(__DIR__ . '/data/git_branch')),
+                '* feat-new-awesome' . PHP_EOL,
                 ''
             ),
             new ShellResult(
@@ -42,9 +42,9 @@ class ChangeBranchTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             array(
                 array(
-                    'for-each-ref',
-                    'refs/heads/',
-                    '--format="%(refname:short)"'
+                    'branch',
+                    '--list',
+                    'feat-new-awesome'
                 ),
                 array(
                     'checkout',
@@ -65,12 +65,7 @@ class ChangeBranchTest extends \PHPUnit_Framework_TestCase
         $results = array(
             new ShellResult(
                 0,
-                file_get_contents(realpath(__DIR__ . '/data/git_branch')),
-                ''
-            ),
-            new ShellResult(
-                0,
-                file_get_contents(realpath(__DIR__ . '/data/git_branch_switched')),
+                '',
                 ''
             )
         );

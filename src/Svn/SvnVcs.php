@@ -76,7 +76,7 @@ class SvnVcs implements VcsInterface
      */
     public function changeBranch($branch)
     {
-        if (!$this->meta->branchExists((string)$branch) && $this->repoConfig->getTrunkName() !== $branch) {
+        if (!$this->meta->branchExists((string)$branch)) {
             throw new \RuntimeException('Branch named "' . $branch . '" not found.');
         }
 

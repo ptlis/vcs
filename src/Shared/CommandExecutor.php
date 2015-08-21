@@ -69,6 +69,7 @@ class CommandExecutor implements CommandExecutorInterface
         $result = $command->runSynchronous();
 
         if (0 !== $result->getExitCode()) {
+            // TODO: Better exception type?
             throw new \RuntimeException($result->getStdErr(), $result->getExitCode());
         }
 

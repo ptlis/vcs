@@ -39,22 +39,19 @@ class ChangeBranchTest extends \PHPUnit_Framework_TestCase
             array(
                 array(
                     'ls',
-                    'branches'
+                    'branches/feat-new-awesome'
                 )
             ),
             $commandExecutor->getArguments()
         );
     }
 
+    /**
+     * When successfully switching to trunk there should be no commands executed
+     */
     public function testTrunk()
     {
-        $results = array(
-            new ShellResult(
-                0,
-                'feat-new-awesome' . PHP_EOL,
-                ''
-            )
-        );
+        $results = array();
         $commandExecutor = new MockCommandExecutor(
             new MockCommandBuilder($results, '/usr/bin/svn')
         );
@@ -64,12 +61,7 @@ class ChangeBranchTest extends \PHPUnit_Framework_TestCase
         $vcs->changeBranch('trunk');
 
         $this->assertEquals(
-            array(
-                array(
-                    'ls',
-                    'branches'
-                )
-            ),
+            array(),
             $commandExecutor->getArguments()
         );
     }
@@ -83,9 +75,10 @@ class ChangeBranchTest extends \PHPUnit_Framework_TestCase
 
         $results = array(
             new ShellResult(
-                0,
-                'feat-new-awesome' . PHP_EOL,
-                ''
+                1,
+                '' . PHP_EOL,
+                'svn: warning: W155010: The node \'/path/to/repo/branches/feat-new-badness\' was not found.' . PHP_EOL
+                . 'svn: E200009: Could not list all targets because some targets don\'t exist'
             )
         );
         $commandExecutor = new MockCommandExecutor(

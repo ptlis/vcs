@@ -42,6 +42,8 @@ class MockCommandExecutor implements CommandExecutorInterface
     /**
      * Execute the command.
      *
+     * @throws \RuntimeException on command error.
+     *
      * @param string[] $arguments
      *
      * @return CommandResultInterface
@@ -54,7 +56,14 @@ class MockCommandExecutor implements CommandExecutorInterface
             ->addArguments($arguments)
             ->buildCommand();
 
-        return $command->runSynchronous();
+        $result = $command->runSynchronous();
+
+        if (0 !== $result->getExitCode()) {
+            // TODO: Better exception type?
+            throw new \RuntimeException($result->getStdErr(), $result->getExitCode());
+        }
+
+        return $result;
     }
 
     /**
