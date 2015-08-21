@@ -16,7 +16,7 @@ use ptlis\Vcs\Shared\CommandExecutor;
 
 class ExecuteTest extends \PHPUnit_Framework_TestCase
 {
-    public function testExecute()
+    public function testSuccessfulExecute()
     {
         // For this test we just use the first commit of this project
         $executor = new CommandExecutor(
@@ -37,5 +37,25 @@ class ExecuteTest extends \PHPUnit_Framework_TestCase
             'commit 6f1ed5364b1369b618270b2774f6ec86f77fa213',
             $logLines[0]
         );
+    }
+
+    public function testErroredExecute()
+    {
+        $this->setExpectedException(
+            '\RuntimeException',
+            'error: pathspec \'asdfasdf\' did not match any file(s) known to git.' . PHP_EOL
+        );
+
+        // For this test we just checkout a crazy branch name
+        $executor = new CommandExecutor(
+            new ShellCommandBuilder(new UnixEnvironment()),
+            '/usr/bin/git',
+            '.'
+        );
+
+        $executor->execute(array(
+            'checkout',
+            'asdfasdf'
+        ));
     }
 }
