@@ -22,8 +22,9 @@ class GetAllTagsTest extends \PHPUnit_Framework_TestCase
 {
     public function testCorrectArguments()
     {
+        $resultList = $this->getMockResultList();
         $mockExecutor = new MockCommandExecutor(
-            new MockCommandBuilder($this->getMockResultList(), '/usr/bin/svn')
+            new MockCommandBuilder($resultList, '/usr/bin/svn')
         );
 
         $meta = new Meta($mockExecutor, new RepositoryConfig('trunk', 'branches', 'tags'));
@@ -61,8 +62,9 @@ class GetAllTagsTest extends \PHPUnit_Framework_TestCase
 
     public function testCorrectOutput()
     {
+        $resultList = $this->getMockResultList();
         $mockExecutor = new MockCommandExecutor(
-            new MockCommandBuilder($this->getMockResultList(), '/usr/bin/svn')
+            new MockCommandBuilder($resultList, '/usr/bin/svn')
         );
 
         $meta = new Meta($mockExecutor, new RepositoryConfig('trunk', 'branches', 'tags'));
