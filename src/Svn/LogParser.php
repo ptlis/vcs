@@ -69,7 +69,7 @@ class LogParser
      * @param int $identifier
      * @param string $remoteUrl
      *
-     * @return RevisionLogInterface
+     * @return RevisionLogInterface|null
      */
     public function getSingle($identifier, $remoteUrl = '')
     {

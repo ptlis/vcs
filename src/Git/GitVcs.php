@@ -31,7 +31,7 @@ class GitVcs implements VcsInterface
     private $meta;
 
     /**
-     * @var RevisionLogInterface Used when checking out a single revision, stores the previously used branch.
+     * @var Branch Used when checking out a single revision, stores the previously used branch.
      */
     private $previousBranch;
 
@@ -74,7 +74,7 @@ class GitVcs implements VcsInterface
 
         $this->executor->execute(array(
             'checkout',
-            $branch
+            (string)$branch
         ));
     }
 
